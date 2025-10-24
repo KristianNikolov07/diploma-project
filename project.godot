@@ -23,6 +23,10 @@ Properties="*res://Scripts/Globals/Properties.gd"
 
 window/size/mode=3
 
+[global_group]
+
+WorldBounds=""
+
 [input]
 
 Up={
