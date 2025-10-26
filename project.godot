@@ -19,6 +19,10 @@ config/icon="res://Assets/Textures/icon.svg"
 
 Properties="*res://Scripts/Globals/Properties.gd"
 
+[editor]
+
+run/main_run_args="debug"
+
 [global_group]
 
 WorldBounds=""

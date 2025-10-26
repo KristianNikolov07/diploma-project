@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://c0ywgb5q0iqsg"]
+[gd_scene load_steps=10 format=4 uid="uid://c0ywgb5q0iqsg"]
 
 [ext_resource type="Texture2D" uid="uid://bgu3w8jbc2bg" path="res://Assets/Textures/tilemap.png" id="1_bvf8x"]
 [ext_resource type="PackedScene" uid="uid://xqjghw70oxkf" path="res://Scenes/Objects/Player.tscn" id="2_msvm5"]
+[ext_resource type="Script" uid="uid://bycdhw62lo3qv" path="res://Scripts/debug_menu.gd" id="3_rt6fk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_msvm5"]
 texture = ExtResource("1_bvf8x")
@@ -64,6 +65,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("3_rt6fk")
 
 [node name="ListInventory" type="Button" parent="Debug/Debug"]
 layout_mode = 0
