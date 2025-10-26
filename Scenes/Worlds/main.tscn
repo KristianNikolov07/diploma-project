@@ -37,8 +37,6 @@ tile_set = SubResource("TileSet_rt6fk")
 
 [node name="Player" parent="." instance=ExtResource("2_msvm5")]
 position = Vector2(5176, 2016)
-base_speed = 200
-max_running_speed = 400
 
 [node name="WorldBouds" type="StaticBody2D" parent="." groups=["WorldBounds"]]
 collision_layer = 5
@@ -58,3 +56,27 @@ shape = SubResource("WorldBoundaryShape2D_a8pps")
 [node name="Bottom" type="CollisionShape2D" parent="WorldBouds"]
 position = Vector2(16384, 16360)
 shape = SubResource("WorldBoundaryShape2D_ctrak")
+
+[node name="Debug" type="CanvasLayer" parent="."]
+
+[node name="Debug" type="Control" parent="Debug"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ListInventory" type="Button" parent="Debug/Debug"]
+layout_mode = 0
+offset_right = 152.0
+offset_bottom = 48.0
+text = "List Inventory"
+
+[node name="AddTestItem" type="Button" parent="Debug/Debug"]
+layout_mode = 0
+offset_top = 56.0
+offset_right = 152.0
+offset_bottom = 104.0
+text = "Add Test Item"
+
+[connection signal="pressed" from="Debug/Debug/ListInventory" to="Player" method="list_items"]
+[connection signal="pressed" from="Debug/Debug/AddTestItem" to="Player" method="_on_add_test_item_pressed"]
