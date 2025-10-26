@@ -14,10 +14,14 @@ extends CharacterBody2D
 
 @onready var speed = base_speed
 @onready var stamina = max_stamina
+
+@onready var inventory_UI = $UI/Inventory
+
 var is_running = false
 
 func _ready() -> void:
 	inventory.resize(inventory_size)
+	inventory_UI.initiate_inventory(inventory_size)
 
 func _process(delta: float) -> void:
 	velocity = Input.get_vector("Left", "Right", "Up", "Down") * speed
@@ -52,11 +56,13 @@ func add_item(item : Item):
 	for i in range(inventory.size()):
 		if inventory[i] == null:
 			inventory[i] = item.duplicate()
+			inventory_UI.visualize_inventory(inventory)
 			return true
 		elif inventory[i].item_name == item.item_name:
 			var left_over = inventory[i].increase_amount(item.amount)
 			item.decrease_amount(item.amount - left_over)
 			if left_over == 0:
+				inventory_UI.visualize_inventory(inventory)
 				return true
 	return false
 
@@ -66,6 +72,7 @@ func remove_item(item_name : String, amount : int):
 			inventory[i].decrease_amount(amount)
 			if inventory[i].amount <= 0:
 				inventory[i] = null
+				inventory_UI.visualize_inventory(inventory)
 			return true
 	return false
 

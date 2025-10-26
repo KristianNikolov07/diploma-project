@@ -62,22 +62,31 @@ shape = SubResource("WorldBoundaryShape2D_ctrak")
 
 [node name="Debug" type="Control" parent="Debug"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
 script = ExtResource("3_rt6fk")
 
 [node name="ListInventory" type="Button" parent="Debug/Debug"]
 layout_mode = 0
-offset_right = 152.0
-offset_bottom = 48.0
+offset_left = -112.0
+offset_top = -72.0
+offset_right = 40.0
+offset_bottom = -24.0
 text = "List Inventory"
 
 [node name="AddTestItem" type="Button" parent="Debug/Debug"]
 layout_mode = 0
-offset_top = 56.0
-offset_right = 152.0
-offset_bottom = 104.0
+offset_left = -112.0
+offset_top = -16.0
+offset_right = 40.0
+offset_bottom = 32.0
 text = "Add Test Item"
 
 [connection signal="pressed" from="Debug/Debug/ListInventory" to="Player" method="list_items"]
