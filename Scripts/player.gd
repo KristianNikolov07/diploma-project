@@ -66,13 +66,13 @@ func add_item(item : Item):
 				return true
 	return false
 
-func remove_item(item_name : String, amount : int):
+func remove_item(item_name : String, amount = 1):
 	for i in range(inventory.size()):
 		if inventory[i] != null and inventory[i].item_name == item_name:
 			inventory[i].decrease_amount(amount)
 			if inventory[i].amount <= 0:
 				inventory[i] = null
-				inventory_UI.visualize_inventory(inventory)
+			inventory_UI.visualize_inventory(inventory)
 			return true
 	return false
 
@@ -92,3 +92,10 @@ func _on_add_test_item_pressed() -> void:
 		print("Successfully added a test item")
 	else:
 		print("Unable to add a test item")
+
+
+func _on_remove_test_item_pressed() -> void:
+	if remove_item("test test") == true:
+		print("Successfully removed a test item")
+	else:
+		print("Unable to remove a test item")
