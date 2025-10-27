@@ -134,7 +134,7 @@ func use_item(slot : int):
 	if inventory[slot] != null:
 		if inventory[slot].has_method("use"):
 			inventory[slot].use()
-		if !inventory[slot].has_unlimited_uses:
+		if inventory[slot] is Consumable and !inventory[slot].has_unlimited_uses:
 			remove_item_from_slot(slot)
 
 func list_items():
