@@ -1,6 +1,8 @@
 extends Control
 @export var item_num = 0
+
 var item
+var selected = false
 
 func set_item(_item : Item):
 	item = _item
@@ -14,3 +16,11 @@ func set_item(_item : Item):
 	else:
 		$Item.texture = null
 		$Amount.hide()
+
+func select():
+	selected = true
+	$Selector.show()
+
+func deselect():
+	selected = false
+	$Selector.hide()

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b14v1jc5n78s2"]
+[gd_scene load_steps=4 format=3 uid="uid://b14v1jc5n78s2"]
 
 [ext_resource type="Texture2D" uid="uid://bbei7kkuoljfn" path="res://Assets/Textures/inventory/slot.png" id="1_incig"]
 [ext_resource type="Script" uid="uid://buoumfl2vww4x" path="res://Scripts/UI/Inventory/item_slot.gd" id="1_nl11y"]
+[ext_resource type="Texture2D" uid="uid://d2ou6ww8hdvgb" path="res://Assets/Textures/inventory/slot_selector.png" id="3_q6gx5"]
 
 [node name="ItemSlot" type="Control"]
 layout_mode = 3
@@ -33,3 +34,11 @@ offset_bottom = 61.0
 theme_override_font_sizes/font_size = 10
 text = "1"
 horizontal_alignment = 2
+
+[node name="Selector" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+texture_filter = 1
+position = Vector2(32, 32)
+scale = Vector2(4, 4)
+texture = ExtResource("3_q6gx5")

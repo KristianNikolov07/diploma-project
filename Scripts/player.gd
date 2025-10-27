@@ -18,6 +18,7 @@ extends CharacterBody2D
 @onready var inventory_UI = $UI/Inventory
 
 var is_running = false
+var selected_slot = 0
 
 func _ready() -> void:
 	inventory.resize(inventory_size)
@@ -51,6 +52,31 @@ func _process(delta: float) -> void:
 			stamina = max_stamina
 	$Stamina.value = stamina / max_stamina * 100
 
+func _input(event: InputEvent) -> void:
+	#Inventory
+	if event.is_action_released("PreviousItem"):
+		if selected_slot == 0:
+			select_slot(inventory_size - 1)
+		else:
+			select_slot(selected_slot - 1)
+	elif event.is_action_released("NextItem"):
+		if selected_slot == inventory_size - 1:
+			select_slot(0)
+		else:
+			select_slot(selected_slot + 1)
+	elif event.is_action_pressed("Item0"):
+		select_slot(0)
+	elif event.is_action_pressed("Item1"):
+		select_slot(1)
+	elif event.is_action_pressed("Item2"):
+		select_slot(2)
+	elif event.is_action_pressed("Item3"):
+		select_slot(3)
+		
+	#Interactions
+	elif event.is_action_pressed("Interact"):
+		pass
+
 #Inventory
 func add_item(item : Item):
 	for i in range(inventory.size()):
@@ -75,6 +101,10 @@ func remove_item(item_name : String, amount = 1):
 			inventory_UI.visualize_inventory(inventory)
 			return true
 	return false
+
+func select_slot(slot : int):
+	inventory_UI.select_slot(slot)
+	selected_slot = slot
 
 func list_items():
 	for i in range(inventory.size()):
