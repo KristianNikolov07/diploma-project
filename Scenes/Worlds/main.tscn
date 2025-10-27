@@ -76,27 +76,36 @@ script = ExtResource("3_rt6fk")
 [node name="ListInventory" type="Button" parent="Debug/Debug"]
 layout_mode = 0
 offset_left = -112.0
-offset_top = -128.0
+offset_top = -184.0
 offset_right = 40.0
-offset_bottom = -80.0
+offset_bottom = -136.0
 text = "List Inventory"
 
 [node name="AddTestItem" type="Button" parent="Debug/Debug"]
 layout_mode = 0
 offset_left = -112.0
-offset_top = -72.0
+offset_top = -128.0
 offset_right = 40.0
-offset_bottom = -24.0
+offset_bottom = -80.0
 text = "Add Test Item"
 
 [node name="RemoveTestItem" type="Button" parent="Debug/Debug"]
 layout_mode = 0
 offset_left = -112.0
+offset_top = -72.0
+offset_right = 40.0
+offset_bottom = -24.0
+text = "Remove Test Item"
+
+[node name="AddTestConsumable" type="Button" parent="Debug/Debug"]
+layout_mode = 0
+offset_left = -112.0
 offset_top = -16.0
 offset_right = 40.0
 offset_bottom = 32.0
-text = "Remove Test Item"
+text = "Add Test Consumable"
 
 [connection signal="pressed" from="Debug/Debug/ListInventory" to="Player" method="list_items"]
 [connection signal="pressed" from="Debug/Debug/AddTestItem" to="Player" method="_on_add_test_item_pressed"]
 [connection signal="pressed" from="Debug/Debug/RemoveTestItem" to="Player" method="_on_remove_test_item_pressed"]
+[connection signal="pressed" from="Debug/Debug/AddTestConsumable" to="Player" method="_on_add_test_consumable_pressed"]

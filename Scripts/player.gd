@@ -76,6 +76,8 @@ func _input(event: InputEvent) -> void:
 		select_slot(3)
 	elif event.is_action_pressed("DropItem"):
 		drop_item(selected_slot)
+	elif event.is_action_pressed("UseItem"):
+		use_item(selected_slot)
 	
 	#Interactions
 	elif event.is_action_pressed("Interact"):
@@ -128,6 +130,13 @@ func drop_item(slot : int):
 		
 		remove_item_from_slot(slot)
 
+func use_item(slot : int):
+	if inventory[slot] != null:
+		if inventory[slot].has_method("use"):
+			inventory[slot].use()
+		if !inventory[slot].has_unlimited_uses:
+			remove_item_from_slot(slot)
+
 func list_items():
 	for i in range(inventory.size()):
 		print("Item " + str(i) + ":")
@@ -151,3 +160,11 @@ func _on_remove_test_item_pressed() -> void:
 		print("Successfully removed a test item")
 	else:
 		print("Unable to remove a test item")
+
+
+func _on_add_test_consumable_pressed() -> void:
+	var test_item = load("res://Resources/Items/Consumables/test_consumable.tres")
+	if add_item(test_item) == true:
+		print("Successfully added a test consumable")
+	else:
+		print("Unable to add a test consumable")

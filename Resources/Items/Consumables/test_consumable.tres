@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TestConsumable" load_steps=3 format=3 uid="uid://c0w2p0r52nist"]
+
+[ext_resource type="Script" uid="uid://d1kvrrsp3qg0y" path="res://Scripts/Classes/Consumables/TestConsumable.gd" id="1_p8gor"]
+[ext_resource type="Texture2D" uid="uid://c15djcs0j3lfx" path="res://Assets/Textures/Items/Consumables/test_consumable.png" id="2_h2bdy"]
+
+[resource]
+script = ExtResource("1_p8gor")
+item_name = "Test Consumable"
+max_amount = 1
+texture = ExtResource("2_h2bdy")
+metadata/_custom_type_script = "uid://d1kvrrsp3qg0y"
