@@ -41,11 +41,11 @@ func _process(delta: float) -> void:
 	#Stamina
 	if is_running:
 		stamina -= stamina_decrease_rate
-	elif velocity != Vector2.ZERO:
+	elif velocity != Vector2.ZERO: #Walking
 		stamina += stamina_recharge_rate
 		if stamina > max_stamina:
 			stamina = max_stamina
-	else:
+	else: #Standing still
 		stamina += stamina_recharge_rate * 2
 		if stamina > max_stamina:
 			stamina = max_stamina

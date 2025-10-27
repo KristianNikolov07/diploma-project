@@ -19,6 +19,10 @@ config/icon="res://Assets/Textures/icon.svg"
 
 Properties="*res://Scripts/Globals/Properties.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [editor]
 
 run/main_run_args="debug"
