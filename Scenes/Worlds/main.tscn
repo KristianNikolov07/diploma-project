@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bgu3w8jbc2bg" path="res://Assets/Textures/tilemap.png" id="1_bvf8x"]
 [ext_resource type="PackedScene" uid="uid://xqjghw70oxkf" path="res://Scenes/Objects/Player.tscn" id="2_msvm5"]
-[ext_resource type="Script" uid="uid://bycdhw62lo3qv" path="res://Scripts/debug_menu.gd" id="3_rt6fk"]
+[ext_resource type="PackedScene" uid="uid://mt76hyi6jq2q" path="res://Scenes/Worlds/debug.tscn" id="3_rt6fk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_msvm5"]
 texture = ExtResource("1_bvf8x")
@@ -58,54 +58,9 @@ shape = SubResource("WorldBoundaryShape2D_a8pps")
 position = Vector2(16384, 16360)
 shape = SubResource("WorldBoundaryShape2D_ctrak")
 
-[node name="Debug" type="CanvasLayer" parent="."]
+[node name="Debug" parent="." instance=ExtResource("3_rt6fk")]
 
-[node name="Debug" type="Control" parent="Debug"]
-layout_mode = 3
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("3_rt6fk")
-
-[node name="ListInventory" type="Button" parent="Debug/Debug"]
-layout_mode = 0
-offset_left = -112.0
-offset_top = -184.0
-offset_right = 40.0
-offset_bottom = -136.0
-text = "List Inventory"
-
-[node name="AddTestItem" type="Button" parent="Debug/Debug"]
-layout_mode = 0
-offset_left = -112.0
-offset_top = -128.0
-offset_right = 40.0
-offset_bottom = -80.0
-text = "Add Test Item"
-
-[node name="RemoveTestItem" type="Button" parent="Debug/Debug"]
-layout_mode = 0
-offset_left = -112.0
-offset_top = -72.0
-offset_right = 40.0
-offset_bottom = -24.0
-text = "Remove Test Item"
-
-[node name="AddTestConsumable" type="Button" parent="Debug/Debug"]
-layout_mode = 0
-offset_left = -136.0
-offset_top = -16.0
-offset_right = 40.0
-offset_bottom = 32.0
-text = "Add Test Consumable"
-
-[connection signal="pressed" from="Debug/Debug/ListInventory" to="Player" method="list_items"]
-[connection signal="pressed" from="Debug/Debug/AddTestItem" to="Player" method="_on_add_test_item_pressed"]
-[connection signal="pressed" from="Debug/Debug/RemoveTestItem" to="Player" method="_on_remove_test_item_pressed"]
-[connection signal="pressed" from="Debug/Debug/AddTestConsumable" to="Player" method="_on_add_test_consumable_pressed"]
+[connection signal="add_test_consumable_pressed" from="Debug" to="Player" method="_on_add_test_consumable_pressed"]
+[connection signal="add_test_item_pressed" from="Debug" to="Player" method="_on_add_test_item_pressed"]
+[connection signal="list_inventory_pressed" from="Debug" to="Player" method="list_items"]
+[connection signal="remove_test_item_pressed" from="Debug" to="Player" method="_on_remove_test_item_pressed"]
