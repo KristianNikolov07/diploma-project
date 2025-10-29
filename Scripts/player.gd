@@ -77,7 +77,10 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("Item3"):
 		select_slot(3)
 	elif event.is_action_pressed("DropItem"):
-		drop_item(selected_slot)
+		if Input.is_action_pressed("DropAll"):
+			drop_item(selected_slot, true)
+		else:
+			drop_item(selected_slot, false)
 	elif event.is_action_pressed("UseItem"):
 		use_item(selected_slot)
 	
@@ -91,6 +94,7 @@ func add_item(item : Item):
 	for i in range(inventory.size()):
 		if inventory[i] == null:
 			inventory[i] = item.duplicate()
+			inventory[i].amount = item.amount
 			inventory_UI.visualize_inventory(inventory)
 			return true
 		elif inventory[i].item_name == item.item_name:
@@ -124,14 +128,18 @@ func select_slot(slot : int):
 		inventory_UI.select_slot(slot)
 		selected_slot = slot
 
-func drop_item(slot : int):
+func drop_item(slot : int, drop_all = false):
 	if inventory[slot] != null:
 		var node = dropped_item_scene.instantiate()
 		node.item = inventory[slot].duplicate()
+		if drop_all:
+			node.item.amount = inventory[slot].amount
 		node.global_position = global_position
 		get_parent().add_child(node)
-		
-		remove_item_from_slot(slot)
+		if drop_all:
+			remove_item_from_slot(slot, inventory[slot].amount)
+		else:
+			remove_item_from_slot(slot, 1)
 
 func use_item(slot : int):
 	if inventory[slot] != null:
