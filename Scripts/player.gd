@@ -6,7 +6,6 @@ extends CharacterBody2D
 @export var max_stamina = 200
 @export var stamina_decrease_rate = 1
 @export var stamina_recharge_rate = 0.25
-@export var sprint_stamina_requirement_percent = 50
 
 @export_group("Inventory")
 @export var inventory : Array[Item]
@@ -23,6 +22,9 @@ var selected_slot = 0
 var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 
 func _ready() -> void:
+	$Stamina.max_value = max_stamina
+	$Stamina.value = max_stamina
+	
 	inventory.resize(inventory_size)
 	inventory_UI.initiate_inventory(inventory_size)
 
@@ -42,7 +44,7 @@ func _process(delta: float) -> void:
 	move_and_slide()
 	
 	#Stamina
-	if is_running:
+	if is_running and velocity != Vector2.ZERO:
 		stamina -= stamina_decrease_rate
 	elif velocity != Vector2.ZERO: #Walking
 		stamina += stamina_recharge_rate
@@ -52,7 +54,7 @@ func _process(delta: float) -> void:
 		stamina += stamina_recharge_rate * 2
 		if stamina > max_stamina:
 			stamina = max_stamina
-	$Stamina.value = stamina / max_stamina * 100
+	$Stamina.value = stamina
 
 func _input(event: InputEvent) -> void:
 	#Inventory
