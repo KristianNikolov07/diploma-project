@@ -120,8 +120,9 @@ func remove_item_from_slot(slot : int, amount = 1):
 		return true
 
 func select_slot(slot : int):
-	inventory_UI.select_slot(slot)
-	selected_slot = slot
+	if slot < inventory_size:
+		inventory_UI.select_slot(slot)
+		selected_slot = slot
 
 func drop_item(slot : int):
 	if inventory[slot] != null:
