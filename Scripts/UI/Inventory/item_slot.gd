@@ -13,6 +13,17 @@ func set_item(_item : Item):
 			$Amount.show()
 		else:
 			$Amount.hide()
+		
+		if item is Weapon:
+			$Durability.max_value = item.max_durability
+			if item.durability == item.max_durability:
+				$Durability.hide()
+			else:
+				$Durability.value = item.durability
+				$Durability.show()
+				print(str(item.durability) + " / " + str(item.max_durability))
+		else:
+			$Durability.hide() 
 	else:
 		$Item.texture = null
 		$Amount.hide()

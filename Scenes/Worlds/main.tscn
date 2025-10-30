@@ -60,6 +60,7 @@ shape = SubResource("WorldBoundaryShape2D_ctrak")
 
 [node name="Debug" parent="." instance=ExtResource("3_rt6fk")]
 
+[connection signal="add_basic_sword" from="Debug" to="Player" method="_on_debug_add_basic_sword"]
 [connection signal="add_test_consumable_pressed" from="Debug" to="Player" method="_on_add_test_consumable_pressed"]
 [connection signal="add_test_item_pressed" from="Debug" to="Player" method="_on_add_test_item_pressed"]
 [connection signal="list_inventory_pressed" from="Debug" to="Player" method="list_items"]

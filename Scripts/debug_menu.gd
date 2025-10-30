@@ -4,6 +4,7 @@ signal list_inventory_pressed
 signal add_test_item_pressed
 signal remove_test_item_pressed
 signal add_test_consumable_pressed
+signal add_basic_sword
 
 func _ready() -> void:
 	$Debug.hide()
@@ -27,3 +28,7 @@ func _on_remove_test_item_pressed() -> void:
 
 func _on_add_test_consumable_pressed() -> void:
 	add_test_consumable_pressed.emit()
+
+
+func _on_add_basic_sword_pressed() -> void:
+	add_basic_sword.emit()

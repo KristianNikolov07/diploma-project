@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b80xu3443nxlu"]
+
+[ext_resource type="Script" uid="uid://b1vdhsuoegxud" path="res://Scripts/Weapons/basic_sword.gd" id="1_wm5iu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrg3v"]
+size = Vector2(74, 16)
+
+[node name="TestSword" type="Area2D"]
+script = ExtResource("1_wm5iu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(176, 0)
+shape = SubResource("RectangleShape2D_qrg3v")
+disabled = true
+debug_color = Color(0.9377616, 0.19531336, 0.40506104, 0.41960785)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

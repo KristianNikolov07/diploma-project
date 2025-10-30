@@ -83,6 +83,8 @@ func _input(event: InputEvent) -> void:
 			drop_item(selected_slot, false)
 	elif event.is_action_pressed("UseItem"):
 		use_item(selected_slot)
+	elif event.is_action_pressed("Attack"):
+		attack(selected_slot)
 	
 	#Interactions
 	elif event.is_action_pressed("Interact"):
@@ -96,6 +98,7 @@ func add_item(item : Item):
 			inventory[i] = item.duplicate()
 			inventory[i].amount = item.amount
 			inventory_UI.visualize_inventory(inventory)
+			select_slot(selected_slot) # In case it's a weapon
 			return true
 		elif inventory[i].item_name == item.item_name:
 			var left_over = inventory[i].increase_amount(item.amount)
@@ -127,6 +130,15 @@ func select_slot(slot : int):
 	if slot < inventory_size:
 		inventory_UI.select_slot(slot)
 		selected_slot = slot
+	
+	#Weapons
+	for child in $WeaponsAndTools.get_children():
+		child.queue_free()
+	if inventory[slot] is Weapon:
+		var weapon : Weapon = inventory[slot]
+		var weapon_node = weapon.weapon_scene.instantiate()
+		$WeaponsAndTools.add_child(weapon_node)
+	
 
 func drop_item(slot : int, drop_all = false):
 	if inventory[slot] != null:
@@ -140,13 +152,23 @@ func drop_item(slot : int, drop_all = false):
 			remove_item_from_slot(slot, inventory[slot].amount)
 		else:
 			remove_item_from_slot(slot, 1)
+		
+		select_slot(selected_slot) # In case it's a weapon
 
 func use_item(slot : int):
 	if inventory[slot] != null:
 		if inventory[slot].has_method("use"):
-			inventory[slot].use()
+			inventory[slot].use(get_node("."))
 		if inventory[slot] is Consumable and !inventory[slot].has_unlimited_uses:
 			remove_item_from_slot(slot)
+
+func attack(slot : int):
+	if inventory[slot] is Weapon:
+		if !inventory[slot].broken:
+			var hit = await $WeaponsAndTools.get_child(0).use()
+			if hit:
+				inventory[slot].take_durability()
+				inventory_UI.visualize_inventory(inventory)
 
 func list_items():
 	for i in range(inventory.size()):
@@ -179,3 +201,11 @@ func _on_add_test_consumable_pressed() -> void:
 		print("Successfully added a test consumable")
 	else:
 		print("Unable to add a test consumable")
+
+
+func _on_debug_add_basic_sword() -> void:
+	var sword = load("res://Resources/Items/Weapons/test_sword.tres")
+	if add_item(sword) == true:
+		print("Successfully added a test sword")
+	else:
+		print("Unable to add a test sword")
