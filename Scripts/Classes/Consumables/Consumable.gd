@@ -3,6 +3,6 @@ extends Item
 
 @export var has_unlimited_uses = false
 
-func use():
+func use(player : CharacterBody2D):
 	# To be overritten
 	pass

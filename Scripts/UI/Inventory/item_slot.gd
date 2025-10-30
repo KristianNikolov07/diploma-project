@@ -27,6 +27,7 @@ func set_item(_item : Item):
 	else:
 		$Item.texture = null
 		$Amount.hide()
+		$Durability.hide() 
 
 func select():
 	selected = true
