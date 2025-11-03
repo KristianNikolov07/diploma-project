@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://b8k8gta46tlsr"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=4 format=3 uid="uid://b8k8gta46tlsr"]
 
 [ext_resource type="Script" uid="uid://brvrqh0jnm85q" path="res://Scripts/Classes/Weapon.gd" id="1_jplsq"]
+[ext_resource type="Texture2D" uid="uid://ufnd73b6q3fl" path="res://Assets/Textures/Items/Weapons/test_sword.png" id="2_6jrsn"]
 [ext_resource type="PackedScene" uid="uid://b80xu3443nxlu" path="res://Scenes/Weapons/test_sword.tscn" id="2_jplsq"]
 
 [resource]
@@ -8,4 +9,5 @@ script = ExtResource("1_jplsq")
 weapon_scene = ExtResource("2_jplsq")
 item_name = "Test Sword"
 max_amount = 1
+texture = ExtResource("2_6jrsn")
 metadata/_custom_type_script = "uid://brvrqh0jnm85q"
