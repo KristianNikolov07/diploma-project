@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 @export_group("Speed and Stamina")
 @export var base_speed = 200
@@ -157,10 +158,10 @@ func drop_item(slot : int, drop_all = false):
 
 func use_item(slot : int):
 	if inventory[slot] != null:
-		if inventory[slot].has_method("use"):
+		if inventory[slot] is Consumable:
 			inventory[slot].use(get_node("."))
-		if inventory[slot] is Consumable and !inventory[slot].has_unlimited_uses:
-			remove_item_from_slot(slot)
+			if !inventory[slot].has_unlimited_uses:
+				remove_item_from_slot(slot)
 
 func attack(slot : int):
 	if inventory[slot] is Weapon:
@@ -170,6 +171,8 @@ func attack(slot : int):
 				inventory[slot].take_durability()
 				inventory_UI.visualize_inventory(inventory)
 
+
+# Debug
 func list_items():
 	for i in range(inventory.size()):
 		print("Item " + str(i) + ":")
