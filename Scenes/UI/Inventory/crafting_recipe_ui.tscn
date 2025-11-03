@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg4fg688arahg"]
+
+[ext_resource type="Texture2D" uid="uid://cdnmejv7kmf85" path="res://Assets/Textures/inventory/Crafting/crafting_recipe.png" id="1_dt6fa"]
+[ext_resource type="Script" uid="uid://wg3pna2lrlw3" path="res://Scripts/UI/Inventory/crafting_recipe_ui.gd" id="1_k1u3d"]
+
+[node name="CraftingRecipeUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k1u3d")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(111.000015, 35.250004)
+scale = Vector2(6.950001, 6.950001)
+texture = ExtResource("1_dt6fa")
+
+[node name="Item1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(36, 36)
+scale = Vector2(2.5, 2.5)
+
+[node name="Item2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(120.00001, 36.000004)
+scale = Vector2(2.5, 2.5)
+
+[node name="Result" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(195, 36)
+scale = Vector2(2.5, 2.5)
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 222.0
+offset_bottom = 70.0
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

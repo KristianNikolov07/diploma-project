@@ -9,6 +9,6 @@ speed_modifier = 100
 running_speed_gain_modifier = 100
 max_running_speed_modifier = 100
 item_name = "Test Consumable"
-max_amount = 1
+max_amount = 2
 texture = ExtResource("2_h2bdy")
 metadata/_custom_type_script = "uid://dt0chtb8t7dul"

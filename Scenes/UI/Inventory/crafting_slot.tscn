@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://daxxibw6axoih"]
+
+[ext_resource type="Texture2D" uid="uid://bbei7kkuoljfn" path="res://Assets/Textures/inventory/slot.png" id="1_b7ltr"]
+[ext_resource type="Script" uid="uid://lcqk52vqqku6" path="res://Scripts/UI/Inventory/crafting_slot.gd" id="1_oeowu"]
+
+[node name="CraftingSlot" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 16.0
+offset_bottom = 16.0
+script = ExtResource("1_oeowu")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(32, 32)
+scale = Vector2(4, 4)
+texture = ExtResource("1_b7ltr")
+
+[node name="ItemTexture" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(32, 32)
+scale = Vector2(4, 4)
