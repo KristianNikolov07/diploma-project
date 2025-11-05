@@ -131,3 +131,4 @@ OpenCraftingUI={
 2d_physics/layer_3="WorldBounds"
 2d_physics/layer_4="Intractables"
 2d_physics/layer_5="Trees"
+2d_physics/layer_6="WeaponsAndTools"

@@ -18,7 +18,6 @@ func generate_trees():
 			if tilemap.get_cell_atlas_coords(Vector2i(x, y)) == grass_tile_atlas_coords:
 				var random = randi_range(0, 100)
 				if random <= tree_spawn_change:
-					print("spawn tree")
 					var tree = tree_scene.instantiate()
 					tree.global_position = Global.tilemap_coords_to_global_coords(Vector2(x, y))
 					get_parent().add_child.call_deferred(tree)

@@ -14,7 +14,7 @@ func set_item(_item : Item):
 		else:
 			$Amount.hide()
 		
-		if item is Weapon:
+		if item is Weapon or item is Tool:
 			$Durability.max_value = item.max_durability
 			if item.durability == item.max_durability:
 				$Durability.hide()

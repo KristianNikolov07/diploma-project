@@ -145,13 +145,22 @@ func select_slot(slot : int):
 		inventory_UI.select_slot(slot)
 		selected_slot = slot
 	
-	#Weapons
+	
 	for child in $WeaponsAndTools.get_children():
 		child.queue_free()
+		
+	#Weapons
 	if inventory[slot] is Weapon:
 		var weapon : Weapon = inventory[slot]
 		var weapon_node = weapon.weapon_scene.instantiate()
 		$WeaponsAndTools.add_child(weapon_node)
+	
+	#Tools
+	if inventory[slot] is Tool:
+		var tool : Tool = inventory[slot]
+		var tool_node = tool.tool_scene.instantiate()
+		$WeaponsAndTools.add_child(tool_node)
+		
 	
 
 func drop_item(slot : int, drop_all = false):
@@ -177,7 +186,7 @@ func use_item(slot : int):
 				remove_item_from_slot(slot)
 
 func attack(slot : int):
-	if inventory[slot] is Weapon:
+	if inventory[slot] is Weapon or inventory[slot] is Tool:
 		if !inventory[slot].broken:
 			var hit = await $WeaponsAndTools.get_child(0).use()
 			if hit:
