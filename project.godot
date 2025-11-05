@@ -17,7 +17,7 @@ config/icon="res://Assets/Textures/icon.svg"
 
 [autoload]
 
-Properties="*res://Scripts/Globals/Properties.gd"
+Global="*res://Scripts/Globals/Global.gd"
 
 [display]
 
@@ -130,3 +130,4 @@ OpenCraftingUI={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="WorldBounds"
 2d_physics/layer_4="Intractables"
+2d_physics/layer_5="Trees"
