@@ -179,19 +179,21 @@ func drop_item(slot : int, drop_all = false):
 		select_slot(selected_slot) # In case it's a weapon
 
 func use_item(slot : int):
-	if inventory[slot] != null:
-		if inventory[slot] is Consumable:
-			inventory[slot].use(get_node("."))
-			if !inventory[slot].has_unlimited_uses:
-				remove_item_from_slot(slot)
+	if can_move:
+		if inventory[slot] != null:
+			if inventory[slot] is Consumable:
+				inventory[slot].use(get_node("."))
+				if !inventory[slot].has_unlimited_uses:
+					remove_item_from_slot(slot)
 
 func attack(slot : int):
-	if inventory[slot] is Weapon or inventory[slot] is Tool:
-		if !inventory[slot].broken:
-			var hit = await $WeaponsAndTools.get_child(0).use()
-			if hit:
-				inventory[slot].take_durability()
-				inventory_UI.visualize_inventory(inventory)
+	if can_move:
+		if inventory[slot] is Weapon or inventory[slot] is Tool:
+			if !inventory[slot].broken:
+				var hit = await $WeaponsAndTools.get_child(0).use()
+				if hit:
+					inventory[slot].take_durability()
+					inventory_UI.visualize_inventory(inventory)
 
 
 # Debug
