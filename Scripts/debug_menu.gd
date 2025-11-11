@@ -5,6 +5,8 @@ signal add_test_item_pressed
 signal remove_test_item_pressed
 signal add_test_consumable_pressed
 signal add_basic_sword
+signal damage_player_pressed
+signal heal_player_pressed
 
 func _ready() -> void:
 	$Debug.hide()
@@ -32,3 +34,11 @@ func _on_add_test_consumable_pressed() -> void:
 
 func _on_add_basic_sword_pressed() -> void:
 	add_basic_sword.emit()
+
+
+func _on_damage_player_pressed() -> void:
+	damage_player_pressed.emit()
+
+
+func _on_heal_player_pressed() -> void:
+	heal_player_pressed.emit()

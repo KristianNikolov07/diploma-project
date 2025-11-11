@@ -2,6 +2,8 @@ class_name Player
 extends CharacterBody2D
 @export var can_move = true
 
+@export var max_hp = 100
+
 @export_group("Speed and Stamina")
 @export var base_speed = 200
 @export var running_speed_gain = 5
@@ -16,6 +18,7 @@ extends CharacterBody2D
 
 @onready var speed = base_speed
 @onready var stamina = max_stamina
+@onready var hp = max_hp
 
 @onready var inventory_UI = $UI/Inventory
 
@@ -27,6 +30,9 @@ var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 func _ready() -> void:
 	$Stamina.max_value = max_stamina
 	$Stamina.value = max_stamina
+	
+	$HP.max_value = max_hp
+	$HP.value = hp
 	
 	inventory.resize(inventory_size)
 	inventory_UI.initiate_inventory(inventory_size)
@@ -94,6 +100,25 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("Interact"):
 		if $InteractionRange.get_overlapping_areas().size() > 0:
 			$InteractionRange.get_overlapping_areas()[0].interact(get_node("."))
+#Health
+func damage(damage : int):
+	hp -= damage
+	$HP.value = hp
+	if hp <= 0:
+		respawn()
+
+func heal(_hp : int):
+	hp += _hp
+	if hp > max_hp:
+		hp = max_hp
+	$HP.value = hp
+	
+func respawn():
+	global_position = get_node("../SpawnPoints").get_child(0).global_position
+	hp = max_hp
+	speed = base_speed
+	stamina = max_stamina
+	
 
 #Inventory
 func add_item(item : Item):
@@ -236,3 +261,11 @@ func _on_debug_add_basic_sword() -> void:
 		print("Successfully added a test sword")
 	else:
 		print("Unable to add a test sword")
+
+
+func _on_debug_damage_player_pressed() -> void:
+	damage(10)
+
+
+func _on_debug_heal_player_pressed() -> void:
+	heal(10)

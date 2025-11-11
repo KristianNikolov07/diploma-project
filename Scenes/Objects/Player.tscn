@@ -43,6 +43,12 @@ offset_top = -112.0
 offset_right = 64.0
 offset_bottom = -85.0
 
+[node name="HP" type="ProgressBar" parent="."]
+offset_left = -63.333374
+offset_top = -150.00003
+offset_right = 64.666626
+offset_bottom = -123.00003
+
 [node name="UI" parent="." instance=ExtResource("4_r6m6p")]
 
 [node name="WeaponsAndTools" type="Node2D" parent="."]

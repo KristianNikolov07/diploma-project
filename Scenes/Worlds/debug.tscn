@@ -68,8 +68,20 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Add Test Sword"
 
+[node name="DamagePlayer" type="Button" parent="Debug/Panel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Deal 10 HP"
+
+[node name="HealPlayer" type="Button" parent="Debug/Panel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Deal 10 HP"
+
 [connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/ListInventory" to="." method="_on_list_inventory_pressed"]
 [connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/AddTestItem" to="." method="_on_add_test_item_pressed"]
 [connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/RemoveTestItem" to="." method="_on_remove_test_item_pressed"]
 [connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/AddTestConsumable" to="." method="_on_add_test_consumable_pressed"]
 [connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/AddBasicSword" to="." method="_on_add_basic_sword_pressed"]
+[connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/DamagePlayer" to="." method="_on_damage_player_pressed"]
+[connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/HealPlayer" to="." method="_on_heal_player_pressed"]
