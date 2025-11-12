@@ -1,6 +1,6 @@
 extends Area2D
 @export var damage = 10
-var hit = true
+var hit = false
 
 func use():
 	print("Test Sword Used")

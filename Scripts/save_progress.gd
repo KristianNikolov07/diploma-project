@@ -2,24 +2,25 @@ extends Node
 
 var config = ConfigFile.new()
 @onready var player : Player = get_tree().get_first_node_in_group("Player")
-@export var save_name = "test"
+@export var save_name = ""
 
 const saves_folder = "user://saves/"
 const player_stats_file_name = "player_stats.ini"
 
 
 func save():
-	print("Saving game...")
-	if !DirAccess.dir_exists_absolute(saves_folder + save_name):
-		DirAccess.make_dir_recursive_absolute(saves_folder + save_name)
-	config.load(saves_folder + save_name + "/" + player_stats_file_name)
-	config.set_value("stats", "hp", player.hp)
-	config.set_value("stats", "stamina", player.stamina)
-	config.set_value("stats", "speed", player.speed)
-	config.set_value("stats", "position", player.global_position)
-	for i in range(player.inventory_size):
-		config.set_value("inventory", "item" + str(i), player.inventory[i])
-	config.save(saves_folder + save_name + "/" + player_stats_file_name)
+	if save_name != "":
+		print("Saving game...")
+		if !DirAccess.dir_exists_absolute(saves_folder + save_name):
+			DirAccess.make_dir_recursive_absolute(saves_folder + save_name)
+		config.load(saves_folder + save_name + "/" + player_stats_file_name)
+		config.set_value("stats", "hp", player.hp)
+		config.set_value("stats", "stamina", player.stamina)
+		config.set_value("stats", "speed", player.speed)
+		config.set_value("stats", "position", player.global_position)
+		for i in range(player.inventory_size):
+			config.set_value("inventory", "item" + str(i), player.inventory[i])
+		config.save(saves_folder + save_name + "/" + player_stats_file_name)
 
 func load():
 	if !DirAccess.dir_exists_absolute(saves_folder + save_name):
