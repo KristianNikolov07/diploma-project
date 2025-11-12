@@ -219,7 +219,7 @@ func use_item(slot : int):
 func attack(slot : int):
 	if can_move:
 		if inventory[slot] is Weapon or inventory[slot] is Tool:
-			if !inventory[slot].broken:
+			if inventory[slot].durability > 0:
 				var hit = await $WeaponsAndTools.get_child(0).use()
 				if hit:
 					inventory[slot].take_durability()

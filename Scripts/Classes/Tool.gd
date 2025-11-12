@@ -6,9 +6,9 @@ extends Item
 @export var max_durability = 100
 @export var durability = 100
 
-var broken = false
+
 
 func take_durability(_durability = 1):
 	durability -= _durability
 	if durability <= 0:
-		broken = true
+		durability = 0
