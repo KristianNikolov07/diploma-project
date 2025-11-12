@@ -112,12 +112,17 @@ func heal(_hp : int):
 	if hp > max_hp:
 		hp = max_hp
 	$HP.value = hp
-	
+
+func set_hp(_hp : int):
+	hp = _hp
+	$HP.value = hp
+
 func respawn():
 	global_position = get_node("../SpawnPoints").get_child(0).global_position
 	hp = max_hp
 	speed = base_speed
 	stamina = max_stamina
+	$HP.value = hp
 	
 
 #Inventory

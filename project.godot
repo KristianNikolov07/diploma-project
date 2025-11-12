@@ -18,9 +18,15 @@ config/icon="res://Assets/Textures/icon.svg"
 [autoload]
 
 Global="*res://Scripts/Globals/Global.gd"
+SaveProgress="*res://Scenes/save_progress.tscn"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [display]
 
+window/size/resizable=false
 window/stretch/mode="canvas_items"
 
 [editor]
@@ -30,6 +36,7 @@ run/main_run_args="debug"
 [global_group]
 
 WorldBounds=""
+Player=""
 
 [input]
 

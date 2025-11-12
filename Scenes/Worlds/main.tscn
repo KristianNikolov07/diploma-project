@@ -38,6 +38,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAACAAAAAAAAAAEAAAACAAAAAAAAAAIAAAACAAA
 tile_set = SubResource("TileSet_rt6fk")
 
 [node name="Player" parent="." instance=ExtResource("2_msvm5")]
+unique_name_in_owner = true
 position = Vector2(5176, 2016)
 
 [node name="WorldBouds" type="StaticBody2D" parent="." groups=["WorldBounds"]]

@@ -42,3 +42,13 @@ func _on_damage_player_pressed() -> void:
 
 func _on_heal_player_pressed() -> void:
 	heal_player_pressed.emit()
+
+
+func _on_save_pressed() -> void:
+	SaveProgress.save_name = "Test"
+	SaveProgress.save()
+
+
+func _on_load_pressed() -> void:
+	SaveProgress.save_name = "Test"
+	SaveProgress.load()
