@@ -1,8 +1,11 @@
 class_name Entity
 extends CharacterBody2D
 
+var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
+@onready var main_scene = get_tree().get_first_node_in_group("Player").get_parent()
 @export var max_hp = 100
 @export var speed = 50
+@export var loot_table : Array[Loot]
 var hp : int
 
 func _ready() -> void:
@@ -11,4 +14,15 @@ func _ready() -> void:
 func damage(damage : int):
 	hp -= damage
 	if hp <= 0:
-		queue_free()
+		call_deferred("kill")
+
+func kill():
+	for loot in loot_table:
+		var rand = randi_range(1, 100)
+		if rand < loot.chance:
+			var dropped_item = dropped_item_scene.instantiate()
+			dropped_item.global_position = global_position
+			dropped_item.item = loot.item
+			dropped_item.item.amount = loot.amount
+			main_scene.add_child(dropped_item)
+	queue_free()

@@ -1,7 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://c46u1jvtkutml"]
+[gd_scene load_steps=11 format=3 uid="uid://c46u1jvtkutml"]
 
 [ext_resource type="Script" uid="uid://borj6l7sh0iy5" path="res://Scripts/Classes/Entities/PassiveEntity.gd" id="1_2825i"]
+[ext_resource type="Script" uid="uid://dyyxnso5r2v7u" path="res://Scripts/Classes/Loot.gd" id="2_2mpw2"]
 [ext_resource type="Texture2D" uid="uid://c6ypioljscf1r" path="res://Assets/Textures/icon.svg" id="2_2825i"]
+[ext_resource type="Resource" uid="uid://dij4313ok1l42" path="res://Resources/Items/test_item.tres" id="3_4cmfr"]
+[ext_resource type="Resource" uid="uid://c0w2p0r52nist" path="res://Resources/Items/Consumables/test_consumable.tres" id="4_n65x8"]
+[ext_resource type="Resource" uid="uid://b8k8gta46tlsr" path="res://Resources/Items/Weapons/test_sword.tres" id="5_4rj7j"]
+
+[sub_resource type="Resource" id="Resource_t221t"]
+script = ExtResource("2_2mpw2")
+item = ExtResource("3_4cmfr")
+amount = 1
+chance = 100
+metadata/_custom_type_script = "uid://dyyxnso5r2v7u"
+
+[sub_resource type="Resource" id="Resource_24rd6"]
+script = ExtResource("2_2mpw2")
+item = ExtResource("4_n65x8")
+amount = 1
+chance = 50
+metadata/_custom_type_script = "uid://dyyxnso5r2v7u"
+
+[sub_resource type="Resource" id="Resource_b12ui"]
+script = ExtResource("2_2mpw2")
+item = ExtResource("5_4rj7j")
+amount = 1
+chance = 25
+metadata/_custom_type_script = "uid://dyyxnso5r2v7u"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2825i"]
 radius = 56.666664
@@ -12,6 +37,7 @@ collision_layer = 64
 collision_mask = 117
 motion_mode = 1
 script = ExtResource("1_2825i")
+loot_table = Array[ExtResource("2_2mpw2")]([SubResource("Resource_t221t"), SubResource("Resource_24rd6"), SubResource("Resource_b12ui")])
 metadata/_custom_type_script = "uid://borj6l7sh0iy5"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
