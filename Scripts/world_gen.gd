@@ -24,6 +24,7 @@ func generate_trees():
 					var tree = tree_scene.instantiate()
 					tree.global_position = Global.tilemap_coords_to_global_coords(Vector2(x, y))
 					get_parent().add_child.call_deferred(tree)
+					
 
 func choose_spawn_point():
 	var rand = randi_range(0, spawn_points_node.get_child_count())

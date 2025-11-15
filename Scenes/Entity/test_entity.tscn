@@ -3,13 +3,14 @@
 [ext_resource type="Script" uid="uid://borj6l7sh0iy5" path="res://Scripts/Classes/Entities/PassiveEntity.gd" id="1_2825i"]
 [ext_resource type="Texture2D" uid="uid://c6ypioljscf1r" path="res://Assets/Textures/icon.svg" id="2_2825i"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2825i"]
-size = Vector2(106.66667, 106.666664)
+[sub_resource type="CircleShape2D" id="CircleShape2D_2825i"]
+radius = 56.666664
 
 [node name="TestEntity" type="CharacterBody2D"]
 scale = Vector2(0.3, 0.3)
 collision_layer = 64
 collision_mask = 117
+motion_mode = 1
 script = ExtResource("1_2825i")
 metadata/_custom_type_script = "uid://borj6l7sh0iy5"
 
@@ -19,7 +20,7 @@ texture = ExtResource("2_2825i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3.973643e-07, 1.9868214e-06)
-shape = SubResource("RectangleShape2D_2825i")
+shape = SubResource("CircleShape2D_2825i")
 
 [node name="Retarget" type="Timer" parent="."]
 wait_time = 3.0
