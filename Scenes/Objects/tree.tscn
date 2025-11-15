@@ -18,6 +18,12 @@ scale = Vector2(4, 4)
 texture = ExtResource("1_b0kcf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-2, 36)
 shape = SubResource("RectangleShape2D_b0kcf")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(-2, 36)
+vertices = PackedVector2Array(-14, -46, -15, 32, 27, 32, 28, -49)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+show_rect = false

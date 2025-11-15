@@ -8,6 +8,9 @@ signal add_basic_sword
 signal damage_player_pressed
 signal heal_player_pressed
 
+var test_entity_scene = preload("res://Scenes/Entity/test_entity.tscn")
+var test_enemy_scene = preload("res://Scenes/Entity/Enemies/test_enemy.tscn")
+
 func _ready() -> void:
 	$Debug.hide()
 
@@ -52,3 +55,17 @@ func _on_save_pressed() -> void:
 func _on_load_pressed() -> void:
 	SaveProgress.save_name = "Test"
 	SaveProgress.load()
+
+
+func _on_spawn_test_entity_pressed() -> void:
+	var player : Player = get_tree().get_first_node_in_group("Player")
+	var entity : Entity = test_entity_scene.instantiate()
+	entity.global_position = player.global_position
+	player.get_parent().add_child(entity)
+
+
+func _on_spawn_test_enemy_pressed() -> void:
+	var player : Player = get_tree().get_first_node_in_group("Player")
+	var enemy : Enemy = test_enemy_scene.instantiate()
+	enemy.global_position = player.global_position
+	player.get_parent().add_child(enemy)

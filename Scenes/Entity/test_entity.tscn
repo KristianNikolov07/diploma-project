@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://c46u1jvtkutml"]
+
+[ext_resource type="Script" uid="uid://borj6l7sh0iy5" path="res://Scripts/Classes/Entities/PassiveEntity.gd" id="1_2825i"]
+[ext_resource type="Texture2D" uid="uid://c6ypioljscf1r" path="res://Assets/Textures/icon.svg" id="2_2825i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2825i"]
+size = Vector2(106.66667, 106.666664)
+
+[node name="TestEntity" type="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
+collision_layer = 64
+collision_mask = 117
+script = ExtResource("1_2825i")
+metadata/_custom_type_script = "uid://borj6l7sh0iy5"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.027188003, 0.89250207, 0.50970083, 1)
+texture = ExtResource("2_2825i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3.973643e-07, 1.9868214e-06)
+shape = SubResource("RectangleShape2D_2825i")
+
+[node name="Retarget" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+debug_enabled = true
+
+[connection signal="timeout" from="Retarget" to="." method="_on_retarget_timeout"]
