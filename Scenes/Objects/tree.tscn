@@ -12,7 +12,7 @@ radius = 26.305893
 [node name="Tree" type="StaticBody2D"]
 z_index = 2
 collision_layer = 16
-collision_mask = 34
+collision_mask = 546
 script = ExtResource("1_ebggc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
