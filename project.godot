@@ -141,3 +141,4 @@ OpenCraftingUI={
 2d_physics/layer_5="Trees"
 2d_physics/layer_6="WeaponsAndTools"
 2d_physics/layer_7="NPC"
+2d_physics/layer_8="EntityCollision"
