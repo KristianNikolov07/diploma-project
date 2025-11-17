@@ -1,35 +1,20 @@
-[gd_scene load_steps=13 format=4 uid="uid://c0ywgb5q0iqsg"]
+[gd_scene load_steps=11 format=4 uid="uid://c0ywgb5q0iqsg"]
 
 [ext_resource type="Texture2D" uid="uid://bgu3w8jbc2bg" path="res://Assets/Textures/tilemap.png" id="1_bvf8x"]
 [ext_resource type="PackedScene" uid="uid://xqjghw70oxkf" path="res://Scenes/Objects/Player.tscn" id="2_msvm5"]
 [ext_resource type="PackedScene" uid="uid://mt76hyi6jq2q" path="res://Scenes/Worlds/debug.tscn" id="3_rt6fk"]
 [ext_resource type="Script" uid="uid://w2hhj7ovbr1l" path="res://Scripts/world_gen.gd" id="4_a8pps"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_a8pps"]
-vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
-agent_radius = 0.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_ctrak"]
-vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
-agent_radius = 0.0
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_msvm5"]
 texture = ExtResource("1_bvf8x")
 0:0/0 = 0
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_a8pps")
 1:0/0 = 0
-1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ctrak")
 2:0/0 = 0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_rt6fk"]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 2
-navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_msvm5")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_msvm5"]
