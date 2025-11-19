@@ -1,6 +1,8 @@
 extends Node2D
+
+signal hit
+
 @export var damage = 10
-var hit = false
 
 func use():
 	look_at(get_global_mouse_position())
@@ -11,13 +13,8 @@ func use():
 		$Area2D/AnimationPlayer.play("hit")
 	await $Area2D/AnimationPlayer.animation_finished
 	$Area2D/CollisionShape2D.disabled = true
-	if hit:
-		hit = false
-		return true
-	else:
-		return false
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("damage_with_axe"):
 		body.damage_with_axe(damage)
-		hit = true
+		hit.emit()

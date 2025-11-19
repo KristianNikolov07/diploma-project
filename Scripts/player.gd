@@ -197,6 +197,8 @@ func select_slot(slot : int):
 		var tool : Tool = inventory[slot]
 		var tool_node = tool.tool_scene.instantiate()
 		$Tools.add_child(tool_node)
+		if $Tools.has_signal("hit"):
+			$Tools.hit.connect(_on_tool_hit)
 
 func drop_item(slot : int, drop_all = false):
 	if inventory[slot] != null:
@@ -225,10 +227,12 @@ func attack(slot : int):
 	if can_move:
 		if inventory[slot] is Tool:
 			if inventory[slot].durability > 0:
-				var hit = await $Tools.get_child(0).use()
-				if hit:
-					inventory[slot].take_durability()
-					inventory_UI.visualize_inventory(inventory)
+				$Tools.get_child(0).use()
+
+func _on_tool_hit():
+	if inventory[selected_slot] is Tool:
+		inventory[selected_slot].take_durability()
+		inventory_UI.visualize_inventory(inventory)
 
 func place(slot : int):
 	if can_move:
@@ -274,7 +278,7 @@ func _on_add_test_consumable_pressed() -> void:
 
 
 func _on_debug_add_basic_sword() -> void:
-	var sword = load("res://Resources/Items/Weapons/test_sword.tres")
+	var sword = load("res://Resources/Items/Weapons/test_weapon.tres")
 	if add_item(sword.duplicate()) == true:
 		print("Successfully added a test sword")
 	else:
