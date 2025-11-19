@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=4 uid="uid://c0ywgb5q0iqsg"]
 
-[ext_resource type="Texture2D" uid="uid://bgu3w8jbc2bg" path="res://Assets/Textures/tilemap.png" id="1_bvf8x"]
+[ext_resource type="Texture2D" uid="uid://dxbnx111bw6g3" path="res://Assets/Textures/tilemap.png" id="1_bvf8x"]
 [ext_resource type="PackedScene" uid="uid://xqjghw70oxkf" path="res://Scenes/Objects/Player.tscn" id="2_msvm5"]
 [ext_resource type="PackedScene" uid="uid://mt76hyi6jq2q" path="res://Scenes/Worlds/debug.tscn" id="3_rt6fk"]
 [ext_resource type="Script" uid="uid://w2hhj7ovbr1l" path="res://Scripts/world_gen.gd" id="4_a8pps"]
