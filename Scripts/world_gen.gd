@@ -1,4 +1,5 @@
 extends Node
+
 @onready var tilemap : TileMapLayer = get_node("../Tilemap")
 @onready var spawn_points_node : Node = get_node("../SpawnPoints")
 @onready var player : Player = get_node("../Player")

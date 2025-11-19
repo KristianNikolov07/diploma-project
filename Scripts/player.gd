@@ -190,21 +190,13 @@ func select_slot(slot : int):
 		inventory_UI.select_slot(slot)
 		selected_slot = slot
 	
-	
-	for child in $WeaponsAndTools.get_children():
-		child.queue_free()
-		
-	#Weapons
-	if inventory[slot] is Weapon:
-		var weapon : Weapon = inventory[slot]
-		var weapon_node = weapon.weapon_scene.instantiate()
-		$WeaponsAndTools.add_child(weapon_node)
-	
 	#Tools
+	for child in $Tools.get_children():
+		child.queue_free()
 	if inventory[slot] is Tool:
 		var tool : Tool = inventory[slot]
 		var tool_node = tool.tool_scene.instantiate()
-		$WeaponsAndTools.add_child(tool_node)
+		$Tools.add_child(tool_node)
 
 func drop_item(slot : int, drop_all = false):
 	if inventory[slot] != null:
@@ -219,7 +211,7 @@ func drop_item(slot : int, drop_all = false):
 		else:
 			remove_item_from_slot(slot, 1)
 		
-		select_slot(selected_slot) # In case it's a weapon
+		select_slot(selected_slot) # In case it's a tools
 
 func use_item(slot : int):
 	if can_move:
@@ -231,9 +223,9 @@ func use_item(slot : int):
 
 func attack(slot : int):
 	if can_move:
-		if inventory[slot] is Weapon or inventory[slot] is Tool:
+		if inventory[slot] is Tool:
 			if inventory[slot].durability > 0:
-				var hit = await $WeaponsAndTools.get_child(0).use()
+				var hit = await $Tools.get_child(0).use()
 				if hit:
 					inventory[slot].take_durability()
 					inventory_UI.visualize_inventory(inventory)

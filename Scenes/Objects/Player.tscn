@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://xqjghw70oxkf"]
 
-[ext_resource type="Texture2D" uid="uid://c6ypioljscf1r" path="res://Assets/Textures/icon.svg" id="1_ajy74"]
+[ext_resource type="Texture2D" uid="uid://bjxw2pfj1bxhr" path="res://Assets/Textures/icon.svg" id="1_ajy74"]
 [ext_resource type="Script" uid="uid://ds284ijxir0f7" path="res://Scripts/player.gd" id="1_t86h6"]
 [ext_resource type="Script" uid="uid://pxkbysso4esr" path="res://Scripts/CameraLimiter.gd" id="3_5f5w1"]
 [ext_resource type="PackedScene" uid="uid://br7sveoej6sjf" path="res://Scenes/UI/ui.tscn" id="4_r6m6p"]
@@ -92,7 +92,7 @@ offset_bottom = -123.00003
 
 [node name="UI" parent="." instance=ExtResource("4_r6m6p")]
 
-[node name="WeaponsAndTools" type="Node2D" parent="."]
+[node name="Tools" type="Node2D" parent="."]
 
 [node name="StructurePreview" type="Area2D" parent="."]
 visible = false
