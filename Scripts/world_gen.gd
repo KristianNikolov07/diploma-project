@@ -3,28 +3,54 @@ extends Node
 @onready var spawn_points_node : Node = get_node("../SpawnPoints")
 @onready var player : Player = get_node("../Player")
 var tree_scene = preload("res://Scenes/Objects/tree.tscn")
-
+var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
+var rock_item = preload("res://Resources/Items/rock.tres")
+var stick_item = preload("res://Resources/Items/stick.tres")
 
 var grass_tile_atlas_coords = Vector2i(0, 0)
 var sand_tile_atlas_coords = Vector2i(1, 0)
 var water_tile_atlas_coords = Vector2i(2, 0)
 
-@export_range(0, 100, 1) var tree_spawn_change = 10
+@export_range(0, 100, 1) var tree_spawn_chance = 10
+@export_range(0, 100, 1) var rock_spawn_chance = 5
+@export_range(0, 100, 1) var stick_spawn_chance = 5
 
 func _ready() -> void:
-	generate_trees()
+	generate_random_objects()
 	choose_spawn_point()
 	
-func generate_trees():
+func generate_random_objects():
 	for x in range(Global.tilemap_size):
 		for y in range(Global.tilemap_size):
+			
+			# Attempt to place a tree
 			if tilemap.get_cell_atlas_coords(Vector2i(x, y)) == grass_tile_atlas_coords:
-				var random = randi_range(0, 100)
-				if random <= tree_spawn_change:
-					var tree = tree_scene.instantiate()
-					tree.global_position = Global.tilemap_coords_to_global_coords(Vector2(x, y))
-					get_parent().add_child.call_deferred(tree)
-					
+				var tree = tree_scene.instantiate()
+				if attempt_to_place(tree, tree_spawn_chance, Global.tilemap_coords_to_global_coords(Vector2(x, y))):
+					continue
+				
+			# Attempt to place a rock
+			if tilemap.get_cell_atlas_coords(Vector2i(x, y)) == grass_tile_atlas_coords or tilemap.get_cell_atlas_coords(Vector2i(x, y)) == sand_tile_atlas_coords:
+				var rock = dropped_item_scene.instantiate()
+				rock.item = rock_item.duplicate()
+				if attempt_to_place(rock, rock_spawn_chance, Global.tilemap_coords_to_global_coords(Vector2(x, y))):
+					continue
+			
+			# Attempt to place a stick
+			if tilemap.get_cell_atlas_coords(Vector2i(x, y)) == grass_tile_atlas_coords or tilemap.get_cell_atlas_coords(Vector2i(x, y)) == sand_tile_atlas_coords:
+				var stick = dropped_item_scene.instantiate()
+				stick.item = stick_item.duplicate()
+				if attempt_to_place(stick, stick_spawn_chance, Global.tilemap_coords_to_global_coords(Vector2(x, y))):
+					continue
+
+func attempt_to_place(object : Node, change : int, pos : Vector2) -> bool:
+	var random = randi_range(0, 100)
+	if random <= change:
+		object.global_position = pos
+		get_parent().add_child.call_deferred(object)
+		return true
+	else:
+		return false
 
 func choose_spawn_point():
 	var rand = randi_range(0, spawn_points_node.get_child_count())
