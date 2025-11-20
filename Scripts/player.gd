@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var can_move = true
 
 @export var max_hp = 100
-@export var placement_range = 300
+@export var placement_range = 200
 
 @export_group("Speed and Stamina")
 @export var base_speed = 200
@@ -70,13 +70,7 @@ func _process(delta: float) -> void:
 	#Structure Preview
 	if inventory[selected_slot] is StructureItem:
 		if global_position.distance_to(get_global_mouse_position()) < placement_range:
-			$StructurePreview.show()
-			$StructurePreview/Sprite2D.texture = inventory[selected_slot].preview_texture
 			$StructurePreview.global_position = Global.tilemap_coords_to_global_coords(Global.global_coords_to_tilemap_coords(get_global_mouse_position()))
-		else:
-			$StructurePreview.hide()
-	else:
-		$StructurePreview.hide()
 			
 
 func _input(event: InputEvent) -> void:
@@ -190,7 +184,7 @@ func select_slot(slot : int):
 		inventory_UI.select_slot(slot)
 		selected_slot = slot
 	
-	#Tools
+	# Tools
 	for child in $Tools.get_children():
 		child.queue_free()
 	if inventory[slot] is Tool:
@@ -199,6 +193,13 @@ func select_slot(slot : int):
 		$Tools.add_child(tool_node)
 		if $Tools.get_child(0).has_signal("hit"):
 			$Tools.get_child(0).hit.connect(_on_tool_hit)
+	
+	# Structures
+	if inventory[slot] is StructureItem:
+		$StructurePreview.show()
+		$StructurePreview/Sprite2D.texture = inventory[selected_slot].preview_texture
+	else:
+		$StructurePreview.hide()
 
 func drop_item(slot : int, drop_all = false):
 	if inventory[slot] != null:
@@ -237,8 +238,8 @@ func _on_tool_hit():
 func place(slot : int):
 	if can_move:
 		if inventory[slot] is StructureItem:
-			if global_position.distance_to(get_global_mouse_position()) < placement_range and $StructurePreview.get_overlapping_bodies().size() == 0:
-				inventory[slot].place(self, get_global_mouse_position())
+			if $StructurePreview.get_overlapping_bodies().size() == 0:
+				inventory[slot].place(self, $StructurePreview.global_position)
 				remove_item_from_slot(slot)
 				select_slot(selected_slot)
 
