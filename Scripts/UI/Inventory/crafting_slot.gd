@@ -2,7 +2,7 @@ extends Control
 
 @export var item : Item
 
-func set_item(_item : Item, avaliable = true):
+func set_item(_item : Item, avaliable = true) -> void:
 	item = _item
 	if item != null:
 		$ItemTexture.texture = item.texture

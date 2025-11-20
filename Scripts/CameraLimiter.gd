@@ -1,6 +1,5 @@
 extends Camera2D
 
-
 func _ready() -> void:
 	var world_bounds = get_tree().get_first_node_in_group("WorldBounds")
 	

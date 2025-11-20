@@ -1,8 +1,9 @@
 extends Node
 
-@onready var tilemap : TileMapLayer = get_node("../Tilemap")
-@onready var spawn_points_node : Node = get_node("../SpawnPoints")
-@onready var player : Player = get_node("../Player")
+@export_range(0, 100, 1) var tree_spawn_chance = 10
+@export_range(0, 100, 1) var rock_spawn_chance = 5
+@export_range(0, 100, 1) var stick_spawn_chance = 5
+
 var tree_scene = preload("res://Scenes/Objects/tree.tscn")
 var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 var rock_item = preload("res://Resources/Items/rock.tres")
@@ -12,15 +13,16 @@ var grass_tile_atlas_coords = Vector2i(0, 0)
 var sand_tile_atlas_coords = Vector2i(1, 0)
 var water_tile_atlas_coords = Vector2i(2, 0)
 
-@export_range(0, 100, 1) var tree_spawn_chance = 10
-@export_range(0, 100, 1) var rock_spawn_chance = 5
-@export_range(0, 100, 1) var stick_spawn_chance = 5
+@onready var tilemap : TileMapLayer = get_node("../Tilemap")
+@onready var spawn_points_node : Node = get_node("../SpawnPoints")
+@onready var player : Player = get_node("../Player")
 
 func _ready() -> void:
 	generate_random_objects()
 	choose_spawn_point()
-	
-func generate_random_objects():
+
+
+func generate_random_objects() -> void:
 	for x in range(Global.tilemap_size):
 		for y in range(Global.tilemap_size):
 			
@@ -44,6 +46,7 @@ func generate_random_objects():
 				if attempt_to_place(stick, stick_spawn_chance, Global.tilemap_coords_to_global_coords(Vector2(x, y))):
 					continue
 
+
 func attempt_to_place(object : Node, change : int, pos : Vector2) -> bool:
 	var random = randi_range(0, 100)
 	if random <= change:
@@ -53,7 +56,8 @@ func attempt_to_place(object : Node, change : int, pos : Vector2) -> bool:
 	else:
 		return false
 
-func choose_spawn_point():
+
+func choose_spawn_point() -> void:
 	var rand = randi_range(0, spawn_points_node.get_child_count())
 	var i = 0
 	for child in spawn_points_node.get_children():

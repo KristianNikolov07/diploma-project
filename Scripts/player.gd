@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody2D
-@export var can_move = true
 
+@export var can_move = true
 @export var max_hp = 100
 @export var placement_range = 200
 
@@ -17,16 +17,14 @@ extends CharacterBody2D
 @export var inventory : Array[Item]
 @export var inventory_size = 4
 
-@onready var speed = base_speed
-@onready var stamina = max_stamina
-@onready var hp = max_hp
-
-@onready var inventory_UI = $UI/Inventory
-
-
 var is_running = false
 var selected_slot = 0
 var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
+
+@onready var speed = base_speed
+@onready var stamina = max_stamina
+@onready var hp = max_hp
+@onready var inventory_UI = $UI/Inventory
 
 func _ready() -> void:
 	$Stamina.max_value = max_stamina
@@ -38,11 +36,12 @@ func _ready() -> void:
 	inventory.resize(inventory_size)
 	inventory_UI.initiate_inventory(inventory_size)
 
-func _process(delta: float) -> void:
+
+func _process(_delta: float) -> void:
 	if can_move:
 		velocity = Input.get_vector("Left", "Right", "Up", "Down") * speed
 		
-		#Running
+		# Running
 		if Input.is_action_pressed("Sprint") and stamina > 0:
 			is_running = true
 			speed += speed / running_speed_gain
@@ -54,27 +53,27 @@ func _process(delta: float) -> void:
 		
 		move_and_slide()
 	
-	#Stamina
+	# Stamina
 	if is_running and velocity != Vector2.ZERO:
 		stamina -= stamina_decrease_rate
-	elif velocity != Vector2.ZERO: #Walking
+	elif velocity != Vector2.ZERO: # Walking
 		stamina += stamina_recharge_rate
 		if stamina > max_stamina:
 			stamina = max_stamina
-	else: #Standing still
+	else: # Standing still
 		stamina += stamina_recharge_rate * 2
 		if stamina > max_stamina:
 			stamina = max_stamina
 	$Stamina.value = stamina
 	
-	#Structure Preview
+	# Structure Preview
 	if inventory[selected_slot] is StructureItem:
 		if global_position.distance_to(get_global_mouse_position()) < placement_range:
 			$StructurePreview.global_position = Global.tilemap_coords_to_global_coords(Global.global_coords_to_tilemap_coords(get_global_mouse_position()))
-			
+
 
 func _input(event: InputEvent) -> void:
-	#Inventory
+	# Inventory
 	if event.is_action_released("PreviousItem"):
 		if selected_slot == 0:
 			select_slot(inventory_size - 1)
@@ -109,33 +108,37 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("Interact"):
 		if $InteractionRange.get_overlapping_areas().size() > 0:
 			$InteractionRange.get_overlapping_areas()[0].interact(get_node("."))
-#Health
-func damage(damage : int):
+
+# Health
+func damage(damage : int) -> void:
 	hp -= damage
 	$HP.value = hp
 	if hp <= 0:
 		respawn()
 
-func heal(_hp : int):
+
+func heal(_hp : int) -> void:
 	hp += _hp
 	if hp > max_hp:
 		hp = max_hp
 	$HP.value = hp
 
-func set_hp(_hp : int):
+
+func set_hp(_hp : int) -> void:
 	hp = _hp
 	$HP.value = hp
 
-func respawn():
+
+func respawn() -> void:
 	global_position = get_node("../SpawnPoints").get_child(0).global_position
 	hp = max_hp
 	speed = base_speed
 	stamina = max_stamina
 	$HP.value = hp
-	
+
 
 #Inventory
-func add_item(item : Item):
+func add_item(item : Item) -> bool:
 	for i in range(inventory.size()):
 		if inventory[i] == null:
 			inventory[i] = item.duplicate()
@@ -151,7 +154,8 @@ func add_item(item : Item):
 				return true
 	return false
 
-func has_item(item_name : String, amount = 1):
+
+func has_item(item_name : String, amount = 1) -> bool:
 	var count = 0
 	for i in range(inventory_size):
 		if inventory[i] != null and inventory[i].item_name == item_name:
@@ -161,7 +165,8 @@ func has_item(item_name : String, amount = 1):
 	else:
 		return false
 
-func remove_item(item_name : String, amount = 1):
+
+func remove_item(item_name : String, amount = 1) -> bool:
 	for i in range(inventory.size()):
 		if inventory[i] != null and inventory[i].item_name == item_name:
 			inventory[i].decrease_amount(amount)
@@ -171,15 +176,19 @@ func remove_item(item_name : String, amount = 1):
 			return true
 	return false
 
-func remove_item_from_slot(slot : int, amount = 1):
+
+func remove_item_from_slot(slot : int, amount = 1) -> bool:
 	if inventory[slot] != null:
 		inventory[slot].decrease_amount(amount)
 		if inventory[slot].amount <= 0:
 			inventory[slot] = null
 		inventory_UI.visualize_inventory(inventory)
 		return true
+	else:
+		return false
 
-func select_slot(slot : int):
+
+func select_slot(slot : int) -> void:
 	if slot < inventory_size:
 		inventory_UI.select_slot(slot)
 		selected_slot = slot
@@ -201,7 +210,8 @@ func select_slot(slot : int):
 	else:
 		$StructurePreview.hide()
 
-func drop_item(slot : int, drop_all = false):
+
+func drop_item(slot : int, drop_all = false) -> void:
 	if inventory[slot] != null:
 		var node = dropped_item_scene.instantiate()
 		node.item = inventory[slot].duplicate()
@@ -214,9 +224,10 @@ func drop_item(slot : int, drop_all = false):
 		else:
 			remove_item_from_slot(slot, 1)
 		
-		select_slot(selected_slot) # In case it's a tools
+		select_slot(selected_slot) # In case it's a tool
 
-func use_item(slot : int):
+
+func use_item(slot : int) -> void:
 	if can_move:
 		if inventory[slot] != null:
 			if inventory[slot] is Consumable:
@@ -224,18 +235,21 @@ func use_item(slot : int):
 				if !inventory[slot].has_unlimited_uses:
 					remove_item_from_slot(slot)
 
-func attack(slot : int):
+
+func attack(slot : int) -> void:
 	if can_move:
 		if inventory[slot] is Tool:
 			if inventory[slot].durability > 0:
 				$Tools.get_child(0).use()
 
-func _on_tool_hit():
+
+func _on_tool_hit() -> void:
 	if inventory[selected_slot] is Tool:
 		inventory[selected_slot].take_durability()
 		inventory_UI.visualize_inventory(inventory)
 
-func place(slot : int):
+
+func place(slot : int) -> void:
 	if can_move:
 		if inventory[slot] is StructureItem:
 			if $StructurePreview.get_overlapping_bodies().size() == 0:
@@ -243,9 +257,8 @@ func place(slot : int):
 				remove_item_from_slot(slot)
 				select_slot(selected_slot)
 
-
 # Debug
-func list_items():
+func list_items() -> void:
 	for i in range(inventory.size()):
 		print("Item " + str(i) + ":")
 		if inventory[i] == null:

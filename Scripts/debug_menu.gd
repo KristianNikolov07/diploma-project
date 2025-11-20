@@ -14,10 +14,12 @@ var test_enemy_scene = preload("res://Scenes/Entity/Enemies/test_enemy.tscn")
 func _ready() -> void:
 	$Debug.hide()
 
+
 func _input(event: InputEvent) -> void:
 	if "debug" in OS.get_cmdline_args():
 		if event.is_action_pressed("Debug"):
 			$Debug.visible = !$Debug.visible
+
 
 func _on_list_inventory_pressed() -> void:
 	list_inventory_pressed.emit()

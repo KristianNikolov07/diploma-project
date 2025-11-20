@@ -1,10 +1,11 @@
 extends Control
+
 @export var item_num = 0
 
 var item
 var selected = false
 
-func set_item(_item : Item):
+func set_item(_item : Item) -> void:
 	item = _item
 	if _item != null:
 		$Item.texture = item.texture
@@ -29,10 +30,12 @@ func set_item(_item : Item):
 		$Amount.hide()
 		$Durability.hide() 
 
-func select():
+
+func select() -> void:
 	selected = true
 	$Selector.show()
 
-func deselect():
+
+func deselect() -> void:
 	selected = false
 	$Selector.hide()

@@ -8,8 +8,7 @@ extends Resource
 var amount = 1
 
 ##Returns the leftover amount
-func increase_amount(_amount : int):
-	
+func increase_amount(_amount : int) -> int:
 	amount += _amount
 	if amount > max_amount:
 		var left_over = amount - max_amount
@@ -18,6 +17,7 @@ func increase_amount(_amount : int):
 	else:
 		return 0
 
-func decrease_amount(_amount : int):
+
+func decrease_amount(_amount : int) -> void:
 	amount -= _amount
 		

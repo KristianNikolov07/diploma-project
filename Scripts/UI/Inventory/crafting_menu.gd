@@ -1,15 +1,15 @@
 extends Control
+
 var crafting_recipe_scene = preload("res://Scenes/UI/Inventory/crafting_recipe_ui.tscn")
 var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
-
 var selected_recipe : Recipe
 
 @onready var player : Player = get_node("../../")
 
-
 func _ready() -> void:
 	hide()
 	load_recipes()
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("OpenCraftingUI"):
@@ -21,7 +21,8 @@ func _input(event: InputEvent) -> void:
 			player.can_move = true
 		update_ui()
 
-func load_recipes():
+
+func load_recipes() -> void:
 	for file in DirAccess.get_files_at("res://Resources/Recipes"):
 		var file_name = file.replace(".remap", "")
 		var recipe = load("res://Resources/Recipes/" + file_name)
@@ -30,7 +31,8 @@ func load_recipes():
 		$Recipes/VBoxContainer.add_child(crafting_recipe_ui)
 		crafting_recipe_ui.recipe_selected.connect(select_recipe)
 
-func craft(recipe : Recipe):
+
+func craft(recipe : Recipe) -> void:
 	if player.has_item(recipe.item1.item_name) and player.has_item(recipe.item2.item_name):
 		player.remove_item(recipe.item1.item_name)
 		player.remove_item(recipe.item2.item_name)
@@ -42,11 +44,13 @@ func craft(recipe : Recipe):
 			get_tree().current_scene.add_child(dropped_item)
 		update_ui()
 
-func select_recipe(recipe : Recipe):
+
+func select_recipe(recipe : Recipe) -> void:
 	selected_recipe = recipe
 	update_ui()
 
-func update_ui():
+
+func update_ui() -> void:
 	if selected_recipe == null:
 		$CraftingSlot1.set_item(null)
 		$CraftingSlot2.set_item(null)

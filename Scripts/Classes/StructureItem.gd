@@ -4,7 +4,7 @@ extends Item
 @export var structure_scene : PackedScene
 @export var preview_texture : Texture
 
-func place(player : Player, placement_location : Vector2):
+func place(player : Player, placement_location : Vector2) -> void:
 	print("Placing structure")
 	var location = Global.global_coords_to_tilemap_coords(placement_location)
 	print(location)
