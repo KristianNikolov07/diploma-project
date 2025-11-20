@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cx54gmymjr10i"]
 
 [ext_resource type="Script" uid="uid://qkkgw8jqlml2" path="res://Scripts/UI/Inventory/crafting_menu.gd" id="1_4njxr"]
-[ext_resource type="Texture2D" uid="uid://wka26cb0max2" path="res://Assets/Textures/inventory/Crafting/CraftingUIBackground.png" id="1_ht6rx"]
+[ext_resource type="Texture2D" uid="uid://cl8j5ej03h0f4" path="res://Assets/Textures/inventory/Crafting/CraftingUIBackground.png" id="1_ht6rx"]
 [ext_resource type="PackedScene" uid="uid://daxxibw6axoih" path="res://Scenes/UI/Inventory/crafting_slot.tscn" id="2_hs25i"]
 
 [node name="CraftingMenu" type="Control"]

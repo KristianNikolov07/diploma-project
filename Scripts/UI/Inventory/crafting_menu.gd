@@ -35,11 +35,12 @@ func craft(recipe : Recipe):
 		player.remove_item(recipe.item1.item_name)
 		player.remove_item(recipe.item2.item_name)
 		
-		if !player.add_item(recipe.result):
+		if !player.add_item(recipe.result.duplicate()):
 			var dropped_item = dropped_item_scene.instantiate()
 			dropped_item.item = recipe.result
 			dropped_item.global_position = player.global_position
 			get_tree().current_scene.add_child(dropped_item)
+		update_ui()
 
 func select_recipe(recipe : Recipe):
 	selected_recipe = recipe
