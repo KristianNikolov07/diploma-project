@@ -197,8 +197,8 @@ func select_slot(slot : int):
 		var tool : Tool = inventory[slot]
 		var tool_node = tool.tool_scene.instantiate()
 		$Tools.add_child(tool_node)
-		if $Tools.has_signal("hit"):
-			$Tools.hit.connect(_on_tool_hit)
+		if $Tools.get_child(0).has_signal("hit"):
+			$Tools.get_child(0).hit.connect(_on_tool_hit)
 
 func drop_item(slot : int, drop_all = false):
 	if inventory[slot] != null:
