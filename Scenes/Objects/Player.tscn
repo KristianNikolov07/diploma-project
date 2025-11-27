@@ -101,12 +101,12 @@ collision_layer = 512
 collision_mask = 272
 
 [node name="Sprite2D" type="Sprite2D" parent="StructurePreview"]
-position = Vector2(106.66667, 106.666664)
+position = Vector2(3.0517578e-05, 0)
 scale = Vector2(1.6666667, 1.6666666)
 texture = ExtResource("1_ajy74")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StructurePreview"]
-position = Vector2(106.66667, 106.666664)
+position = Vector2(2.2888184e-05, 0)
 shape = SubResource("RectangleShape2D_s8rx5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StructurePreview"]

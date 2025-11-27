@@ -60,9 +60,10 @@ func _process(_delta: float) -> void:
 	
 	# Structure Preview
 	if inventory.items[inventory.selected_slot] is StructureItem:
-		if global_position.distance_to(get_global_mouse_position()) < placement_range:
-			$StructurePreview.global_position = Global.tilemap_coords_to_global_coords(Global.global_coords_to_tilemap_coords(get_global_mouse_position()))
-
+		if abs(global_position.x - get_global_mouse_position().x) < placement_range:
+			$StructurePreview.global_position.x = get_global_mouse_position().x
+		if abs(global_position.y - get_global_mouse_position().y) < placement_range:
+			$StructurePreview.global_position.y = get_global_mouse_position().y
 
 func _input(event: InputEvent) -> void:
 	# Inventory
