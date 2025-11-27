@@ -13,18 +13,12 @@ extends CharacterBody2D
 @export var stamina_decrease_rate = 1
 @export var stamina_recharge_rate = 0.25
 
-@export_group("Inventory")
-@export var inventory : Array[Item]
-@export var inventory_size = 4
-
 var is_running = false
-var selected_slot = 0
-var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 
 @onready var speed = base_speed
 @onready var stamina = max_stamina
 @onready var hp = max_hp
-@onready var inventory_UI = $UI/Inventory
+@onready var inventory = $UI/Inventory
 
 func _ready() -> void:
 	$Stamina.max_value = max_stamina
@@ -33,8 +27,6 @@ func _ready() -> void:
 	$HP.max_value = max_hp
 	$HP.value = hp
 	
-	inventory.resize(inventory_size)
-	inventory_UI.initiate_inventory(inventory_size)
 
 
 func _process(_delta: float) -> void:
@@ -67,49 +59,24 @@ func _process(_delta: float) -> void:
 	$Stamina.value = stamina
 	
 	# Structure Preview
-	if inventory[selected_slot] is StructureItem:
+	if inventory.items[inventory.selected_slot] is StructureItem:
 		if global_position.distance_to(get_global_mouse_position()) < placement_range:
 			$StructurePreview.global_position = Global.tilemap_coords_to_global_coords(Global.global_coords_to_tilemap_coords(get_global_mouse_position()))
 
 
 func _input(event: InputEvent) -> void:
 	# Inventory
-	if event.is_action_released("PreviousItem"):
-		if selected_slot == 0:
-			select_slot(inventory_size - 1)
-		else:
-			select_slot(selected_slot - 1)
-	if event.is_action_released("NextItem"):
-		if selected_slot == inventory_size - 1:
-			select_slot(0)
-		else:
-			select_slot(selected_slot + 1)
-	if event.is_action_pressed("Item0"):
-		select_slot(0)
-	if event.is_action_pressed("Item1"):
-		select_slot(1)
-	if event.is_action_pressed("Item2"):
-		select_slot(2)
-	if event.is_action_pressed("Item3"):
-		select_slot(3)
-	if event.is_action_pressed("DropItem"):
-		if Input.is_action_pressed("DropAll"):
-			drop_item(selected_slot, true)
-		else:
-			drop_item(selected_slot, false)
-	if event.is_action_pressed("UseItem"):
-		use_item(selected_slot)
 	if event.is_action_pressed("Attack"):
-		attack(selected_slot)
+		attack(inventory.selected_slot)
 	if event.is_action_pressed("Place"):
-		place(selected_slot)
+		place(inventory.selected_slot)
 	
 	#Interactions
 	elif event.is_action_pressed("Interact"):
 		if $InteractionRange.get_overlapping_areas().size() > 0:
 			$InteractionRange.get_overlapping_areas()[0].interact(get_node("."))
 
-# Health
+
 func damage(damage : int) -> void:
 	hp -= damage
 	$HP.value = hp
@@ -137,147 +104,43 @@ func respawn() -> void:
 	$HP.value = hp
 
 
-#Inventory
-func add_item(item : Item) -> bool:
-	for i in range(inventory.size()):
-		if inventory[i] == null:
-			inventory[i] = item.duplicate()
-			inventory[i].amount = item.amount
-			inventory_UI.visualize_inventory(inventory)
-			select_slot(selected_slot) # In case it's a weapon
-			return true
-		elif inventory[i].item_name == item.item_name:
-			var left_over = inventory[i].increase_amount(item.amount)
-			item.decrease_amount(item.amount - left_over)
-			if left_over == 0:
-				inventory_UI.visualize_inventory(inventory)
-				return true
-	return false
-
-
-func has_item(item_name : String, amount = 1) -> bool:
-	var count = 0
-	for i in range(inventory_size):
-		if inventory[i] != null and inventory[i].item_name == item_name:
-			count += inventory[i].amount
-	if count >= amount:
-		return true
-	else:
-		return false
-
-
-func remove_item(item_name : String, amount = 1) -> bool:
-	for i in range(inventory.size()):
-		if inventory[i] != null and inventory[i].item_name == item_name:
-			inventory[i].decrease_amount(amount)
-			if inventory[i].amount <= 0:
-				inventory[i] = null
-			inventory_UI.visualize_inventory(inventory)
-			return true
-	return false
-
-
-func remove_item_from_slot(slot : int, amount = 1) -> bool:
-	if inventory[slot] != null:
-		inventory[slot].decrease_amount(amount)
-		if inventory[slot].amount <= 0:
-			inventory[slot] = null
-		inventory_UI.visualize_inventory(inventory)
-		return true
-	else:
-		return false
-
-
-func select_slot(slot : int) -> void:
-	if slot < inventory_size:
-		inventory_UI.select_slot(slot)
-		selected_slot = slot
-	
-	# Tools
-	for child in $Tools.get_children():
-		child.queue_free()
-	if inventory[slot] is Tool:
-		var tool : Tool = inventory[slot]
-		var tool_node = tool.tool_scene.instantiate()
-		$Tools.add_child(tool_node)
-		if $Tools.get_child(0).has_signal("hit"):
-			$Tools.get_child(0).hit.connect(_on_tool_hit)
-	
-	# Structures
-	if inventory[slot] is StructureItem:
-		$StructurePreview.show()
-		$StructurePreview/Sprite2D.texture = inventory[selected_slot].preview_texture
-	else:
-		$StructurePreview.hide()
-
-
-func drop_item(slot : int, drop_all = false) -> void:
-	if inventory[slot] != null:
-		var node = dropped_item_scene.instantiate()
-		node.item = inventory[slot].duplicate()
-		if drop_all:
-			node.item.amount = inventory[slot].amount
-		node.global_position = global_position
-		get_parent().add_child(node)
-		if drop_all:
-			remove_item_from_slot(slot, inventory[slot].amount)
-		else:
-			remove_item_from_slot(slot, 1)
-		
-		select_slot(selected_slot) # In case it's a tool
-
-
-func use_item(slot : int) -> void:
-	if can_move:
-		if inventory[slot] != null:
-			if inventory[slot] is Consumable:
-				inventory[slot].use(get_node("."))
-				if !inventory[slot].has_unlimited_uses:
-					remove_item_from_slot(slot)
-
-
 func attack(slot : int) -> void:
 	if can_move:
-		if inventory[slot] is Tool:
-			if inventory[slot].durability > 0:
+		if inventory.items[slot] is Tool:
+			if inventory.items[slot].durability > 0:
 				$Tools.get_child(0).use()
-
-
-func _on_tool_hit() -> void:
-	if inventory[selected_slot] is Tool:
-		inventory[selected_slot].take_durability()
-		inventory_UI.visualize_inventory(inventory)
 
 
 func place(slot : int) -> void:
 	if can_move:
-		if inventory[slot] is StructureItem:
+		if inventory.items[slot] is StructureItem:
 			if $StructurePreview.get_overlapping_bodies().size() == 0:
-				inventory[slot].place(self, $StructurePreview.global_position)
-				remove_item_from_slot(slot)
-				select_slot(selected_slot)
+				inventory.items[slot].place(self, $StructurePreview.global_position)
+				inventory.remove_item_from_slot(slot)
+				inventory.reselect_slot()
+
 
 # Debug
 func list_items() -> void:
-	for i in range(inventory.size()):
+	for i in range(inventory.items.size()):
 		print("Item " + str(i) + ":")
-		if inventory[i] == null:
+		if inventory.items[i] == null:
 			print("null")
 		else:
-			print("Name: " + inventory[i].item_name)
-			print("Amount: " + str(inventory[i].amount) + "/" + str(inventory[i].max_amount))
+			print("Name: " + inventory.items[i].item_name)
+			print("Amount: " + str(inventory.items[i].amount) + "/" + str(inventory.items[i].max_amount))
 
 
 func _on_add_test_item_pressed() -> void:
 	var test_item = load("res://Resources/Items/test_item.tres")
-	if add_item(test_item.duplicate()) == true:
+	if inventory.add_item(test_item.duplicate()) == true:
 		print("Successfully added a test item")
 	else:
 		print("Unable to add a test item")
 
 
 func _on_remove_test_item_pressed() -> void:
-	if remove_item("test test") == true:
+	if inventory.remove_item("test test") == true:
 		print("Successfully removed a test item")
 	else:
 		print("Unable to remove a test item")
@@ -285,7 +148,7 @@ func _on_remove_test_item_pressed() -> void:
 
 func _on_add_test_consumable_pressed() -> void:
 	var test_item = load("res://Resources/Items/Consumables/test_consumable.tres")
-	if add_item(test_item.duplicate()) == true:
+	if inventory.add_item(test_item.duplicate()) == true:
 		print("Successfully added a test consumable")
 	else:
 		print("Unable to add a test consumable")
@@ -293,7 +156,7 @@ func _on_add_test_consumable_pressed() -> void:
 
 func _on_debug_add_basic_sword() -> void:
 	var sword = load("res://Resources/Items/Weapons/test_weapon.tres")
-	if add_item(sword.duplicate()) == true:
+	if inventory.add_item(sword.duplicate()) == true:
 		print("Successfully added a test sword")
 	else:
 		print("Unable to add a test sword")

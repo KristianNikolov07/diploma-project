@@ -19,7 +19,7 @@ func save() -> void:
 		config.set_value("stats", "stamina", player.stamina)
 		config.set_value("stats", "speed", player.speed)
 		config.set_value("stats", "position", player.global_position)
-		config.set_value("inventory", "inventory", player.inventory)
+		config.set_value("inventory", "inventory", player.inventory.items)
 		config.save(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME)
 
 
@@ -32,7 +32,6 @@ func load() -> void:
 		player.speed = config.get_value("stats", "speed", player.base_speed)
 		player.global_position = config.get_value("stats", "position", player.global_position)
 		if config.has_section_key("inventory", "inventory"):
-			player.inventory = config.get_value("inventory", "inventory")
+			player.inventory.set_items(config.get_value("inventory", "inventory"))
 		else:
-			player.inventory.fill(null)
-		player.inventory_UI.visualize_inventory(player.inventory)
+			player.inventory.set_items([])

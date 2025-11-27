@@ -33,11 +33,11 @@ func load_recipes() -> void:
 
 
 func craft(recipe : Recipe) -> void:
-	if player.has_item(recipe.item1.item_name) and player.has_item(recipe.item2.item_name):
-		player.remove_item(recipe.item1.item_name)
-		player.remove_item(recipe.item2.item_name)
+	if player.inventory.has_item(recipe.item1.item_name) and player.inventory.has_item(recipe.item2.item_name):
+		player.inventory.remove_item(recipe.item1.item_name)
+		player.inventory.remove_item(recipe.item2.item_name)
 		
-		if !player.add_item(recipe.result.duplicate()):
+		if !player.inventory.add_item(recipe.result.duplicate()):
 			var dropped_item = dropped_item_scene.instantiate()
 			dropped_item.item = recipe.result
 			dropped_item.global_position = player.global_position
@@ -57,11 +57,11 @@ func update_ui() -> void:
 		$Result.set_item(null)
 		$Craft.disabled = true
 	else:
-		$CraftingSlot1.set_item(selected_recipe.item1, player.has_item(selected_recipe.item1.item_name))
-		$CraftingSlot2.set_item(selected_recipe.item2, player.has_item(selected_recipe.item2.item_name))
+		$CraftingSlot1.set_item(selected_recipe.item1, player.inventory.has_item(selected_recipe.item1.item_name))
+		$CraftingSlot2.set_item(selected_recipe.item2, player.inventory.has_item(selected_recipe.item2.item_name))
 		$Result.set_item(selected_recipe.result)
 	
-		if player.has_item(selected_recipe.item1.item_name) and player.has_item(selected_recipe.item2.item_name):
+		if player.inventory.has_item(selected_recipe.item1.item_name) and player.inventory.has_item(selected_recipe.item2.item_name):
 			$Craft.disabled = false
 		else:
 			$Craft.disabled = true

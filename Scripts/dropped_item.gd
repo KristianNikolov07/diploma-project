@@ -7,5 +7,5 @@ func _ready() -> void:
 
 
 func interact(player : CharacterBody2D) -> void:
-	if player.add_item(item):
+	if player.inventory.add_item(item):
 		queue_free()
