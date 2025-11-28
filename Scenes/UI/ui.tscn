@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://br7sveoej6sjf"]
+[gd_scene load_steps=4 format=3 uid="uid://br7sveoej6sjf"]
 
 [ext_resource type="PackedScene" uid="uid://b835m5mv6qhyh" path="res://Scenes/UI/Inventory/inventory.tscn" id="1_ahcct"]
+[ext_resource type="Resource" uid="uid://ctt6eqsv8jbik" path="res://Resources/Items/Armor/test_armor.tres" id="2_c7mb3"]
 [ext_resource type="PackedScene" uid="uid://cx54gmymjr10i" path="res://Scenes/UI/Inventory/crafting_menu.tscn" id="2_de23q"]
 
 [node name="UI" type="CanvasLayer"]
 
 [node name="Inventory" parent="." instance=ExtResource("1_ahcct")]
+armor = ExtResource("2_c7mb3")
 
 [node name="CraftingMenu" parent="." instance=ExtResource("2_de23q")]
 

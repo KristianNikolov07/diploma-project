@@ -2,6 +2,7 @@ extends Control
 
 @export var items : Array[Item]
 @export var inventory_size = 4
+@export var armor : Armor
 
 var item_slot_scene = preload("res://Scenes/UI/Inventory/item_slot.tscn")
 var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")

@@ -85,8 +85,16 @@ func _input(event: InputEvent) -> void:
 			$InteractionRange.get_overlapping_areas()[0].interact(get_node("."))
 
 
-func damage(damage : int) -> void:
-	hp -= damage
+func damage(damage : int, is_hunger_or_thirst = false) -> void:
+	if inventory.armor != null and !is_hunger_or_thirst:
+		if inventory.armor.durability > 0:
+			hp -= damage - inventory.armor.defence
+			inventory.armor.take_durability()
+		else:
+			hp -= damage
+	else:
+		hp -= damage
+		
 	hp_bar.value = hp
 	if hp <= 0:
 		respawn()

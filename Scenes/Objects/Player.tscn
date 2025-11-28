@@ -114,7 +114,6 @@ autoplay = "pulse"
 [node name="HungerAndThirst" type="Node" parent="."]
 script = ExtResource("5_s8rx5")
 hunger_per_second = 0.01
-thirst = 100.0
 
 [node name="Timer" type="Timer" parent="HungerAndThirst"]
 autostart = true

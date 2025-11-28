@@ -89,9 +89,9 @@ func can_sprint() -> bool:
 
 func _on_timer_timeout() -> void:
 	if hunger == max_hunger:
-		player.damage(hunger_damage_per_second)
+		player.damage(hunger_damage_per_second, true)
 	elif thirst == max_thirst:
-		player.damage(thirst_damage_per_second)
+		player.damage(thirst_damage_per_second, true)
 		
 	elif thirst < thirst_hp_regeneration_threshold:
 		if !player.is_running:
