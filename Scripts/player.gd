@@ -10,8 +10,8 @@ extends CharacterBody2D
 @export var running_speed_gain = 5
 @export var max_running_speed = 400 
 @export var max_stamina = 200
-@export var stamina_decrease_rate = 1
-@export var stamina_recharge_rate = 0.25
+@export var stamina_decrease_per_second = 0.5
+@export var stamina_recharge_per_second = 0.25
 
 var is_running = false
 
@@ -25,6 +25,7 @@ var is_running = false
 func _ready() -> void:
 	$Stamina.max_value = max_stamina
 	$Stamina.value = max_stamina
+	$Stamina.hide()
 	
 	hp_bar.max_value = max_hp
 	hp_bar.value = hp
@@ -49,16 +50,20 @@ func _process(_delta: float) -> void:
 	
 	# Stamina
 	if is_running and velocity != Vector2.ZERO:
-		stamina -= stamina_decrease_rate
+		stamina -= stamina_decrease_per_second
 	elif velocity != Vector2.ZERO: # Walking
-		stamina += stamina_recharge_rate
+		stamina += stamina_recharge_per_second
 		if stamina > max_stamina:
 			stamina = max_stamina
 	else: # Standing still
-		stamina += stamina_recharge_rate * 2
+		stamina += stamina_recharge_per_second * 2
 		if stamina > max_stamina:
 			stamina = max_stamina
-	$Stamina.value = stamina
+	if stamina != max_stamina:
+		$Stamina.show()
+		$Stamina.value = stamina
+	else:
+		$Stamina.hide()
 	
 	# Structure Preview
 	if inventory.items[inventory.selected_slot] is StructureItem:
