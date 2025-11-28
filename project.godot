@@ -38,6 +38,7 @@ run/main_run_args="debug"
 WorldBounds=""
 Player=""
 Tilemap=""
+Persistant=""
 
 [input]
 

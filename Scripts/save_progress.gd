@@ -2,10 +2,12 @@ extends Node
 
 const SAVES_FOLDER = "user://saves/"
 const PLAYER_STATS_FILE_NAME = "player_stats.ini"
+const WORLD_FILE_NAME = "world.json"
 
 @export var save_name = ""
 
 var config = ConfigFile.new()
+var json = JSON.new()
 
 @onready var player : Player = get_tree().get_first_node_in_group("Player")
 
@@ -14,6 +16,8 @@ func save() -> void:
 		print("Saving game...")
 		if !DirAccess.dir_exists_absolute(SAVES_FOLDER + save_name):
 			DirAccess.make_dir_recursive_absolute(SAVES_FOLDER + save_name)
+		
+		# Player Stats
 		config.load(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME)
 		config.set_value("stats", "hp", player.hp)
 		config.set_value("stats", "stamina", player.stamina)
@@ -23,11 +27,27 @@ func save() -> void:
 		config.set_value("stats", "thirst", player.hunger_and_thirst.thirst)
 		config.set_value("inventory", "inventory", player.inventory.items)
 		config.save(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME)
+		
+		# World
+		var world_file = FileAccess.open(SAVES_FOLDER + save_name + "/" + WORLD_FILE_NAME, FileAccess.WRITE)
+		var world = {
+			"Objects":[]
+		}
+		for node in get_tree().get_nodes_in_group("Persistant"):
+			var object = {
+				"scene" = node.scene_file_path,
+				"position" = [node.global_position.x, node.global_position.y]
+			}
+			world.Objects.append(object)
+		world_file.store_string(JSON.stringify(world))
+		world_file.close()
 
 
 func load() -> void:
 	if !DirAccess.dir_exists_absolute(SAVES_FOLDER + save_name):
 		DirAccess.make_dir_recursive_absolute(SAVES_FOLDER + save_name)
+	
+	# Player Stats
 	if config.load(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME) == OK:
 		player.set_hp(config.get_value("stats", "hp", player.max_hp)) 
 		player.stamina = config.get_value("stats", "stamina", player.max_stamina)
@@ -39,3 +59,16 @@ func load() -> void:
 			player.inventory.set_items(config.get_value("inventory", "inventory"))
 		else:
 			player.inventory.set_items([])
+	
+	# World
+	var save_file = FileAccess.open(SAVES_FOLDER + save_name + "/" + WORLD_FILE_NAME, FileAccess.READ)
+	var world = JSON.parse_string(save_file.get_as_text())
+	if world.Objects != null:
+		for node in get_tree().get_nodes_in_group("Persistant"):
+			node.queue_free()
+		for i in range(world.Objects.size()):
+			var node = load(world.Objects[i].scene).instantiate()
+			node.global_position.x = world.Objects[i].position[0]
+			node.global_position.y = world.Objects[i].position[1]
+			get_tree().current_scene.add_child(node)
+	

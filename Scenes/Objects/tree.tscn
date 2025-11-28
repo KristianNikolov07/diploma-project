@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bonc006vbgjtv"]
 
-[ext_resource type="Texture2D" uid="uid://74nc4t2xywl" path="res://Assets/Textures/Objects/tree.png" id="1_b0kcf"]
+[ext_resource type="Texture2D" uid="uid://xbjj7uhpoylb" path="res://Assets/Textures/Objects/tree.png" id="1_b0kcf"]
 [ext_resource type="Script" uid="uid://btlpyrf5fm18" path="res://Scripts/Objects/tree.gd" id="1_ebggc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0kcf"]
@@ -9,7 +9,7 @@ size = Vector2(12, 56)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ebggc"]
 radius = 26.305893
 
-[node name="Tree" type="StaticBody2D"]
+[node name="Tree" type="StaticBody2D" groups=["Persistant"]]
 z_index = 2
 collision_layer = 16
 collision_mask = 546

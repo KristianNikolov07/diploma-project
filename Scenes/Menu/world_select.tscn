@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://cosb80or2npy4"]
+
+[ext_resource type="Script" uid="uid://w1gdiragrl2i" path="res://Scripts/Menu/world_select.gd" id="1_u1338"]
+
+[node name="WorldSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u1338")
+
+[node name="NewWorld" type="Button" parent="."]
+layout_mode = 0
+offset_left = 392.0
+offset_right = 785.0
+offset_bottom = 63.0
+theme_override_font_sizes/font_size = 40
+text = "Create a New World"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 160.0
+offset_right = 785.0
+offset_bottom = 528.0
+
+[node name="Worlds" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="NewWorld" to="." method="_on_new_world_pressed"]
