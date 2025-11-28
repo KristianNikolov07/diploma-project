@@ -112,11 +112,18 @@ autoplay = "pulse"
 
 [node name="HungerAndThirst" type="Node" parent="."]
 script = ExtResource("5_s8rx5")
-max_hunger = 10.0
+thirst_add_time = 15.0
+thirst_damage = 1
 
 [node name="HungerTimer" type="Timer" parent="HungerAndThirst"]
 
 [node name="HungerHPTick" type="Timer" parent="HungerAndThirst"]
 
+[node name="ThirstTimer" type="Timer" parent="HungerAndThirst"]
+
+[node name="ThirstHPTick" type="Timer" parent="HungerAndThirst"]
+
 [connection signal="timeout" from="HungerAndThirst/HungerTimer" to="HungerAndThirst" method="_on_hunger_timer_timeout"]
 [connection signal="timeout" from="HungerAndThirst/HungerHPTick" to="HungerAndThirst" method="_on_hunger_hp_tick_timeout"]
+[connection signal="timeout" from="HungerAndThirst/ThirstTimer" to="HungerAndThirst" method="_on_thirst_timer_timeout"]
+[connection signal="timeout" from="HungerAndThirst/ThirstHPTick" to="HungerAndThirst" method="_on_thirst_hp_tick_timeout"]

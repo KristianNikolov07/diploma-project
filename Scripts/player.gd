@@ -36,7 +36,7 @@ func _process(_delta: float) -> void:
 		velocity = Input.get_vector("Left", "Right", "Up", "Down") * speed
 		
 		# Running
-		if Input.is_action_pressed("Sprint") and can_sprint():
+		if Input.is_action_pressed("Sprint") and stamina > 0 and $HungerAndThirst.can_sprint():
 			is_running = true
 			speed += speed / running_speed_gain
 			if speed > max_running_speed:
@@ -78,13 +78,6 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("Interact"):
 		if $InteractionRange.get_overlapping_areas().size() > 0:
 			$InteractionRange.get_overlapping_areas()[0].interact(get_node("."))
-
-
-func can_sprint() -> bool:
-	if stamina > 0 and $HungerAndThirst.hunger != $HungerAndThirst.max_hunger:
-		return true
-	else:
-		return false
 
 
 func damage(damage : int) -> void:

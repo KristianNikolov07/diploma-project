@@ -9,6 +9,7 @@ extends Item
 @export var running_speed_gain_modifier : int
 @export var max_running_speed_modifier : int
 @export var hunger : float
+@export var thirst : float
 
 var player : Player
 
@@ -18,3 +19,4 @@ func use(_player : Player) -> void:
 	player.running_speed_gain += running_speed_gain_modifier
 	player.max_running_speed += max_running_speed_modifier
 	player.hunger_and_thirst.remove_hunger(hunger)
+	player.hunger_and_thirst.remove_thirst(thirst)
