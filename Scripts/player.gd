@@ -19,13 +19,15 @@ var is_running = false
 @onready var stamina = max_stamina
 @onready var hp = max_hp
 @onready var inventory = $UI/Inventory
+@onready var hp_bar = $UI/Stats/HP
+@onready var hunger_and_thirst = $HungerAndThirst
 
 func _ready() -> void:
 	$Stamina.max_value = max_stamina
 	$Stamina.value = max_stamina
 	
-	$HP.max_value = max_hp
-	$HP.value = hp
+	hp_bar.max_value = max_hp
+	hp_bar.value = hp
 	
 
 
@@ -34,7 +36,7 @@ func _process(_delta: float) -> void:
 		velocity = Input.get_vector("Left", "Right", "Up", "Down") * speed
 		
 		# Running
-		if Input.is_action_pressed("Sprint") and stamina > 0:
+		if Input.is_action_pressed("Sprint") and can_sprint():
 			is_running = true
 			speed += speed / running_speed_gain
 			if speed > max_running_speed:
@@ -78,9 +80,16 @@ func _input(event: InputEvent) -> void:
 			$InteractionRange.get_overlapping_areas()[0].interact(get_node("."))
 
 
+func can_sprint() -> bool:
+	if stamina > 0 and $HungerAndThirst.hunger != $HungerAndThirst.max_hunger:
+		return true
+	else:
+		return false
+
+
 func damage(damage : int) -> void:
 	hp -= damage
-	$HP.value = hp
+	hp_bar.value = hp
 	if hp <= 0:
 		respawn()
 
@@ -89,20 +98,20 @@ func heal(_hp : int) -> void:
 	hp += _hp
 	if hp > max_hp:
 		hp = max_hp
-	$HP.value = hp
+	hp_bar.value = hp
 
 
 func set_hp(_hp : int) -> void:
 	hp = _hp
-	$HP.value = hp
+	hp_bar.value = hp
 
 
 func respawn() -> void:
 	global_position = get_node("../SpawnPoints").get_child(0).global_position
-	hp = max_hp
+	set_hp(max_hp)
 	speed = base_speed
 	stamina = max_stamina
-	$HP.value = hp
+	$HungerAndThirst.set_hunger($HungerAndThirst.max_hunger)
 
 
 func attack(slot : int) -> void:

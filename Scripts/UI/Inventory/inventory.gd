@@ -146,7 +146,7 @@ func use_item(slot : int) -> void:
 	if player.can_move:
 		if items[slot] != null:
 			if items[slot] is Consumable:
-				items[slot].use(get_node("."))
+				items[slot].use(player)
 				if !items[slot].has_unlimited_uses:
 					remove_item_from_slot(slot)
 
