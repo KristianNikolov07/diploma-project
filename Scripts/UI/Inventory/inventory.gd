@@ -150,11 +150,44 @@ func use_item(slot : int) -> void:
 				items[slot].use(player)
 				if !items[slot].has_unlimited_uses:
 					remove_item_from_slot(slot)
+			elif items[slot] is Armor:
+				equip_armor_from_slot(slot)
 
 
 func set_items(_items : Array[Item]) -> void:
 	items = _items
 	visualize_inventory()
+
+
+func set_armor(_armor : Armor) -> void:
+	if _armor == null:
+		armor = null
+	else:
+		armor = _armor.duplicate()
+	visualize_inventory()
+
+func equip_armor_from_slot(slot : int) -> void:
+	if armor == null:
+		set_armor(items[slot].duplicate())
+		remove_item_from_slot(slot)
+	else:
+		var temp = armor.duplicate()
+		set_armor(items[slot].duplicate())
+		remove_item_from_slot(slot)
+		add_item(temp.duplicate())
+		
+
+func unequip_armor() -> void:
+	if armor != null:
+		if add_item(armor.duplicate()):
+			set_armor(null)
+
+
+func drop_inventory() -> void:
+	for i in range(inventory_size):
+		drop_item(i, true)
+	unequip_armor()
+	drop_item(0)
 
 
 # UI
@@ -168,6 +201,7 @@ func initiate_inventory_UI():
 func visualize_inventory():
 	for i in range(items.size()):
 		$Inventory.get_node(str(i)).set_item(items[i])
+	$ArmorSlot.set_item(armor)
 
 
 func visualize_selected_slot():

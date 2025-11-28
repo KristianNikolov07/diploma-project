@@ -90,6 +90,7 @@ func damage(damage : int, is_hunger_or_thirst = false) -> void:
 		if inventory.armor.durability > 0:
 			hp -= damage - inventory.armor.defence
 			inventory.armor.take_durability()
+			inventory.visualize_inventory()
 		else:
 			hp -= damage
 	else:
@@ -113,11 +114,13 @@ func set_hp(_hp : int) -> void:
 
 
 func respawn() -> void:
+	inventory.drop_inventory()
 	global_position = get_node("../SpawnPoints").get_child(0).global_position
 	set_hp(max_hp)
 	speed = base_speed
 	stamina = max_stamina
-	$HungerAndThirst.set_hunger($HungerAndThirst.max_hunger)
+	$HungerAndThirst.set_hunger(0)
+	$HungerAndThirst.set_thirst(0)
 
 
 func attack(slot : int) -> void:

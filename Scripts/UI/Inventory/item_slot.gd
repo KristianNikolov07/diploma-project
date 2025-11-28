@@ -1,9 +1,16 @@
 extends Control
 
-@export var item_num = 0
+enum Type{
+	ITEM,
+	ARMOR,
+	BACKPACK
+}
+
+@export var type : Type = Type.ITEM
 
 var item
 var selected = false
+
 
 func set_item(_item : Item) -> void:
 	item = _item
@@ -15,14 +22,13 @@ func set_item(_item : Item) -> void:
 		else:
 			$Amount.hide()
 		
-		if item is Tool:
+		if item is Tool or item is Armor:
 			$Durability.max_value = item.max_durability
 			if item.durability == item.max_durability:
 				$Durability.hide()
 			else:
 				$Durability.value = item.durability
 				$Durability.show()
-				print(str(item.durability) + " / " + str(item.max_durability))
 		else:
 			$Durability.hide() 
 	else:
@@ -39,3 +45,8 @@ func select() -> void:
 func deselect() -> void:
 	selected = false
 	$Selector.hide()
+
+
+func _on_button_pressed() -> void:
+	if type == Type.ARMOR:
+		get_parent().unequip_armor()
