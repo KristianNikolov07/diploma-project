@@ -71,3 +71,7 @@ func _on_spawn_test_enemy_pressed() -> void:
 	var enemy : Enemy = test_enemy_scene.instantiate()
 	enemy.global_position = player.global_position
 	player.get_parent().add_child(enemy)
+
+
+func _on_time_change_pressed() -> void:
+	$"../DayNightCycle"._on_timer_timeout()

@@ -98,6 +98,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Spawn Test Enemy"
 
+[node name="Time Change" type="Button" parent="Debug/Panel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Time Change"
+
 [connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/ListInventory" to="." method="_on_list_inventory_pressed"]
 [connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/AddTestItem" to="." method="_on_add_test_item_pressed"]
 [connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/RemoveTestItem" to="." method="_on_remove_test_item_pressed"]
@@ -109,3 +114,4 @@ text = "Spawn Test Enemy"
 [connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/SpawnTestEntity" to="." method="_on_spawn_test_entity_pressed"]
 [connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/SpawnTestEnemy" to="." method="_on_spawn_test_enemy_pressed"]
+[connection signal="pressed" from="Debug/Panel/ScrollContainer/VBoxContainer/Time Change" to="." method="_on_time_change_pressed"]
