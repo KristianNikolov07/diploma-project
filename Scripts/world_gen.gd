@@ -36,6 +36,7 @@ func generate_random_objects() -> void:
 			if tilemap.get_cell_atlas_coords(Vector2i(x, y)) == grass_tile_atlas_coords or tilemap.get_cell_atlas_coords(Vector2i(x, y)) == sand_tile_atlas_coords:
 				var rock = dropped_item_scene.instantiate()
 				rock.item = rock_item.duplicate()
+				rock.can_despawn = false
 				if attempt_to_place(rock, rock_spawn_chance, Global.tilemap_coords_to_global_coords(Vector2(x, y))):
 					continue
 			
@@ -43,13 +44,14 @@ func generate_random_objects() -> void:
 			if tilemap.get_cell_atlas_coords(Vector2i(x, y)) == grass_tile_atlas_coords or tilemap.get_cell_atlas_coords(Vector2i(x, y)) == sand_tile_atlas_coords:
 				var stick = dropped_item_scene.instantiate()
 				stick.item = stick_item.duplicate()
+				stick.can_despawn = false
 				if attempt_to_place(stick, stick_spawn_chance, Global.tilemap_coords_to_global_coords(Vector2(x, y))):
 					continue
 
 
-func attempt_to_place(object : Node, change : int, pos : Vector2) -> bool:
+func attempt_to_place(object : Node, chance : int, pos : Vector2) -> bool:
 	var random = randi_range(0, 100)
-	if random <= change:
+	if random <= chance:
 		object.global_position = pos
 		get_parent().add_child.call_deferred(object)
 		return true
