@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pn71l"]
 size = Vector2(80, 80)
 
-[node name="DroppedItem" type="Area2D"]
+[node name="DroppedItem" type="Area2D" groups=["Persistant"]]
 scale = Vector2(0.5, 0.5)
 collision_layer = 8
 collision_mask = 8

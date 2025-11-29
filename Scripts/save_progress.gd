@@ -36,8 +36,11 @@ func save() -> void:
 		for node in get_tree().get_nodes_in_group("Persistant"):
 			var object = {
 				"scene" = node.scene_file_path,
-				"position" = [node.global_position.x, node.global_position.y]
+				"position" = [node.global_position.x, node.global_position.y],
+				"data" = null
 			}
+			if node.has_method("get_save_data"):
+				object.data = node.get_save_data()
 			world.Objects.append(object)
 		world_file.store_string(JSON.stringify(world))
 		world_file.close()
@@ -70,5 +73,7 @@ func load() -> void:
 			var node = load(world.Objects[i].scene).instantiate()
 			node.global_position.x = world.Objects[i].position[0]
 			node.global_position.y = world.Objects[i].position[1]
+			if world.Objects[i].data != null:
+				node.load_save_data(world.Objects[i].data)
 			get_tree().current_scene.add_child(node)
 	
