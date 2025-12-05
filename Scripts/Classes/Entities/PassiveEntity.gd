@@ -12,13 +12,21 @@ func _ready() -> void:
 	retarget()
 
 
+func neads_to_retarget() -> bool:
+	print(target)
+	if global_position.distance_to(target) <= min_distance_before_retarget:
+		return true
+		
+	for raycast : RayCast2D in $CollisionCheck.get_children():
+		if raycast.is_colliding():
+			return true
+			
+	return false
+
+
 func _physics_process(_delta) -> void:
-	if global_position.distance_to(target) <= min_distance_before_retarget or $CollisionCheck.is_colliding():
-		if $RetargetTimer.is_stopped():
-			#$RetargetTimer.wait_time = randf_range(min_retarget_time, max_retarget_time)
-			#$RetargetTimer.start()
-			#await $RetargetTimer.timeout
-			retarget()
+	if neads_to_retarget():
+		retarget()
 	else:
 		velocity = global_position.direction_to(target) * speed
 		move_and_slide()
