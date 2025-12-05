@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Backpack" load_steps=2 format=3 uid="uid://dxflm4gjjxnft"]
+
+[ext_resource type="Script" uid="uid://c0lywttvuiocp" path="res://Scripts/Classes/Backpack.gd" id="1_nsvlh"]
+
+[resource]
+script = ExtResource("1_nsvlh")
+size = 10
+item_name = "Backpack"
+max_amount = 1
+metadata/_custom_type_script = "uid://c0lywttvuiocp"

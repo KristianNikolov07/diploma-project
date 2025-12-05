@@ -3,12 +3,14 @@ extends Control
 @export var items : Array[Item]
 @export var inventory_size = 4
 @export var armor : Armor
+@export var backpack_item : Backpack
 
 var item_slot_scene = preload("res://Scenes/UI/Inventory/item_slot.tscn")
 var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 var selected_slot = 0
 
 @onready var player = get_node("../../")
+@onready var backpack = get_node("../Backpack")
 
 func _ready() -> void:
 	items.resize(inventory_size)
@@ -58,10 +60,16 @@ func add_item(item : Item) -> bool:
 			if left_over == 0:
 				visualize_inventory()
 				return true
+	
+	if backpack.add_item(item):
+		return true
 	return false
 
 
 func has_item(item_name : String, amount = 1) -> bool:
+	if backpack.has_item(item_name, amount):
+		return true
+	
 	var count = 0
 	for i in range(inventory_size):
 		if items[i] != null and items[i].item_name == item_name:
@@ -73,6 +81,9 @@ func has_item(item_name : String, amount = 1) -> bool:
 
 
 func remove_item(item_name : String, amount = 1) -> bool:
+	if backpack.remove_item(item_name, amount):
+		return true
+	
 	for i in range(items.size()):
 		if items[i] != null and items[i].item_name == item_name:
 			items[i].decrease_amount(amount)
@@ -152,6 +163,8 @@ func use_item(slot : int) -> void:
 					remove_item_from_slot(slot)
 			elif items[slot] is Armor:
 				equip_armor_from_slot(slot)
+			elif items[slot] is Backpack:
+				equip_backpack_from_slot(slot)
 
 
 func set_items(_items : Array[Item]) -> void:
@@ -166,6 +179,17 @@ func set_armor(_armor : Armor) -> void:
 		armor = _armor.duplicate()
 	visualize_inventory()
 
+
+func set_backpack(_backpack : Backpack) -> void:
+	if _backpack == null:
+		backpack_item = null
+		backpack.set_inv_size(0)
+	else:
+		backpack_item = _backpack.duplicate()
+		backpack.set_inv_size(backpack_item.size)
+	visualize_inventory()
+
+
 func equip_armor_from_slot(slot : int) -> void:
 	if armor == null:
 		set_armor(items[slot].duplicate())
@@ -175,12 +199,33 @@ func equip_armor_from_slot(slot : int) -> void:
 		set_armor(items[slot].duplicate())
 		remove_item_from_slot(slot)
 		add_item(temp.duplicate())
-		
+
+
+func equip_backpack_from_slot(slot):
+	if backpack_item == null:
+		set_backpack(items[slot].duplicate())
+		remove_item_from_slot(slot)
+	elif backpack_item.size < items[slot].size:
+		var temp = backpack_item.duplicate()
+		set_backpack(items[slot].duplicate())
+		remove_item_from_slot(slot)
+		add_item(temp.duplicate())
+
 
 func unequip_armor() -> void:
 	if armor != null:
 		if add_item(armor.duplicate()):
 			set_armor(null)
+
+
+func unequip_backpack() -> void:
+	if backpack_item != null and backpack.is_empty():
+		if add_item(backpack_item.duplicate()):
+			set_backpack(null)
+
+
+func add_item_to_backpack(slot : int) -> void:
+	backpack.add_item(items[slot])
 
 
 func drop_inventory() -> void:
@@ -202,6 +247,7 @@ func visualize_inventory():
 	for i in range(items.size()):
 		$Inventory.get_node(str(i)).set_item(items[i])
 	$ArmorSlot.set_item(armor)
+	$BackpackSlot.set_item(backpack_item)
 
 
 func visualize_selected_slot():

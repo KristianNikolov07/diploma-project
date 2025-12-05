@@ -13,7 +13,6 @@ func _ready() -> void:
 
 
 func neads_to_retarget() -> bool:
-	print(target)
 	if global_position.distance_to(target) <= min_distance_before_retarget:
 		return true
 		

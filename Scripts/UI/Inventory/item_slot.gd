@@ -7,6 +7,7 @@ enum Type{
 }
 
 @export var type : Type = Type.ITEM
+@export var is_in_backpack = false
 
 var item
 var selected = false
@@ -50,3 +51,10 @@ func deselect() -> void:
 func _on_button_pressed() -> void:
 	if type == Type.ARMOR:
 		get_parent().unequip_armor()
+	elif type == Type.BACKPACK:
+		get_parent().unequip_backpack()
+	else:
+		if is_in_backpack:
+			get_parent().remove_item_from_slot(int(name))
+		else:
+			get_node("../../").add_item_to_backpack(int(name))
