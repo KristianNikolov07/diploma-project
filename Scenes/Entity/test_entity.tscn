@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bjxw2pfj1bxhr" path="res://Assets/Textures/icon.svg" id="2_2825i"]
 [ext_resource type="Resource" uid="uid://dij4313ok1l42" path="res://Resources/Items/test_item.tres" id="3_4cmfr"]
 [ext_resource type="Resource" uid="uid://c0w2p0r52nist" path="res://Resources/Items/Consumables/test_consumable.tres" id="4_n65x8"]
-[ext_resource type="Resource" uid="uid://b45hsf8psul05" path="res://Resources/Items/Weapons/test_weapon.tres" id="5_4rj7j"]
+[ext_resource type="Resource" uid="uid://b45hsf8psul05" path="res://Resources/Items/Tools/test_weapon.tres" id="5_4rj7j"]
 
 [sub_resource type="Resource" id="Resource_t221t"]
 script = ExtResource("2_2mpw2")

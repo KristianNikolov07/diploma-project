@@ -15,19 +15,21 @@ func interact(player : CharacterBody2D) -> void:
 
 
 func get_save_data() -> Dictionary:
-	var type : String
-	if item is Tool:
-		type = "Tool"
-	elif item is StructureItem:
-		type = "StructureItem"
+	var folder_path = "res://Resources/Items"
+	if item is Armor:
+		folder_path += "/Armor"
+	elif item is Backpack:
+		folder_path += "/Backpack"
 	elif item is Consumable:
-		type = "Consumable"
-	else:
-		type = "Item"
-	
+		folder_path += "/Consumables"
+	elif item is StructureItem:
+		folder_path += "/Structures"
+	elif item is Tool:
+		folder_path += "/Tools"
+
 	var data = {
 		"item": {
-			"type": type,
+			"path": folder_path + "/" + item.item_name.to_lower().replace(" ", "_") + ".tres",
 			"data": item.get_save_data()
 		},
 		"can_despawn": can_despawn,
@@ -37,19 +39,12 @@ func get_save_data() -> Dictionary:
 
 
 func load_save_data(data : Dictionary) -> void:
-	if data.item.type == "Item":
-		item = Item.new()
-	elif data.item.type == "Tool":
-		item = Tool.new()
-	elif data.item.type == "Consumable":
-		item = Consumable.new()
-	elif data.item.type == "StructureItem":
-		item = StructureItem.new()
-		
-	item.load_save_data(data.item.data)
+	item = load(data.item.path).duplicate()
 	
+	item.load_save_data(data.item.data)
 	can_despawn = data.can_despawn
-	$DespawnTimer.wait_time = data.despawn_time_left
+	if can_despawn:
+		$DespawnTimer.wait_time = data.despawn_time_left
 
 
 func _on_despawn_timer_timeout() -> void:

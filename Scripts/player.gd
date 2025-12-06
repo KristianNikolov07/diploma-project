@@ -159,7 +159,7 @@ func _on_add_test_item_pressed() -> void:
 
 
 func _on_remove_test_item_pressed() -> void:
-	if inventory.remove_item("test test") == true:
+	if inventory.remove_item("test item") == true:
 		print("Successfully removed a test item")
 	else:
 		print("Unable to remove a test item")
@@ -174,7 +174,7 @@ func _on_add_test_consumable_pressed() -> void:
 
 
 func _on_debug_add_basic_sword() -> void:
-	var sword = load("res://Resources/Items/Weapons/test_weapon.tres")
+	var sword = load("res://Resources/Items/Tools/test_weapon.tres")
 	if inventory.add_item(sword.duplicate()) == true:
 		print("Successfully added a test sword")
 	else:

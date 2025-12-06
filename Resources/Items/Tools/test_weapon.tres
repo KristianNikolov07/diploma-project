@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_cdi6g")
 tool_scene = ExtResource("3_tsdmm")
-item_name = "test_sword"
+item_name = "test_weapon"
 max_amount = 1
 texture = ExtResource("2_f5872")
 metadata/_custom_type_script = "uid://ccifyb4dk0sri"

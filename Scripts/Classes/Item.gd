@@ -24,16 +24,10 @@ func decrease_amount(_amount : int) -> void:
 
 func get_save_data() -> Dictionary:
 	var data = {
-		"name" : item_name,
-		"texture": texture.resource_path,
-		"amount": amount,
-		"max_amount": max_amount
+		"amount": amount
 	}
 	return data
 
 
 func load_save_data(data : Dictionary) -> void:
-	item_name = data.name
-	texture = load(data.texture)
 	amount = data.amount
-	max_amount = data.max_amount
