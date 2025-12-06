@@ -108,31 +108,31 @@ script = ExtResource("4_a8pps")
 
 [node name="SpawnPoints" type="Node" parent="."]
 
-[node name="SpawnPoint" type="Marker2D" parent="SpawnPoints"]
+[node name="SpawnPoint" type="Marker2D" parent="SpawnPoints" groups=["Persistant"]]
 position = Vector2(5176, 2016)
 
-[node name="SpawnPoint2" type="Marker2D" parent="SpawnPoints"]
+[node name="SpawnPoint2" type="Marker2D" parent="SpawnPoints" groups=["Persistant"]]
 position = Vector2(5824, 2472)
 
-[node name="SpawnPoint3" type="Marker2D" parent="SpawnPoints"]
+[node name="SpawnPoint3" type="Marker2D" parent="SpawnPoints" groups=["Persistant"]]
 position = Vector2(6608, 2352)
 
-[node name="SpawnPoint4" type="Marker2D" parent="SpawnPoints"]
+[node name="SpawnPoint4" type="Marker2D" parent="SpawnPoints" groups=["Persistant"]]
 position = Vector2(7424, 2704)
 
-[node name="SpawnPoint5" type="Marker2D" parent="SpawnPoints"]
+[node name="SpawnPoint5" type="Marker2D" parent="SpawnPoints" groups=["Persistant"]]
 position = Vector2(6184, 3016)
 
-[node name="SpawnPoint6" type="Marker2D" parent="SpawnPoints"]
+[node name="SpawnPoint6" type="Marker2D" parent="SpawnPoints" groups=["Persistant"]]
 position = Vector2(8360, 2320)
 
-[node name="SpawnPoint7" type="Marker2D" parent="SpawnPoints"]
+[node name="SpawnPoint7" type="Marker2D" parent="SpawnPoints" groups=["Persistant"]]
 position = Vector2(8984, 2952)
 
-[node name="SpawnPoint8" type="Marker2D" parent="SpawnPoints"]
+[node name="SpawnPoint8" type="Marker2D" parent="SpawnPoints" groups=["Persistant"]]
 position = Vector2(8080, 3344)
 
-[node name="SpawnPoint9" type="Marker2D" parent="SpawnPoints"]
+[node name="SpawnPoint9" type="Marker2D" parent="SpawnPoints" groups=["Persistant"]]
 position = Vector2(4776, 3144)
 
 [node name="DayNightCycle" type="DirectionalLight2D" parent="."]

@@ -19,4 +19,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("damage_with_axe"):
 		body.damage_with_axe(damage)
 		hit.emit()
-		$Area2D/CollisionShape2D.disabled = true
+		$Area2D/CollisionShape2D.set_deferred("disabled", true)
