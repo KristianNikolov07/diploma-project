@@ -47,22 +47,23 @@ func _input(event: InputEvent) -> void:
 
 
 func add_item(item : Item) -> bool:
+	if has_item(item.item_name):
+		for i in range(items.size()):
+			if items[i] != null:
+				if items[i].item_name == item.item_name:
+					var left_over = items[i].increase_amount(item.amount)
+					item.decrease_amount(item.amount - left_over)
+					if left_over == 0:
+						visualize_inventory()
+						return true
+	
 	for i in range(items.size()):
 		if items[i] == null:
 			items[i] = item.duplicate()
 			items[i].amount = item.amount
 			visualize_inventory()
-			reselect_slot()
 			return true
-		elif items[i].item_name == item.item_name:
-			var left_over = items[i].increase_amount(item.amount)
-			item.decrease_amount(item.amount - left_over)
-			if left_over == 0:
-				visualize_inventory()
-				return true
 	
-	if backpack.add_item(item):
-		return true
 	return false
 
 
