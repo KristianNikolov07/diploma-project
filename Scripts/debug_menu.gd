@@ -1,15 +1,9 @@
 extends CanvasLayer
 
-signal list_inventory_pressed
-signal add_test_item_pressed
-signal remove_test_item_pressed
-signal add_test_consumable_pressed
-signal add_basic_sword
-signal damage_player_pressed
-signal heal_player_pressed
-
 var test_entity_scene = preload("res://Scenes/Entity/test_entity.tscn")
 var test_enemy_scene = preload("res://Scenes/Entity/Enemies/test_enemy.tscn")
+
+@onready var player : Player = get_node("../Player")
 
 func _ready() -> void:
 	$Debug.hide()
@@ -21,32 +15,53 @@ func _input(event: InputEvent) -> void:
 			$Debug.visible = !$Debug.visible
 
 
-func _on_list_inventory_pressed() -> void:
-	list_inventory_pressed.emit()
+func list_items() -> void:
+	for i in range(player.inventory.items.size()):
+		print("Item " + str(i) + ":")
+		if player.inventory.items[i] == null:
+			print("null")
+		else:
+			print("Name: " + player.inventory.items[i].item_name)
+			print("Amount: " + str(player.inventory.items[i].amount) + "/" + str(player.inventory.items[i].max_amount))
 
 
 func _on_add_test_item_pressed() -> void:
-	add_test_item_pressed.emit()
+	var test_item = load("res://Resources/Items/test_item.tres")
+	if player.inventory.add_item(test_item.duplicate()) == true:
+		print("Successfully added a test item")
+	else:
+		print("Unable to add a test item")
 
 
 func _on_remove_test_item_pressed() -> void:
-	remove_test_item_pressed.emit()
+	if player.inventory.remove_item("test item") == true:
+		print("Successfully removed a test item")
+	else:
+		print("Unable to remove a test item")
 
 
 func _on_add_test_consumable_pressed() -> void:
-	add_test_consumable_pressed.emit()
+	var test_item = load("res://Resources/Items/Consumables/test_consumable.tres")
+	if player.inventory.add_item(test_item.duplicate()) == true:
+		print("Successfully added a test consumable")
+	else:
+		print("Unable to add a test consumable")
 
 
 func _on_add_basic_sword_pressed() -> void:
-	add_basic_sword.emit()
+	var sword = load("res://Resources/Items/Tools/test_weapon.tres")
+	if player.inventory.add_item(sword.duplicate()) == true:
+		print("Successfully added a test sword")
+	else:
+		print("Unable to add a test sword")
 
 
 func _on_damage_player_pressed() -> void:
-	damage_player_pressed.emit()
+	player.damage(10)
 
 
 func _on_heal_player_pressed() -> void:
-	heal_player_pressed.emit()
+	player.heal(10)
 
 
 func _on_save_pressed() -> void:

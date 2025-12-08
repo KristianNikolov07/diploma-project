@@ -10,11 +10,12 @@ var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 var selected_slot = 0
 
 @onready var player = get_node("../../")
-@onready var backpack = get_node("../Backpack")
+@onready var backpack : BackpackSystem = get_node("../Backpack")
 
 func _ready() -> void:
 	items.resize(inventory_size)
 	initiate_inventory_UI()
+	select_slot(0)
 
 
 func _input(event: InputEvent) -> void:
@@ -68,9 +69,6 @@ func add_item(item : Item) -> bool:
 
 
 func has_item(item_name : String, amount = 1) -> bool:
-	if backpack.has_item(item_name, amount):
-		return true
-	
 	var count = 0
 	for i in range(inventory_size):
 		if items[i] != null and items[i].item_name == item_name:
@@ -82,9 +80,6 @@ func has_item(item_name : String, amount = 1) -> bool:
 
 
 func remove_item(item_name : String, amount = 1) -> bool:
-	if backpack.remove_item(item_name, amount):
-		return true
-	
 	for i in range(items.size()):
 		if items[i] != null and items[i].item_name == item_name:
 			items[i].decrease_amount(amount)
@@ -223,10 +218,6 @@ func unequip_backpack() -> void:
 	if backpack_item != null and backpack.is_empty():
 		if add_item(backpack_item.duplicate()):
 			set_backpack(null)
-
-
-func add_item_to_backpack(slot : int) -> void:
-	backpack.add_item(items[slot])
 
 
 func drop_inventory() -> void:
