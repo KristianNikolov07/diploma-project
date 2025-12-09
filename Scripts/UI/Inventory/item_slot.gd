@@ -8,6 +8,7 @@ enum Type{
 
 @export var type : Type = Type.ITEM
 @export var is_in_backpack = false
+@export var id : int
 
 var item
 var selected = false
@@ -55,6 +56,6 @@ func _on_button_pressed() -> void:
 		get_parent().unequip_backpack()
 	else:
 		if is_in_backpack:
-			get_parent().remove_item_from_slot(int(name))
+			get_parent().remove_item_from_backpack(id)
 		else:
-			get_node("../../").add_item_to_backpack(int(name))
+			get_node("../../").move_item_to_backpack(int(name))

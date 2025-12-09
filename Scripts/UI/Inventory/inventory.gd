@@ -47,15 +47,19 @@ func _input(event: InputEvent) -> void:
 		use_item(selected_slot)
 
 
-func add_item(item : Item) -> bool:
+func add_item(item : Item, bypass_backpack = false) -> bool:
+	if backpack_item != null and bypass_backpack == false:
+		if backpack.add_item(item):
+			return true
+	
 	if has_item(item.item_name):
 		for i in range(items.size()):
 			if items[i] != null:
 				if items[i].item_name == item.item_name:
 					var left_over = items[i].increase_amount(item.amount)
 					item.decrease_amount(item.amount - left_over)
+					visualize_inventory()
 					if left_over == 0:
-						visualize_inventory()
 						return true
 	
 	for i in range(items.size()):
@@ -70,6 +74,10 @@ func add_item(item : Item) -> bool:
 
 func has_item(item_name : String, amount = 1) -> bool:
 	var count = 0
+	
+	if backpack_item != null:
+		count += backpack.get_item_amount(item_name)
+	
 	for i in range(inventory_size):
 		if items[i] != null and items[i].item_name == item_name:
 			count += items[i].amount
@@ -99,6 +107,13 @@ func remove_item_from_slot(slot : int, amount = 1) -> bool:
 		return true
 	else:
 		return false
+
+
+func move_item_to_backpack(slot : int):
+	if items[slot] != null:
+		if backpack.add_item(items[slot]):
+			remove_item_from_slot(slot, items[slot].amount)
+
 
 func select_slot(slot : int) -> void:
 	if slot < inventory_size:
