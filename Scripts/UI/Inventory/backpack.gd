@@ -52,6 +52,11 @@ func add_item(item : Item) -> bool:
 	return false
 
 
+func set_items(_items : Array[Item]) -> void:
+	items = _items
+	update_backpack()
+
+
 func has_item(item_name : String, amount = 1) -> bool:
 	if get_item_amount(item_name) >= amount:
 		return true

@@ -26,6 +26,10 @@ func save() -> void:
 		config.set_value("stats", "hunger", player.hunger_and_thirst.hunger)
 		config.set_value("stats", "thirst", player.hunger_and_thirst.thirst)
 		config.set_value("inventory", "inventory", player.inventory.items)
+		config.set_value("inventory", "armor", player.inventory.armor)
+		config.set_value("inventory", "backpack_item", player.inventory.backpack_item)
+		config.set_value("inventory", "backpack", player.inventory.backpack.items)
+		
 		config.save(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME)
 		
 		# World
@@ -62,6 +66,12 @@ func load() -> void:
 			player.inventory.set_items(config.get_value("inventory", "inventory"))
 		else:
 			player.inventory.set_items([])
+		player.inventory.set_armor(config.get_value("inventory", "armor", null))
+		player.inventory.set_backpack(config.get_value("inventory", "backpack_items", null))
+		if config.has_section_key("inventory", "backpack"):
+			player.inventory.backpack.set_items(config.get_value("inventory", "backpack"))
+		else:
+			player.inventory.backpack.set_items([])
 	
 	# World
 	var save_file = FileAccess.open(SAVES_FOLDER + save_name + "/" + WORLD_FILE_NAME, FileAccess.READ)
@@ -70,10 +80,11 @@ func load() -> void:
 		for node in get_tree().get_nodes_in_group("Persistant"):
 			node.queue_free()
 		for i in range(world.Objects.size()):
-			var node = load(world.Objects[i].scene).instantiate()
-			node.global_position.x = world.Objects[i].position[0]
-			node.global_position.y = world.Objects[i].position[1]
-			if world.Objects[i].data != null:
-				node.load_save_data(world.Objects[i].data)
-			get_tree().current_scene.add_child(node)
+			if world.Objects[i].scene != "":
+				var node = load(world.Objects[i].scene).instantiate()
+				node.global_position.x = world.Objects[i].position[0]
+				node.global_position.y = world.Objects[i].position[1]
+				if world.Objects[i].data != null:
+					node.load_save_data(world.Objects[i].data)
+				get_tree().current_scene.add_child(node)
 	
