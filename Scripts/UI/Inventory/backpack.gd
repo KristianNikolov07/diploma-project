@@ -4,6 +4,7 @@ extends GridContainer
 @export var items : Array[Item]
 
 var item_slot_scene = preload("res://Scenes/UI/Inventory/item_slot.tscn")
+var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 
 @onready var inventory = get_node("../Inventory")
 
@@ -84,6 +85,16 @@ func remove_item_from_backpack(slot : int) -> void:
 	if items[slot] != null:
 		if inventory.add_item(items[slot], true):
 			remove_item_from_slot(slot, items[slot].amount)
+
+
+func drop_all_items() -> void:
+	for i in range(items.size()):
+		if items[i] != null:
+			var dropped_item = dropped_item_scene.instantiate()
+			dropped_item.item = items[i].duplicate()
+			dropped_item.global_position = get_node("../../").global_position
+			remove_item_from_slot(i, items[i].amount)
+			get_node("../../../").add_child(dropped_item)
 
 
 func update_backpack() -> void:

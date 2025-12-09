@@ -232,14 +232,35 @@ func unequip_armor() -> void:
 func unequip_backpack() -> void:
 	if backpack_item != null and backpack.is_empty():
 		if add_item(backpack_item.duplicate()):
+			print("aaa")
 			set_backpack(null)
+
+
+func drop_armor() -> void:
+	if armor != null:
+		var dropped_item = dropped_item_scene.instantiate()
+		dropped_item.item = armor
+		dropped_item.global_position = player.global_position
+		armor = null
+		player.get_parent().add_child(dropped_item)
+
+
+func drop_backpack_item() -> void:
+	if backpack_item != null:
+		var dropped_item = dropped_item_scene.instantiate()
+		dropped_item.item = backpack_item
+		dropped_item.global_position = player.global_position
+		backpack_item = null
+		player.get_parent().add_child(dropped_item)
 
 
 func drop_inventory() -> void:
 	for i in range(inventory_size):
 		drop_item(i, true)
-	unequip_armor()
-	drop_item(0)
+	drop_armor()
+	if backpack_item != null:
+		backpack.drop_all_items()
+		drop_backpack_item()
 
 
 # UI
