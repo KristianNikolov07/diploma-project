@@ -19,6 +19,7 @@ var is_running = false
 @onready var stamina = max_stamina
 @onready var hp = max_hp
 @onready var inventory = $UI/Inventory
+@onready var crafting = $UI/CraftingMenu
 @onready var hp_bar = $UI/Stats/HP
 @onready var hunger_and_thirst = $HungerAndThirst
 

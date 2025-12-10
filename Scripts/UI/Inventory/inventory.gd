@@ -88,6 +88,10 @@ func has_item(item_name : String, amount = 1) -> bool:
 
 
 func remove_item(item_name : String, amount = 1) -> bool:
+	if backpack_item != null:
+		if backpack.has_item(item_name, amount):
+			backpack.remove_item(item_name, amount)
+			
 	for i in range(items.size()):
 		if items[i] != null and items[i].item_name == item_name:
 			items[i].decrease_amount(amount)

@@ -65,6 +65,17 @@ func has_item(item_name : String, amount = 1) -> bool:
 		return false
 
 
+func remove_item(item_name : String, amount = 1) -> bool:
+	for i in range(items.size()):
+		if items[i] != null and items[i].item_name == item_name:
+			items[i].decrease_amount(amount)
+			if items[i].amount <= 0:
+				items[i] = null
+			update_backpack()
+			return true
+	return false
+
+
 func get_item_amount(item_name : String) -> int:
 	var count = 0
 	for i in range(items.size()):

@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cx54gmymjr10i"]
+[gd_scene load_steps=5 format=3 uid="uid://cx54gmymjr10i"]
 
 [ext_resource type="Script" uid="uid://qkkgw8jqlml2" path="res://Scripts/UI/Inventory/crafting_menu.gd" id="1_4njxr"]
 [ext_resource type="Texture2D" uid="uid://cl8j5ej03h0f4" path="res://Assets/Textures/inventory/Crafting/CraftingUIBackground.png" id="1_ht6rx"]
 [ext_resource type="PackedScene" uid="uid://daxxibw6axoih" path="res://Scenes/UI/Inventory/crafting_slot.tscn" id="2_hs25i"]
+[ext_resource type="PackedScene" uid="uid://e2riunx43o7p" path="res://Scenes/UI/Inventory/crafting_tool_slot.tscn" id="4_2fa18"]
 
 [node name="CraftingMenu" type="Control"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,5 +64,26 @@ offset_right = 562.0
 offset_bottom = 471.0
 theme_override_font_sizes/font_size = 32
 text = "Craft"
+
+[node name="Tools" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 396.0
+offset_top = 162.0
+offset_right = 498.0
+offset_bottom = 170.0
+theme_override_constants/separation = 51
+
+[node name="CraftingToolSlot" parent="Tools" instance=ExtResource("4_2fa18")]
+layout_mode = 2
+tool = 1
+
+[node name="CraftingToolSlot2" parent="Tools" instance=ExtResource("4_2fa18")]
+layout_mode = 2
+tool = 2
+
+[node name="CraftingToolSlot3" parent="Tools" instance=ExtResource("4_2fa18")]
+layout_mode = 2
+tool = 3
 
 [connection signal="pressed" from="Craft" to="." method="_on_craft_pressed"]

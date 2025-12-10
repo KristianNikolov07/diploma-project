@@ -3,6 +3,8 @@ extends Control
 var crafting_recipe_scene = preload("res://Scenes/UI/Inventory/crafting_recipe_ui.tscn")
 var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 var selected_recipe : Recipe
+var is_crafting_table : bool = false
+var selected_tool : Recipe.CraftingTool = Recipe.CraftingTool.NONE
 
 @onready var player : Player = get_node("../../")
 
@@ -13,13 +15,25 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("OpenCraftingUI"):
-		selected_recipe = null
-		visible = !visible
-		if visible:
-			player.can_move = false
+		if visible == false:
+			open_menu()
 		else:
 			player.can_move = true
-		update_ui()
+			hide()
+
+
+func open_menu(_is_crafting_table = false) -> void:
+	player.can_move = false
+	selected_recipe = null
+	is_crafting_table = _is_crafting_table
+	
+	if is_crafting_table:
+		$Tools.show()
+	else:
+		$Tools.hide()
+		
+	update_ui()
+	show()
 
 
 func load_recipes() -> void:
@@ -33,9 +47,9 @@ func load_recipes() -> void:
 
 
 func craft(recipe : Recipe) -> void:
-	if player.inventory.has_item(recipe.item1.item_name) and player.inventory.has_item(recipe.item2.item_name):
-		player.inventory.remove_item(recipe.item1.item_name)
-		player.inventory.remove_item(recipe.item2.item_name)
+	if player.inventory.has_item(recipe.item1.item_name, recipe.item1_amount) and player.inventory.has_item(recipe.item2.item_name, recipe.item2_amount):
+		player.inventory.remove_item(recipe.item1.item_name, recipe.item1_amount)
+		player.inventory.remove_item(recipe.item2.item_name, recipe.item2_amount)
 		
 		if !player.inventory.add_item(recipe.result.duplicate()):
 			var dropped_item = dropped_item_scene.instantiate()
@@ -43,6 +57,11 @@ func craft(recipe : Recipe) -> void:
 			dropped_item.global_position = player.global_position
 			get_tree().current_scene.add_child(dropped_item)
 		update_ui()
+
+
+func select_tool(tool : Recipe.CraftingTool) -> void:
+	selected_tool = tool
+	update_ui()
 
 
 func select_recipe(recipe : Recipe) -> void:
@@ -57,14 +76,23 @@ func update_ui() -> void:
 		$Result.set_item(null)
 		$Craft.disabled = true
 	else:
-		$CraftingSlot1.set_item(selected_recipe.item1, player.inventory.has_item(selected_recipe.item1.item_name))
-		$CraftingSlot2.set_item(selected_recipe.item2, player.inventory.has_item(selected_recipe.item2.item_name))
+		$CraftingSlot1.set_item(selected_recipe.item1, selected_recipe.item1_amount, player.inventory.has_item(selected_recipe.item1.item_name, selected_recipe.item1_amount))
+		$CraftingSlot2.set_item(selected_recipe.item2, selected_recipe.item2_amount, player.inventory.has_item(selected_recipe.item2.item_name, selected_recipe.item2_amount))
 		$Result.set_item(selected_recipe.result)
 	
 		if player.inventory.has_item(selected_recipe.item1.item_name) and player.inventory.has_item(selected_recipe.item2.item_name):
 			$Craft.disabled = false
 		else:
 			$Craft.disabled = true
+	for recipe in $Recipes/VBoxContainer.get_children():
+		if recipe.recipe.requires_crafting_table():
+			if is_crafting_table:
+				if recipe.recipe.tool == selected_tool or recipe.recipe.tool == Recipe.CraftingTool.NONE:
+					recipe.show()
+				else:
+					recipe.hide()
+			else:
+				recipe.hide()
 
 
 func _on_craft_pressed() -> void:
