@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bg4fg688arahg"]
+[gd_scene load_steps=4 format=3 uid="uid://bg4fg688arahg"]
 
-[ext_resource type="Texture2D" uid="uid://cdnmejv7kmf85" path="res://Assets/Textures/inventory/Crafting/crafting_recipe.png" id="1_dt6fa"]
+[ext_resource type="Texture2D" uid="uid://b5cwyb3evcox8" path="res://Assets/Textures/inventory/Crafting/crafting_recipe.png" id="1_dt6fa"]
 [ext_resource type="Script" uid="uid://wg3pna2lrlw3" path="res://Scripts/UI/Inventory/crafting_recipe_ui.gd" id="1_k1u3d"]
+[ext_resource type="Texture2D" uid="uid://cdb4a5asg7dhm" path="res://Assets/Textures/Items/Consumables/test_consumable.png" id="3_3fm3v"]
 
 [node name="CraftingRecipeUI" type="Control"]
 layout_mode = 3
@@ -14,28 +15,31 @@ script = ExtResource("1_k1u3d")
 
 [node name="Background" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(111.000015, 35.250004)
+position = Vector2(122, 35.000004)
 scale = Vector2(6.950001, 6.950001)
 texture = ExtResource("1_dt6fa")
 
 [node name="Item1" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(36, 36)
+position = Vector2(32.000004, 34)
 scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_3fm3v")
 
 [node name="Item2" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(120.00001, 36.000004)
+position = Vector2(116.000015, 34)
 scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_3fm3v")
 
 [node name="Result" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(195, 36)
+position = Vector2(207, 34)
 scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_3fm3v")
 
 [node name="TextureButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_right = 222.0
+offset_right = 244.0
 offset_bottom = 70.0
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
