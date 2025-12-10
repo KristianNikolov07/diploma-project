@@ -73,6 +73,7 @@ func _process(_delta: float) -> void:
 		if abs(global_position.y - get_global_mouse_position().y) < placement_range:
 			$StructurePreview.global_position.y = get_global_mouse_position().y
 
+
 func _input(event: InputEvent) -> void:
 	# Inventory
 	if event.is_action_pressed("Attack"):

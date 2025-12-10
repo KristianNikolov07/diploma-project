@@ -58,35 +58,35 @@ autostart = true
 [node name="CollisionCheck" type="RayCast2D" parent="CollisionCheck"]
 exclude_parent = false
 target_position = Vector2(509.58084, 0)
-collision_mask = 16
+collision_mask = 17
 hit_from_inside = true
 
 [node name="CollisionCheck2" type="RayCast2D" parent="CollisionCheck"]
 position = Vector2(0, -26.666666)
 exclude_parent = false
 target_position = Vector2(509.58084, 0)
-collision_mask = 16
+collision_mask = 17
 hit_from_inside = true
 
 [node name="CollisionCheck3" type="RayCast2D" parent="CollisionCheck"]
 position = Vector2(0, 26.666664)
 exclude_parent = false
 target_position = Vector2(509.58084, 0)
-collision_mask = 16
+collision_mask = 17
 hit_from_inside = true
 
 [node name="CollisionCheck4" type="RayCast2D" parent="CollisionCheck"]
 position = Vector2(0, 53.33333)
 exclude_parent = false
 target_position = Vector2(509.58084, 0)
-collision_mask = 16
+collision_mask = 17
 hit_from_inside = true
 
 [node name="CollisionCheck5" type="RayCast2D" parent="CollisionCheck"]
 position = Vector2(0, -53.333336)
 exclude_parent = false
 target_position = Vector2(509.58084, 0)
-collision_mask = 16
+collision_mask = 17
 hit_from_inside = true
 
 [connection signal="timeout" from="RetargetTimer" to="." method="_on_retarget_timeout"]
