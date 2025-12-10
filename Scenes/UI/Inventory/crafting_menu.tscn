@@ -22,27 +22,27 @@ texture = ExtResource("1_ht6rx")
 
 [node name="CraftingSlot1" parent="." instance=ExtResource("2_hs25i")]
 layout_mode = 0
-offset_left = 224.0
-offset_top = 264.0
-offset_right = 240.0
-offset_bottom = 280.0
-scale = Vector2(1.5705817, 1.5705817)
+offset_left = 228.0
+offset_top = 259.0
+offset_right = 244.0
+offset_bottom = 275.0
+scale = Vector2(1.5, 1.5)
 
 [node name="CraftingSlot2" parent="." instance=ExtResource("2_hs25i")]
 layout_mode = 0
-offset_left = 416.0
-offset_top = 264.0
-offset_right = 432.0
-offset_bottom = 280.0
-scale = Vector2(1.5705817, 1.5705817)
+offset_left = 420.0
+offset_top = 259.0
+offset_right = 436.0
+offset_bottom = 275.0
+scale = Vector2(1.5, 1.5)
 
 [node name="Result" parent="." instance=ExtResource("2_hs25i")]
 layout_mode = 0
-offset_left = 608.0
-offset_top = 264.0
-offset_right = 624.0
-offset_bottom = 280.0
-scale = Vector2(1.5705817, 1.5705817)
+offset_left = 612.0
+offset_top = 259.0
+offset_right = 628.0
+offset_bottom = 275.0
+scale = Vector2(1.5, 1.5)
 
 [node name="Recipes" type="ScrollContainer" parent="."]
 layout_mode = 0
@@ -57,10 +57,10 @@ theme_override_constants/separation = 62
 
 [node name="Craft" type="Button" parent="."]
 layout_mode = 0
-offset_left = 376.0
-offset_top = 416.0
-offset_right = 552.0
-offset_bottom = 469.0
+offset_left = 386.0
+offset_top = 418.0
+offset_right = 562.0
+offset_bottom = 471.0
 theme_override_font_sizes/font_size = 32
 text = "Craft"
 
