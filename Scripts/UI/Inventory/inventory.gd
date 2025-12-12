@@ -149,6 +149,10 @@ func reselect_slot():
 
 func drop_item(slot : int, drop_all = false) -> void:
 	if items[slot] != null:
+		
+		if items[slot] is Boat and player.is_in_water():
+			return
+			
 		var node = dropped_item_scene.instantiate()
 		node.item = items[slot].duplicate()
 		if drop_all:

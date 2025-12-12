@@ -72,6 +72,12 @@ func _process(_delta: float) -> void:
 			$StructurePreview.global_position.x = get_global_mouse_position().x
 		if abs(global_position.y - get_global_mouse_position().y) < placement_range:
 			$StructurePreview.global_position.y = get_global_mouse_position().y
+	
+	# Boat
+	if inventory.has_item("Boat"):
+		set_collision_mask_value(1, false)
+	else:
+		set_collision_mask_value(1, true)
 
 
 func _input(event: InputEvent) -> void:
@@ -101,6 +107,14 @@ func damage(damage : int, is_hunger_or_thirst = false) -> void:
 	hp_bar.value = hp
 	if hp <= 0:
 		respawn()
+
+
+func is_in_water() -> bool:
+	var tilemap = get_node("../Tilemap")
+	if tilemap.is_water_tile(Global.global_coords_to_tilemap_coords(global_position)):
+		return true
+	else:
+		return false
 
 
 func heal(_hp : int) -> void:
