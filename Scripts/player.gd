@@ -38,7 +38,7 @@ func _process(_delta: float) -> void:
 		velocity = Input.get_vector("Left", "Right", "Up", "Down") * speed
 		
 		# Running
-		if Input.is_action_pressed("Sprint") and stamina > 0 and $HungerAndThirst.can_sprint():
+		if Input.is_action_pressed("Sprint") and stamina > 0 and $HungerAndThirst.can_sprint() and !is_in_water():
 			is_running = true
 			speed += speed / running_speed_gain
 			if speed > max_running_speed:
