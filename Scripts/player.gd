@@ -14,6 +14,7 @@ extends CharacterBody2D
 @export var stamina_recharge_per_second = 0.25
 
 var is_running = false
+var repair_menu : Control
 
 @onready var speed = base_speed
 @onready var stamina = max_stamina

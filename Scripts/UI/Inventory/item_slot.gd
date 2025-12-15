@@ -9,10 +9,12 @@ enum Type{
 @export var type : Type = Type.ITEM
 @export var is_in_backpack = false
 @export var id : int
+@export var can_be_clicked = true
 
 var item
 var selected = false
 
+@onready var player : Player = get_tree().get_first_node_in_group("Player")
 
 func set_item(_item : Item) -> void:
 	item = _item
@@ -50,12 +52,17 @@ func deselect() -> void:
 
 
 func _on_button_pressed() -> void:
-	if type == Type.ARMOR:
-		get_parent().unequip_armor()
-	elif type == Type.BACKPACK:
-		get_parent().unequip_backpack()
-	else:
-		if is_in_backpack:
-			get_parent().remove_item_from_backpack(id)
+	if can_be_clicked:
+		print("aaa")
+		if player.repair_menu != null:
+			print("aaaaa")
+			player.repair_menu.set_tool(item)
+		elif type == Type.ARMOR:
+			get_parent().unequip_armor()
+		elif type == Type.BACKPACK:
+			get_parent().unequip_backpack()
 		else:
-			get_node("../../").move_item_to_backpack(int(name))
+			if is_in_backpack:
+				get_parent().remove_item_from_backpack(id)
+			else:
+				get_node("../../").move_item_to_backpack(int(name))
