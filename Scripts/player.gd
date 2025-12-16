@@ -14,6 +14,7 @@ extends CharacterBody2D
 @export var stamina_recharge_per_second = 0.25
 
 var is_running = false
+var repair_menu : Control
 
 @onready var speed = base_speed
 @onready var stamina = max_stamina
@@ -38,7 +39,7 @@ func _process(_delta: float) -> void:
 		velocity = Input.get_vector("Left", "Right", "Up", "Down") * speed
 		
 		# Running
-		if Input.is_action_pressed("Sprint") and stamina > 0 and $HungerAndThirst.can_sprint():
+		if Input.is_action_pressed("Sprint") and stamina > 0 and $HungerAndThirst.can_sprint() and !is_in_water():
 			is_running = true
 			speed += speed / running_speed_gain
 			if speed > max_running_speed:
@@ -72,6 +73,12 @@ func _process(_delta: float) -> void:
 			$StructurePreview.global_position.x = get_global_mouse_position().x
 		if abs(global_position.y - get_global_mouse_position().y) < placement_range:
 			$StructurePreview.global_position.y = get_global_mouse_position().y
+	
+	# Boat
+	if inventory.has_item("Boat"):
+		set_collision_mask_value(1, false)
+	else:
+		set_collision_mask_value(1, true)
 
 
 func _input(event: InputEvent) -> void:
@@ -101,6 +108,14 @@ func damage(damage : int, is_hunger_or_thirst = false) -> void:
 	hp_bar.value = hp
 	if hp <= 0:
 		respawn()
+
+
+func is_in_water() -> bool:
+	var tilemap = get_node("../Tilemap")
+	if tilemap.is_water_tile(Global.global_coords_to_tilemap_coords(global_position)):
+		return true
+	else:
+		return false
 
 
 func heal(_hp : int) -> void:
