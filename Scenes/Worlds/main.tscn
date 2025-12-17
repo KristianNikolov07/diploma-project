@@ -19,7 +19,7 @@ texture = ExtResource("1_bvf8x")
 
 [sub_resource type="TileSet" id="TileSet_rt6fk"]
 physics_layer_0/collision_layer = 1
-physics_layer_0/collision_mask = 2
+physics_layer_0/collision_mask = 194
 sources/0 = SubResource("TileSetAtlasSource_msvm5")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_msvm5"]

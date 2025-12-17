@@ -1,11 +1,18 @@
+@tool
 class_name Item
 extends Resource
 
 @export var item_name = ""
 @export_range(1, 128, 1) var max_amount : int = 1
 @export var texture : Texture2D
+@export_tool_button("Set Path") var item_path_button = set_item_path
+@export_file_path() var item_path
 
 var amount : int = 1
+
+func set_item_path() -> void:
+	item_path = resource_path
+
 
 ##Returns the leftover amount
 func increase_amount(_amount : int) -> int:

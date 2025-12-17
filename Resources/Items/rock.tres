@@ -12,4 +12,5 @@ script = ExtResource("1_0stl7")
 item_name = "Rock"
 max_amount = 10
 texture = SubResource("AtlasTexture_8kkxd")
+item_path = "res://Resources/Items/rock.tres"
 metadata/_custom_type_script = "uid://bapf8m2htmno7"

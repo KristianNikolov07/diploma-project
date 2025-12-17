@@ -15,21 +15,9 @@ func interact(player : CharacterBody2D) -> void:
 
 
 func get_save_data() -> Dictionary:
-	var folder_path = "res://Resources/Items"
-	if item is Armor:
-		folder_path += "/Armor"
-	elif item is Backpack:
-		folder_path += "/Backpack"
-	elif item is Consumable:
-		folder_path += "/Consumables"
-	elif item is StructureItem:
-		folder_path += "/Structures"
-	elif item is Tool:
-		folder_path += "/Tools"
-
 	var data = {
 		"item": {
-			"path": folder_path + "/" + item.item_name.to_lower().replace(" ", "_") + ".tres",
+			"path": item.item_path,
 			"data": item.get_save_data()
 		},
 		"can_despawn": can_despawn,
