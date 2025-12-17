@@ -7,6 +7,7 @@ var item_slot_scene = preload("res://Scenes/UI/Inventory/item_slot.tscn")
 var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 
 @onready var inventory = get_node("../Inventory")
+@onready var player : Player = get_node("../../")
 
 func _ready() -> void:
 	hide()
@@ -15,10 +16,17 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ToggleBackpack"):
 		if visible:
+			player.can_move = true
 			hide()
 		elif items.size() > 0:
-			update_backpack()
-			show()
+			if player.can_move:
+				player.can_move = false
+				update_backpack()
+				show()
+	elif event.is_action_pressed("esc"):
+		if visible:
+			player.can_move = true
+			hide()
 
 
 func set_inv_size(new_size : int) -> void:

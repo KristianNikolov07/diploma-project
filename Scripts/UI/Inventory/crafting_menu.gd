@@ -20,20 +20,25 @@ func _input(event: InputEvent) -> void:
 		else:
 			player.can_move = true
 			hide()
+	elif event.is_action_pressed("esc"):
+		if visible:
+			player.can_move = true
+			hide()
 
 
 func open_menu(_is_crafting_table = false) -> void:
-	player.can_move = false
-	selected_recipe = null
-	is_crafting_table = _is_crafting_table
-	
-	if is_crafting_table:
-		$Tools.show()
-	else:
-		$Tools.hide()
+	if player.can_move:
+		player.can_move = false
+		selected_recipe = null
+		is_crafting_table = _is_crafting_table
 		
-	update_ui()
-	show()
+		if is_crafting_table:
+			$Tools.show()
+		else:
+			$Tools.hide()
+			
+		update_ui()
+		show()
 
 
 func load_recipes() -> void:
