@@ -9,3 +9,4 @@ collision_mask = 337
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ctaod")
+debug_color = Color(0, 0.65137404, 0.039394826, 0.41960785)

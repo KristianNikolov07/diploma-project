@@ -15,6 +15,8 @@ func check_position(pos : Vector2) -> bool:
 	var spawn_check : Area2D = spawn_check_scene.instantiate()
 	spawn_check.global_position = pos
 	get_tree().current_scene.add_child(spawn_check)
+	await get_tree().create_timer(0.5).timeout
+	print(spawn_check.get_overlapping_bodies())
 	if spawn_check.get_overlapping_bodies().is_empty():
 		spawn_check.queue_free()
 		return true
@@ -40,7 +42,7 @@ func _on_spawn_attempt_timeout() -> void:
 		if randi_range(0, 1) == 0:
 			distance.y = -distance.y
 		var position : Vector2 = player.global_position + distance
-		if check_position(position):
+		if await check_position(position):
 			var entity = entity_scene.instantiate()
 			entity.global_position = position
 			get_parent().add_child(entity)
