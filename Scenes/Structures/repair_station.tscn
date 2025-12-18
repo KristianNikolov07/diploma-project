@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1il72ic3cmny"]
+
+[ext_resource type="Script" uid="uid://b43nvi8lu3ply" path="res://Scripts/Objects/repair_station.gd" id="1_fehe7"]
+[ext_resource type="Script" uid="uid://d3001nb6tmga0" path="res://Scripts/Classes/Structure.gd" id="1_utwj6"]
+[ext_resource type="Texture2D" uid="uid://bjxw2pfj1bxhr" path="res://Assets/Textures/icon.svg" id="1_vfp5q"]
+[ext_resource type="PackedScene" uid="uid://ri8mkxrx5357" path="res://Scenes/UI/repair_menu.tscn" id="3_hdhtg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_utwj6"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orvt3"]
+size = Vector2(64, 64)
+
+[node name="RepairStation" type="StaticBody2D" groups=["Persistant"]]
+collision_layer = 256
+collision_mask = 544
+script = ExtResource("1_utwj6")
+hp = 20
+metadata/_custom_type_script = "uid://d3001nb6tmga0"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_vfp5q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_utwj6")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 10
+script = ExtResource("1_fehe7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("RectangleShape2D_orvt3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="InteractionArea"]
+
+[node name="RepairMenu" parent="InteractionArea/CanvasLayer" instance=ExtResource("3_hdhtg")]

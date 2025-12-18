@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bjxw2pfj1bxhr" path="res://Assets/Textures/icon.svg" id="1_1arfr"]
 [ext_resource type="Script" uid="uid://c7tmhhhy6jhc7" path="res://Scripts/Classes/StructureItem.gd" id="1_8lai2"]
-[ext_resource type="PackedScene" uid="uid://c1il72ic3cmny" path="res://Scenes/Objects/repair_station.tscn" id="3_guevu"]
+[ext_resource type="PackedScene" uid="uid://c1il72ic3cmny" path="res://Scenes/Structures/repair_station.tscn" id="3_guevu"]
 
 [resource]
 script = ExtResource("1_8lai2")
