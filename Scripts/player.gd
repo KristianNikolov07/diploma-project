@@ -15,6 +15,7 @@ extends CharacterBody2D
 
 var is_running = false
 var repair_menu : Control
+var chest_menu : Area2D
 
 @onready var speed = base_speed
 @onready var stamina = max_stamina

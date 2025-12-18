@@ -10,7 +10,7 @@ var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 var selected_slot = 0
 
 @onready var player = get_node("../../")
-@onready var backpack : BackpackSystem = get_node("../Backpack")
+@onready var backpack : Storage = get_node("../Backpack")
 
 func _ready() -> void:
 	items.resize(inventory_size)
@@ -115,8 +115,9 @@ func remove_item_from_slot(slot : int, amount = 1) -> bool:
 
 func move_item_to_backpack(slot : int):
 	if items[slot] != null:
-		if backpack.add_item(items[slot]):
-			remove_item_from_slot(slot, items[slot].amount)
+		if backpack.is_open():
+			if backpack.add_item(items[slot]):
+				remove_item_from_slot(slot, items[slot].amount)
 
 
 func select_slot(slot : int) -> void:

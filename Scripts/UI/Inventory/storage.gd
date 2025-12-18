@@ -1,4 +1,4 @@
-class_name BackpackSystem
+class_name Storage
 extends GridContainer
 
 @export var items : Array[Item]
@@ -31,6 +31,13 @@ func _input(event: InputEvent) -> void:
 
 func set_inv_size(new_size : int) -> void:
 	items.resize(new_size)
+
+
+func is_open() -> bool:
+	if visible:
+		return true
+	else:
+		return false
 
 
 func is_empty() -> bool:
@@ -100,7 +107,7 @@ func remove_item_from_slot(slot : int, amount = 1) -> void:
 			update_backpack()
 
 
-func remove_item_from_backpack(slot : int) -> void:
+func remove_item_from_storage(slot : int) -> void:
 	if items[slot] != null:
 		if inventory.add_item(items[slot], true):
 			remove_item_from_slot(slot, items[slot].amount)

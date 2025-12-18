@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://clkeesixpv71"]
 
-[ext_resource type="Script" uid="uid://c1w4pipeuo2xw" path="res://Scripts/UI/Inventory/backpack.gd" id="1_3cfwo"]
+[ext_resource type="Script" uid="uid://c1w4pipeuo2xw" path="res://Scripts/UI/Inventory/storage.gd" id="1_3cfwo"]
 
 [node name="Backpack" type="GridContainer"]
 anchors_preset = 8
