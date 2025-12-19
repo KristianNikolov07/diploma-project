@@ -113,6 +113,10 @@ func remove_item_from_slot(slot : int, amount = 1) -> bool:
 		return false
 
 
+func get_selected_item() -> Item:
+	return items[selected_slot]
+
+
 func move_item_to_backpack(slot : int):
 	if items[slot] != null:
 		if backpack.is_open():
