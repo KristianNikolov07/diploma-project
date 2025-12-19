@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WaterContainer" load_steps=2 format=3 uid="uid://m61uldpno3pk"]
+
+[ext_resource type="Script" uid="uid://bkdh80177u42r" path="res://Scripts/Classes/Consumables/WaterContainer.gd" id="1_t2gva"]
+
+[resource]
+script = ExtResource("1_t2gva")
+capacity = 3
+thirst_modifier_when_clean = 10.0
+thirst_modifier_when_polluted = 0.5
+has_unlimited_uses = true
+thirst_modifier = 0.5
+item_name = "Bucket"
+item_path = "res://Resources/Items/Water/bucket.tres"
+metadata/_custom_type_script = "uid://bkdh80177u42r"

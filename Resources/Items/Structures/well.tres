@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StructureItem" load_steps=4 format=3 uid="uid://tnjmr4qn5tb3"]
+
+[ext_resource type="Texture2D" uid="uid://bjxw2pfj1bxhr" path="res://Assets/Textures/icon.svg" id="1_3ftel"]
+[ext_resource type="Script" uid="uid://c7tmhhhy6jhc7" path="res://Scripts/Classes/StructureItem.gd" id="1_t6og0"]
+[ext_resource type="PackedScene" uid="uid://7g3bjao3xxhu" path="res://Scenes/Structures/well.tscn" id="3_3llc0"]
+
+[resource]
+script = ExtResource("1_t6og0")
+structure_scene = ExtResource("3_3llc0")
+preview_texture = ExtResource("1_3ftel")
+item_name = "Well"
+item_path = "res://Resources/Items/Structures/well.tres"
+metadata/_custom_type_script = "uid://c7tmhhhy6jhc7"

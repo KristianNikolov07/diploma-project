@@ -93,6 +93,8 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("Interact"):
 		if $InteractionRange.get_overlapping_areas().size() > 0:
 			$InteractionRange.get_overlapping_areas()[0].interact(get_node("."))
+		elif $InteractionRange.get_overlapping_bodies().size() > 0:
+			$InteractionRange.get_overlapping_bodies()[0].interact(get_node("."))
 
 
 func damage(damage : int, is_hunger_or_thirst = false) -> void:

@@ -57,7 +57,7 @@ _data = {
 z_index = 1
 scale = Vector2(0.3, 0.3)
 collision_layer = 2
-collision_mask = 277
+collision_mask = 21
 script = ExtResource("1_t86h6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -74,7 +74,7 @@ script = ExtResource("3_5f5w1")
 
 [node name="InteractionRange" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 8
+collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRange"]
 shape = SubResource("RectangleShape2D_r6m6p")

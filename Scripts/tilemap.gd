@@ -9,3 +9,10 @@ func is_water_tile(pos : Vector2i) -> bool:
 		return true
 	else:
 		return false
+
+
+func interact(player : Player):
+	if player.inventory.get_selected_item() is WaterContainer:
+		var water_container : WaterContainer = player.inventory.get_selected_item()
+		water_container.pollute()
+		water_container.fill()
