@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://c0ywgb5q0iqsg"]
+[gd_scene load_steps=20 format=4 uid="uid://c0ywgb5q0iqsg"]
 
 [ext_resource type="Texture2D" uid="uid://dxbnx111bw6g3" path="res://Assets/Textures/tilemap.png" id="1_bvf8x"]
 [ext_resource type="Script" uid="uid://cctr251x3yfn2" path="res://Scripts/tilemap.gd" id="2_kdqb4"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://d13d48v0ahe3e" path="res://Scripts/entity_spawning.gd" id="6_hss3q"]
 [ext_resource type="PackedScene" uid="uid://c46u1jvtkutml" path="res://Scenes/Entity/test_entity.tscn" id="7_x7m6j"]
 [ext_resource type="PackedScene" uid="uid://bfb848prm1c6i" path="res://Scenes/Entity/Enemies/test_enemy.tscn" id="8_kdqb4"]
+[ext_resource type="PackedScene" uid="uid://iuq4lp5j1m3b" path="res://Scenes/Structures/campfire.tscn" id="10_lr86y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_msvm5"]
 texture = ExtResource("1_bvf8x")
@@ -161,6 +162,9 @@ max_distance_from_player = 350.0
 [node name="SpawnAttempt" type="Timer" parent="EntitySpawning"]
 wait_time = 10.0
 autostart = true
+
+[node name="Campfire" parent="." instance=ExtResource("10_lr86y")]
+position = Vector2(5080, 2040)
 
 [connection signal="timeout" from="DayNightCycle/Timer" to="DayNightCycle" method="_on_timer_timeout"]
 [connection signal="animation_finished" from="DayNightCycle/AnimationPlayer" to="DayNightCycle" method="_on_animation_player_animation_finished"]

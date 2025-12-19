@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bonc006vbgjtv"]
+[gd_scene load_steps=6 format=3 uid="uid://bonc006vbgjtv"]
 
 [ext_resource type="Texture2D" uid="uid://xbjj7uhpoylb" path="res://Assets/Textures/Objects/tree.png" id="1_b0kcf"]
 [ext_resource type="Script" uid="uid://btlpyrf5fm18" path="res://Scripts/Objects/tree.gd" id="1_ebggc"]
@@ -8,6 +8,9 @@ size = Vector2(12, 56)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ebggc"]
 radius = 26.305893
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ebggc"]
+polygon = PackedVector2Array(16, -64, 28, -64, 28, -8, 16, -8)
 
 [node name="Tree" type="StaticBody2D" groups=["Persistant"]]
 z_index = 2
@@ -36,3 +39,6 @@ collision_mask = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntityCollision"]
 position = Vector2(22, -36)
 shape = SubResource("CircleShape2D_ebggc")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_ebggc")
