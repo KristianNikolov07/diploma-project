@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://jgu3rbyb7a1j"]
+[gd_scene load_steps=8 format=3 uid="uid://jgu3rbyb7a1j"]
 
 [ext_resource type="Texture2D" uid="uid://bjxw2pfj1bxhr" path="res://Assets/Textures/icon.svg" id="2_5ju8n"]
 [ext_resource type="Script" uid="uid://bl0m5fjo6mnik" path="res://Scripts/Objects/chest_interaction_area.gd" id="3_nwhr8"]
 [ext_resource type="Script" uid="uid://c0vxy1cawfm2n" path="res://Scripts/Objects/chest.gd" id="3_s6f8g"]
-[ext_resource type="PackedScene" uid="uid://b14v1jc5n78s2" path="res://Scenes/UI/Inventory/item_slot.tscn" id="4_nwhr8"]
+[ext_resource type="PackedScene" uid="uid://clkeesixpv71" path="res://Scenes/UI/Inventory/storage.tscn" id="4_nwhr8"]
+[ext_resource type="Script" uid="uid://bapf8m2htmno7" path="res://Scripts/Classes/Item.gd" id="5_qfnb3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s6f8g"]
 size = Vector2(64, 64)
@@ -35,56 +36,5 @@ shape = SubResource("RectangleShape2D_5ju8n")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
-offset_left = 404.0
-offset_top = 216.0
-offset_right = 748.0
-offset_bottom = 424.0
-theme_override_constants/h_separation = 68
-theme_override_constants/v_separation = 68
-columns = 5
-
-[node name="ItemSlot" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot2" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot3" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot4" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot5" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot6" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot7" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot8" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot9" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot10" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot11" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot12" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot13" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot14" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
-
-[node name="ItemSlot15" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
-layout_mode = 2
+[node name="Storage" parent="CanvasLayer" instance=ExtResource("4_nwhr8")]
+items = Array[ExtResource("5_qfnb3")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])

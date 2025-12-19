@@ -6,31 +6,27 @@ extends GridContainer
 var item_slot_scene = preload("res://Scenes/UI/Inventory/item_slot.tscn")
 var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 
-@onready var inventory = get_node("../Inventory")
-@onready var player : Player = get_node("../../")
+@onready var player : Player = get_tree().get_first_node_in_group("Player")
 
 func _ready() -> void:
 	hide()
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ToggleBackpack"):
-		if visible:
+	if event.is_action_pressed("esc"):
+		if is_open():
 			player.can_move = true
-			hide()
-		elif items.size() > 0:
-			if player.can_move:
-				player.can_move = false
-				update_backpack()
-				show()
-	elif event.is_action_pressed("esc"):
-		if visible:
-			player.can_move = true
+			player.inventory.opened_storage = null
 			hide()
 
 
 func set_inv_size(new_size : int) -> void:
 	items.resize(new_size)
+
+
+func open() -> void:
+	update_storage()
+	show()
 
 
 func is_open() -> bool:
@@ -54,7 +50,7 @@ func add_item(item : Item) -> bool:
 				if items[i].item_name == item.item_name:
 					var left_over = items[i].increase_amount(item.amount)
 					item.decrease_amount(item.amount - left_over)
-					update_backpack()
+					update_storage()
 					if left_over == 0:
 						return true
 	
@@ -62,7 +58,7 @@ func add_item(item : Item) -> bool:
 		if items[i] == null:
 			items[i] = item.duplicate()
 			items[i].amount = item.amount
-			update_backpack()
+			update_storage()
 			return true
 	
 	return false
@@ -70,7 +66,7 @@ func add_item(item : Item) -> bool:
 
 func set_items(_items : Array[Item]) -> void:
 	items = _items
-	update_backpack()
+	update_storage()
 
 
 func has_item(item_name : String, amount = 1) -> bool:
@@ -86,7 +82,7 @@ func remove_item(item_name : String, amount = 1) -> bool:
 			items[i].decrease_amount(amount)
 			if items[i].amount <= 0:
 				items[i] = null
-			update_backpack()
+			update_storage()
 			return true
 	return false
 
@@ -104,12 +100,12 @@ func remove_item_from_slot(slot : int, amount = 1) -> void:
 		items[slot].decrease_amount(amount)
 		if items[slot].amount <= 0:
 			items[slot] = null
-			update_backpack()
+			update_storage()
 
 
 func remove_item_from_storage(slot : int) -> void:
 	if items[slot] != null:
-		if inventory.add_item(items[slot], true):
+		if player.inventory.add_item(items[slot], true):
 			remove_item_from_slot(slot, items[slot].amount)
 
 
@@ -123,7 +119,7 @@ func drop_all_items() -> void:
 			get_node("../../../").add_child(dropped_item)
 
 
-func update_backpack() -> void:
+func update_storage() -> void:
 	for slot in get_children():
 		slot.queue_free()
 	

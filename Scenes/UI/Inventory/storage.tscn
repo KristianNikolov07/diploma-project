@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://clkeesixpv71"]
 
-[ext_resource type="Script" uid="uid://c1w4pipeuo2xw" path="res://Scripts/UI/Inventory/storage.gd" id="1_3cfwo"]
+[ext_resource type="Script" uid="uid://c1w4pipeuo2xw" path="res://Scripts/UI/Inventory/storage.gd" id="1_srex3"]
 
-[node name="Backpack" type="GridContainer"]
+[node name="Storage" type="GridContainer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -17,4 +17,4 @@ grow_vertical = 2
 theme_override_constants/h_separation = 68
 theme_override_constants/v_separation = 68
 columns = 5
-script = ExtResource("1_3cfwo")
+script = ExtResource("1_srex3")

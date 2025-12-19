@@ -8,6 +8,7 @@ extends Control
 var item_slot_scene = preload("res://Scenes/UI/Inventory/item_slot.tscn")
 var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 var selected_slot = 0
+var opened_storage : Storage
 
 @onready var player = get_node("../../")
 @onready var backpack : Storage = get_node("../Backpack")
@@ -45,6 +46,16 @@ func _input(event: InputEvent) -> void:
 			drop_item(selected_slot, false)
 	if event.is_action_pressed("UseItem"):
 		use_item(selected_slot)
+	if event.is_action_pressed("ToggleBackpack"):
+		if backpack.is_open():
+			player.can_move = true
+			opened_storage = null
+			backpack.hide()
+		elif backpack.items.size() > 0:
+			if player.can_move:
+				player.can_move = false
+				opened_storage = backpack
+				backpack.open()
 
 
 func add_item(item : Item, bypass_backpack = false) -> bool:
@@ -117,10 +128,10 @@ func get_selected_item() -> Item:
 	return items[selected_slot]
 
 
-func move_item_to_backpack(slot : int):
+func move_item_to_storage(slot : int):
 	if items[slot] != null:
-		if backpack.is_open():
-			if backpack.add_item(items[slot]):
+		if opened_storage != null:
+			if opened_storage.add_item(items[slot]):
 				remove_item_from_slot(slot, items[slot].amount)
 
 

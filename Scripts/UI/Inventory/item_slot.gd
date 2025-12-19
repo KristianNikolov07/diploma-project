@@ -64,4 +64,4 @@ func _on_button_pressed() -> void:
 			if is_in_backpack:
 				get_parent().remove_item_from_storage(id)
 			else:
-				get_node("../../").move_item_to_backpack(int(name))
+				get_node("../../").move_item_to_storage(int(name))
