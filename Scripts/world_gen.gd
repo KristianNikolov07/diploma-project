@@ -4,7 +4,7 @@ extends Node
 @export_range(0, 100, 1) var rock_spawn_chance = 5
 @export_range(0, 100, 1) var stick_spawn_chance = 5
 
-var tree_scene = preload("res://Scenes/Objects/tree.tscn")
+var tree_scene = preload("res://Scenes/Structures/tree.tscn")
 var dropped_item_scene = preload("res://Scenes/Objects/dropped_item.tscn")
 var rock_item = preload("res://Resources/Items/rock.tres")
 var stick_item = preload("res://Resources/Items/stick.tres")

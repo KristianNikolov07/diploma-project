@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://jgu3rbyb7a1j"]
+
+[ext_resource type="Texture2D" uid="uid://bjxw2pfj1bxhr" path="res://Assets/Textures/icon.svg" id="2_5ju8n"]
+[ext_resource type="Script" uid="uid://bl0m5fjo6mnik" path="res://Scripts/Objects/chest_interaction_area.gd" id="3_nwhr8"]
+[ext_resource type="Script" uid="uid://c0vxy1cawfm2n" path="res://Scripts/Objects/chest.gd" id="3_s6f8g"]
+[ext_resource type="PackedScene" uid="uid://b14v1jc5n78s2" path="res://Scenes/UI/Inventory/item_slot.tscn" id="4_nwhr8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s6f8g"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ju8n"]
+size = Vector2(64, 64)
+
+[node name="Chest" type="StaticBody2D" groups=["Persistant"]]
+collision_layer = 256
+collision_mask = 544
+script = ExtResource("3_s6f8g")
+metadata/_custom_type_script = "uid://d3001nb6tmga0"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 1, 1, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_5ju8n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_s6f8g")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 10
+script = ExtResource("3_nwhr8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("RectangleShape2D_5ju8n")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
+offset_left = 404.0
+offset_top = 216.0
+offset_right = 748.0
+offset_bottom = 424.0
+theme_override_constants/h_separation = 68
+theme_override_constants/v_separation = 68
+columns = 5
+
+[node name="ItemSlot" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot2" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot3" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot4" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot5" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot6" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot7" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot8" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot9" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot10" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot11" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot12" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot13" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot14" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2
+
+[node name="ItemSlot15" parent="CanvasLayer/GridContainer" instance=ExtResource("4_nwhr8")]
+layout_mode = 2

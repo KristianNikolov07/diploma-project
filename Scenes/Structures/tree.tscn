@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bonc006vbgjtv"]
 
 [ext_resource type="Texture2D" uid="uid://xbjj7uhpoylb" path="res://Assets/Textures/Objects/tree.png" id="1_b0kcf"]
-[ext_resource type="Script" uid="uid://btlpyrf5fm18" path="res://Scripts/Objects/tree.gd" id="1_ebggc"]
+[ext_resource type="Script" uid="uid://d3001nb6tmga0" path="res://Scripts/Classes/Structure.gd" id="2_ebggc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0kcf"]
 size = Vector2(12, 56)
@@ -13,10 +13,10 @@ radius = 26.305893
 polygon = PackedVector2Array(16, -64, 28, -64, 28, -8, 16, -8)
 
 [node name="Tree" type="StaticBody2D" groups=["Persistant"]]
-z_index = 2
-collision_layer = 16
+collision_layer = 272
 collision_mask = 546
-script = ExtResource("1_ebggc")
+script = ExtResource("2_ebggc")
+metadata/_custom_type_script = "uid://d3001nb6tmga0"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -31,6 +31,7 @@ shape = SubResource("RectangleShape2D_b0kcf")
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 position = Vector2(24, -72)
 show_rect = false
+enable_node_path = NodePath("")
 
 [node name="EntityCollision" type="StaticBody2D" parent="."]
 collision_layer = 128

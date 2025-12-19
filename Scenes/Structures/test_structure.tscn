@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfj3612osu8cc"]
+[gd_scene load_steps=4 format=3 uid="uid://dfj3612osu8cc"]
 
+[ext_resource type="Script" uid="uid://d3001nb6tmga0" path="res://Scripts/Classes/Structure.gd" id="1_8rlun"]
 [ext_resource type="Texture2D" uid="uid://bjxw2pfj1bxhr" path="res://Assets/Textures/icon.svg" id="1_51vop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_51vop"]
@@ -8,7 +9,9 @@ size = Vector2(128, 128)
 [node name="TestStructure" type="StaticBody2D" groups=["Persistant"]]
 scale = Vector2(0.5, 0.5)
 collision_layer = 256
-collision_mask = 514
+collision_mask = 544
+script = ExtResource("1_8rlun")
+metadata/_custom_type_script = "uid://d3001nb6tmga0"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_51vop")
