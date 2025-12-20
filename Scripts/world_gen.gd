@@ -27,13 +27,13 @@ func generate_random_objects() -> void:
 		for y in range(Global.tilemap_size):
 			
 			# Attempt to place a tree
-			if tilemap.get_cell_atlas_coords(Vector2i(x, y)) == grass_tile_atlas_coords:
+			if tilemap.is_grass_tile(Vector2i(x, y)):
 				var tree = tree_scene.instantiate()
 				if attempt_to_place(tree, tree_spawn_chance, Global.tilemap_coords_to_global_coords(Vector2(x, y))):
 					continue
 				
 			# Attempt to place a rock
-			if tilemap.get_cell_atlas_coords(Vector2i(x, y)) == grass_tile_atlas_coords or tilemap.get_cell_atlas_coords(Vector2i(x, y)) == sand_tile_atlas_coords:
+			if tilemap.is_water_tile(Vector2i(x, y)) == false:
 				var rock = dropped_item_scene.instantiate()
 				rock.item = rock_item.duplicate()
 				rock.can_despawn = false
@@ -41,7 +41,7 @@ func generate_random_objects() -> void:
 					continue
 			
 			# Attempt to place a stick
-			if tilemap.get_cell_atlas_coords(Vector2i(x, y)) == grass_tile_atlas_coords or tilemap.get_cell_atlas_coords(Vector2i(x, y)) == sand_tile_atlas_coords:
+			if tilemap.is_water_tile(Vector2i(x, y)) == false:
 				var stick = dropped_item_scene.instantiate()
 				stick.item = stick_item.duplicate()
 				stick.can_despawn = false
