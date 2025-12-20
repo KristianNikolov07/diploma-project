@@ -1,7 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://bonc006vbgjtv"]
+[gd_scene load_steps=9 format=3 uid="uid://bonc006vbgjtv"]
 
-[ext_resource type="Texture2D" uid="uid://xbjj7uhpoylb" path="res://Assets/Textures/Objects/tree.png" id="1_b0kcf"]
+[ext_resource type="Texture2D" uid="uid://74nc4t2xywl" path="res://Assets/Textures/Objects/tree.png" id="1_b0kcf"]
 [ext_resource type="Script" uid="uid://d3001nb6tmga0" path="res://Scripts/Classes/Structure.gd" id="2_ebggc"]
+[ext_resource type="Script" uid="uid://dyyxnso5r2v7u" path="res://Scripts/Classes/Loot.gd" id="2_jdkqx"]
+[ext_resource type="Resource" uid="uid://c4bb0qsfqcbsv" path="res://Resources/Items/stick.tres" id="3_uk51g"]
+
+[sub_resource type="Resource" id="Resource_vaht6"]
+script = ExtResource("2_jdkqx")
+item = ExtResource("3_uk51g")
+amount = 3
+chance = 100
+metadata/_custom_type_script = "uid://dyyxnso5r2v7u"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0kcf"]
 size = Vector2(12, 56)
@@ -13,9 +22,11 @@ radius = 26.305893
 polygon = PackedVector2Array(16, -64, 28, -64, 28, -8, 16, -8)
 
 [node name="Tree" type="StaticBody2D" groups=["Persistant"]]
+z_index = 1
 collision_layer = 272
 collision_mask = 546
 script = ExtResource("2_ebggc")
+drops = Array[ExtResource("2_jdkqx")]([SubResource("Resource_vaht6")])
 metadata/_custom_type_script = "uid://d3001nb6tmga0"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
