@@ -4,7 +4,7 @@ const SAVES_FOLDER = "user://saves/"
 const PLAYER_STATS_FILE_NAME = "player_stats.ini"
 const WORLD_FILE_NAME = "world.json"
 
-@export var save_name = ""
+@export var save_name = "Test"
 
 var config = ConfigFile.new()
 var json = JSON.new()
@@ -50,7 +50,21 @@ func save() -> void:
 		world_file.close()
 
 
-func load() -> void:
+func delete(save_name_to_delete : String) -> void:
+	DirAccess.remove_absolute(SAVES_FOLDER + save_name_to_delete + "/" + PLAYER_STATS_FILE_NAME)
+	DirAccess.remove_absolute(SAVES_FOLDER + save_name_to_delete + "/" + WORLD_FILE_NAME)
+	DirAccess.remove_absolute(SAVES_FOLDER + save_name_to_delete)
+
+
+func get_saves() -> PackedStringArray:
+	return DirAccess.get_directories_at(SAVES_FOLDER)
+
+
+func has_save() -> bool:
+	return DirAccess.dir_exists_absolute(SAVES_FOLDER + save_name)
+
+
+func load_save() -> void:
 	if !DirAccess.dir_exists_absolute(SAVES_FOLDER + save_name):
 		DirAccess.make_dir_recursive_absolute(SAVES_FOLDER + save_name)
 	
@@ -86,5 +100,4 @@ func load() -> void:
 				node.global_position.y = world.Objects[i].position[1]
 				if world.Objects[i].data != null:
 					node.load_save_data(world.Objects[i].data)
-				get_tree().current_scene.add_child(node)
-	
+				get_tree().current_scene.call_deferred("add_child", node)
