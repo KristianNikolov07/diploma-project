@@ -18,8 +18,12 @@ var water_tile_atlas_coords = Vector2i(2, 0)
 @onready var player : Player = get_node("../Player")
 
 func _ready() -> void:
-	generate_random_objects()
-	choose_spawn_point()
+	if SaveProgress.has_save():
+		SaveProgress.load_save()
+	else:
+		generate_random_objects()
+		choose_spawn_point()
+		SaveProgress.save()
 
 
 func generate_random_objects() -> void:

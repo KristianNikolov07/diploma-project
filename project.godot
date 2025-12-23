@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Diploma Project"
-run/main_scene="uid://c0ywgb5q0iqsg"
+run/main_scene="uid://dwlyi2oj4yksl"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://Assets/Textures/icon.svg"
 

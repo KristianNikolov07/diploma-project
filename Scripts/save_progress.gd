@@ -4,14 +4,13 @@ const SAVES_FOLDER = "user://saves/"
 const PLAYER_STATS_FILE_NAME = "player_stats.ini"
 const WORLD_FILE_NAME = "world.json"
 
-@export var save_name = "Test"
+@export var save_name = ""
 
 var config = ConfigFile.new()
 var json = JSON.new()
 
-@onready var player : Player = get_tree().get_first_node_in_group("Player")
-
 func save() -> void:
+	var player : Player = get_tree().get_first_node_in_group("Player")
 	if save_name != "":
 		print("Saving game...")
 		if !DirAccess.dir_exists_absolute(SAVES_FOLDER + save_name):
@@ -65,6 +64,7 @@ func has_save() -> bool:
 
 
 func load_save() -> void:
+	var player : Player = get_tree().get_first_node_in_group("Player")
 	if !DirAccess.dir_exists_absolute(SAVES_FOLDER + save_name):
 		DirAccess.make_dir_recursive_absolute(SAVES_FOLDER + save_name)
 	
