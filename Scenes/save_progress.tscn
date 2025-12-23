@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://xusspacd7fde" path="res://Scripts/save_progress.gd" id="1_45r5o"]
 
 [node name="SaveProgress" type="Node"]
+process_mode = 3
 script = ExtResource("1_45r5o")
 
 [node name="SaveTimer" type="Timer" parent="."]
