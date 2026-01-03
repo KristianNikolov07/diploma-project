@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ri8mkxrx5357"]
+[gd_scene load_steps=5 format=3 uid="uid://ri8mkxrx5357"]
 
 [ext_resource type="Script" uid="uid://rmu2kyj31hur" path="res://Scripts/UI/repair_menu.gd" id="1_8uoeh"]
 [ext_resource type="Texture2D" uid="uid://cijpl7aw7r1o2" path="res://Assets/Textures/UI/RepairBackground.png" id="1_hfshf"]
+[ext_resource type="Theme" uid="uid://5uq80ele5x1b" path="res://Assets/main_theme.tres" id="1_hjpn2"]
 [ext_resource type="PackedScene" uid="uid://b14v1jc5n78s2" path="res://Scenes/UI/Inventory/item_slot.tscn" id="2_5p5qb"]
 
 [node name="RepairMenu" type="Control"]
@@ -17,40 +18,41 @@ offset_right = 96.0
 offset_bottom = 188.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_hjpn2")
 script = ExtResource("1_8uoeh")
 
 [node name="Sprite2D" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -96.0
-offset_top = -192.0
-offset_right = -64.0
-offset_bottom = -128.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -160.0
+offset_bottom = -320.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(6, 6)
 texture = ExtResource("1_hfshf")
 
-[node name="Tool" parent="." instance=ExtResource("2_5p5qb")]
-layout_mode = 1
-offset_left = 60.0
-offset_top = 40.0
-offset_right = -132.0
-offset_bottom = -344.0
-can_be_clicked = false
-
 [node name="Material" type="TextureRect" parent="."]
 texture_filter = 1
-layout_mode = 0
-offset_left = 77.0
-offset_top = 165.0
-offset_right = 117.0
-offset_bottom = 205.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.40100002
+anchor_top = 0.43
+anchor_right = 0.609
+anchor_bottom = 0.53400004
+offset_left = 0.0079956055
+offset_top = -0.11999512
+offset_right = 0.07199097
+offset_bottom = -0.056015015
+
+[node name="Tool" parent="." instance=ExtResource("2_5p5qb")]
+layout_mode = 1
+anchor_left = 0.3125
+anchor_top = 0.15104167
+anchor_right = 0.68975
+anchor_bottom = 0.339
 
 [node name="RepairButton" type="Button" parent="."]
 layout_mode = 0

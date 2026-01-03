@@ -22,24 +22,24 @@ func set_item(_item : Item) -> void:
 	if _item != null:
 		$Item.texture = item.texture
 		if item.amount > 1:
-			$Amount.text = str(item.amount)
-			$Amount.show()
+			$MarginContainer/Amount.text = str(item.amount)
+			$MarginContainer/Amount.show()
 		else:
-			$Amount.hide()
+			$MarginContainer/Amount.hide()
 		
 		if item is Tool or item is Armor:
-			$Durability.max_value = item.max_durability
+			$MarginContainer/Durability.max_value = item.max_durability
 			if item.durability == item.max_durability:
-				$Durability.hide()
+				$MarginContainer/Durability.hide()
 			else:
-				$Durability.value = item.durability
-				$Durability.show()
+				$MarginContainer/Durability.value = item.durability
+				$MarginContainer/Durability.show()
 		else:
-			$Durability.hide() 
+			$MarginContainer/Durability.hide() 
 	else:
 		$Item.texture = null
-		$Amount.hide()
-		$Durability.hide() 
+		$MarginContainer/Amount.hide()
+		$MarginContainer/Durability.hide() 
 
 
 func select() -> void:

@@ -1,70 +1,71 @@
-[gd_scene load_steps=7 format=3 uid="uid://b14v1jc5n78s2"]
+[gd_scene load_steps=6 format=3 uid="uid://b14v1jc5n78s2"]
 
 [ext_resource type="Theme" uid="uid://5uq80ele5x1b" path="res://Assets/main_theme.tres" id="1_ds26i"]
-[ext_resource type="Texture2D" uid="uid://bul612thq7sc7" path="res://Assets/Textures/inventory/slot.png" id="1_incig"]
 [ext_resource type="Script" uid="uid://buoumfl2vww4x" path="res://Scripts/UI/Inventory/item_slot.gd" id="1_nl11y"]
 [ext_resource type="Texture2D" uid="uid://6wcirt6ockc0" path="res://Assets/Textures/inventory/slot_selector.png" id="3_q6gx5"]
 [ext_resource type="Texture2D" uid="uid://d1ij53maubivp" path="res://Assets/Textures/inventory/durability_bg.png" id="4_47aue"]
 [ext_resource type="Texture2D" uid="uid://4pmfwnbegmio" path="res://Assets/Textures/inventory/durability.png" id="5_ds26i"]
 
-[node name="ItemSlot" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="ItemSlot" type="PanelContainer"]
+custom_minimum_size = Vector2(72, 72)
+anchors_preset = -1
+anchor_right = 0.062875
+anchor_bottom = 0.11138272
+offset_right = -0.43200684
+offset_bottom = -0.1760025
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ds26i")
 script = ExtResource("1_nl11y")
+metadata/_edit_use_anchors_ = true
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Item" type="TextureRect" parent="."]
 texture_filter = 1
-position = Vector2(36, 36)
-scale = Vector2(4, 4)
-texture = ExtResource("1_incig")
+layout_mode = 2
 
-[node name="Item" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(36, 36)
-scale = Vector2(4, 4)
+[node name="Button" type="TextureButton" parent="."]
+layout_mode = 2
 
-[node name="Amount" type="Label" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="Amount" type="Label" parent="MarginContainer"]
 visible = false
 texture_filter = 1
-layout_mode = 0
-offset_left = 10.0
-offset_top = 53.0
-offset_right = 66.0
-offset_bottom = 69.0
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 theme_override_font_sizes/font_size = 16
 text = "1"
 horizontal_alignment = 2
 
-[node name="Selector" type="Sprite2D" parent="."]
-visible = false
-z_index = 1
-texture_filter = 1
-position = Vector2(36, 36)
-scale = Vector2(4, 4)
-texture = ExtResource("3_q6gx5")
-
-[node name="Durability" type="TextureProgressBar" parent="."]
+[node name="Durability" type="TextureProgressBar" parent="MarginContainer"]
 visible = false
 texture_filter = 1
-layout_mode = 0
-offset_left = 6.0
-offset_top = 61.0
-offset_right = 66.0
-offset_bottom = 66.0
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+size_flags_vertical = 8
 nine_patch_stretch = true
 texture_under = ExtResource("4_47aue")
 texture_progress = ExtResource("5_ds26i")
 
-[node name="Button" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 68.0
-offset_bottom = 68.0
+[node name="Selector" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = -5
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = -5
+theme_override_constants/margin_bottom = -5
+
+[node name="Selector" type="TextureRect" parent="Selector"]
+z_index = 1
+texture_filter = 1
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+texture = ExtResource("3_q6gx5")
+expand_mode = 1
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

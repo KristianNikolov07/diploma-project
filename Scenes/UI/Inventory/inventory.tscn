@@ -17,26 +17,18 @@ items = Array[ExtResource("2_4svce")]([ExtResource("3_gx7nd")])
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/separation = 68
+theme_override_constants/separation = -5
 
 [node name="ArmorSlot" parent="." instance=ExtResource("2_1i8xw")]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_right = 0.0
-offset_top = -72.0
-offset_bottom = -72.0
+anchor_top = 0.78549385
+anchor_bottom = 0.8968766
 grow_horizontal = 1
-grow_vertical = 0
-type = 1
+grow_vertical = 1
 
 [node name="BackpackSlot" parent="." instance=ExtResource("2_1i8xw")]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_right = 0.0
-offset_top = -140.0
-offset_bottom = -140.0
+anchor_top = 0.8888889
+anchor_bottom = 1.0002717
 grow_horizontal = 1
-grow_vertical = 0
-type = 2
+grow_vertical = 1
