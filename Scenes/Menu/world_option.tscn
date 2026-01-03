@@ -1,67 +1,63 @@
 [gd_scene load_steps=4 format=3 uid="uid://cbn5dohwkbou"]
 
-[ext_resource type="Texture2D" uid="uid://c4lga0xoqhytj" path="res://Assets/Textures/UI/WorldOptionBackground.png" id="1_uqpma"]
+[ext_resource type="Theme" uid="uid://5uq80ele5x1b" path="res://Assets/main_theme.tres" id="1_d46mp"]
 [ext_resource type="Script" uid="uid://dbrp21g882cav" path="res://Scripts/Menu/world_option.gd" id="1_yhtm6"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_uqpma"]
 
-[node name="WorldOption" type="Control"]
-layout_mode = 3
-anchor_right = 0.66700006
-anchor_bottom = 0.148
-offset_right = -0.3840332
-offset_bottom = 0.09600067
+[node name="WorldOption" type="PanelContainer"]
+anchors_preset = -1
+anchor_right = 0.675
+anchor_bottom = 0.163
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -4.6000366
+offset_bottom = -4.6240005
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_d46mp")
 script = ExtResource("1_yhtm6")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(384, 48.000004)
-scale = Vector2(6, 6)
-texture = ExtResource("1_uqpma")
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Buttons" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 450.0
-offset_top = 11.0
-offset_right = 756.0
-offset_bottom = 83.0
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "World Name"
+
+[node name="Buttons" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
 theme_override_constants/separation = 54
 
-[node name="Play" type="Button" parent="Buttons"]
+[node name="Play" type="Button" parent="HBoxContainer/Buttons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 46
 text = "Play"
 
-[node name="Delete" type="Button" parent="Buttons"]
+[node name="Delete" type="Button" parent="HBoxContainer/Buttons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 46
 text = "Delete"
 
-[node name="ProgressBar" type="TextureProgressBar" parent="Buttons/Delete"]
+[node name="ProgressBar" type="TextureProgressBar" parent="HBoxContainer/Buttons/Delete"]
 self_modulate = Color(0.5294118, 0.08235294, 0.16470589, 0.38431373)
-layout_mode = 0
-offset_right = 152.0
-offset_bottom = 72.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 step = 0.01
 value = 30.0
 nine_patch_stretch = true
 texture_progress = SubResource("CanvasTexture_uqpma")
 
-[node name="DeleteTimer" type="Timer" parent="Buttons/Delete"]
+[node name="DeleteTimer" type="Timer" parent="HBoxContainer/Buttons/Delete"]
 wait_time = 2.0
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 16.0
-offset_right = 290.0
-offset_bottom = 80.0
-theme_override_font_sizes/font_size = 46
-text = "World Name"
-
-[connection signal="pressed" from="Buttons/Play" to="." method="_on_play_pressed"]
-[connection signal="button_down" from="Buttons/Delete" to="." method="_on_delete_button_down"]
-[connection signal="button_up" from="Buttons/Delete" to="." method="_on_delete_button_up"]
-[connection signal="timeout" from="Buttons/Delete/DeleteTimer" to="." method="_on_delete_timer_timeout"]
+[connection signal="pressed" from="HBoxContainer/Buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="button_down" from="HBoxContainer/Buttons/Delete" to="." method="_on_delete_button_down"]
+[connection signal="button_up" from="HBoxContainer/Buttons/Delete" to="." method="_on_delete_button_up"]
+[connection signal="timeout" from="HBoxContainer/Buttons/Delete/DeleteTimer" to="." method="_on_delete_timer_timeout"]

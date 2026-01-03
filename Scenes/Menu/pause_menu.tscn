@@ -1,9 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://bfru26xs7uhmj"]
 
 [ext_resource type="Script" uid="uid://dojtfgtjlrccf" path="res://Scripts/Menu/pause_menu.gd" id="1_i0al5"]
+[ext_resource type="Theme" uid="uid://5uq80ele5x1b" path="res://Assets/main_theme.tres" id="1_jnmi5"]
 [ext_resource type="PackedScene" uid="uid://dx25w13rsr5xr" path="res://Scenes/Menu/settings_menu.tscn" id="2_6pfc5"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_0uq3f"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -13,23 +12,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_jnmi5")
 script = ExtResource("1_i0al5")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0, 0, 0, 0.19607843)
-position = Vector2(576.00006, 323.75003)
-scale = Vector2(1152.0001, 648.5)
-texture = SubResource("CanvasTexture_0uq3f")
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.20392157, 0.20392157, 0.20392157, 0.38039216)
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 68.0
-offset_top = -136.5
-offset_right = 398.0
-offset_bottom = 136.5
+anchors_preset = -1
+anchor_left = 0.059000004
+anchor_top = 0.296
+anchor_right = 0.34500003
+anchor_bottom = 0.632
+offset_left = -3.9680023
+offset_top = 17.192001
+offset_right = -3.440033
+offset_bottom = 21.46399
 grow_vertical = 2
 theme_override_constants/separation = 24
 
@@ -52,10 +57,13 @@ text = "Save and Quit"
 [node name="SettingsMenu" parent="." instance=ExtResource("2_6pfc5")]
 visible = false
 layout_mode = 1
-offset_left = 304.0
-offset_top = 128.0
-offset_right = -304.0
-offset_bottom = -136.0
+anchor_left = 0.25
+anchor_top = 0.19753087
+anchor_right = 0.75
+anchor_bottom = 0.79053074
+grow_horizontal = 1
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Buttons/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Buttons/Settings" to="." method="_on_settings_pressed"]

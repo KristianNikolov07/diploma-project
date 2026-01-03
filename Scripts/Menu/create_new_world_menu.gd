@@ -6,13 +6,13 @@ func _ready() -> void:
 
 func _on_world_name_text_changed(new_text: String) -> void:
 	if new_text.replace(" ", "") != "":
-		$VBoxContainer/CreateNewWorld.disabled = false
+		$CenterContainer/VBoxContainer/CreateNewWorld.disabled = false
 	else:
-		$VBoxContainer/CreateNewWorld.disabled = true
+		$CenterContainer/VBoxContainer/CreateNewWorld.disabled = true
 
 
 func _on_create_new_world_pressed() -> void:
-	SaveProgress.save_name = $VBoxContainer/WorldName.text
+	SaveProgress.save_name = $CenterContainer/VBoxContainer/WorldName.text
 	get_tree().change_scene_to_file("res://Scenes/Worlds/main.tscn")
 
 

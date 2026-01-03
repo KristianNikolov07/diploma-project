@@ -14,9 +14,9 @@ func _ready() -> void:
 	var lang = config.get_value("Settings", "Language", 0)
 	var volume = config.get_value("Settings", "Volume", 100)
 	set_language(lang)
-	$Settings/Language/Language.selected = lang
+	$CenterContainer/Settings/Language/Language.selected = lang
 	set_volume(volume)
-	$Settings/Volume/HSlider.value = volume
+	$CenterContainer/Settings/Volume/HSlider.value = volume
 
 
 func _on_back_pressed() -> void:

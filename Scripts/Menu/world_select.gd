@@ -13,7 +13,7 @@ func get_worlds() -> void:
 	for world in SaveProgress.get_saves():
 		var world_option = world_option_scene.instantiate()
 		world_option.world_name = world
-		$Worlds/VBoxContainer.add_child(world_option)
+		$VBoxContainer/Worlds/VBoxContainer.add_child(world_option)
 
 
 func _on_back_pressed() -> void:

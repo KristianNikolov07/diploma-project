@@ -1,62 +1,52 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1rwvhccj8sbd"]
 
 [ext_resource type="Script" uid="uid://b3b6cyuhfe42q" path="res://Scripts/Menu/create_new_world_menu.gd" id="1_336xh"]
-[ext_resource type="Texture2D" uid="uid://ccg8bglktyry3" path="res://Assets/Textures/UI/CreateNewWorldMenuBackground.png" id="1_xnoih"]
+[ext_resource type="Theme" uid="uid://5uq80ele5x1b" path="res://Assets/main_theme.tres" id="1_rbmno"]
 
-[node name="CreateNewWorldMenu" type="Control"]
-layout_mode = 3
-anchor_right = 0.66700006
-anchor_bottom = 0.59300005
-offset_right = -0.3840332
-offset_bottom = -0.2640381
+[node name="CreateNewWorldMenu" type="PanelContainer"]
+anchors_preset = -1
+anchor_right = 0.675
+anchor_bottom = 0.60800004
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -4.6000366
+offset_bottom = -4.9840393
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_rbmno")
 script = ExtResource("1_336xh")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(384, 192)
-scale = Vector2(6, 6)
-texture = ExtResource("1_xnoih")
-
 [node name="Back" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -102.0
-offset_bottom = 108.0
-grow_horizontal = 0
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 64
 text = "X"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -169.0
-offset_top = -85.0
-offset_right = 169.0
-offset_bottom = 85.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="WorldName" type="LineEdit" parent="VBoxContainer"]
+[node name="WorldName" type="LineEdit" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 placeholder_text = "World Name"
 alignment = 1
+max_length = 50
 
-[node name="CreateNewWorld" type="Button" parent="VBoxContainer"]
+[node name="CreateNewWorld" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 disabled = true
 text = "Create"
 
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
-[connection signal="text_changed" from="VBoxContainer/WorldName" to="." method="_on_world_name_text_changed"]
-[connection signal="pressed" from="VBoxContainer/CreateNewWorld" to="." method="_on_create_new_world_pressed"]
+[connection signal="text_changed" from="CenterContainer/VBoxContainer/WorldName" to="." method="_on_world_name_text_changed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/CreateNewWorld" to="." method="_on_create_new_world_pressed"]
