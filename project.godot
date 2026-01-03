@@ -24,6 +24,7 @@ SaveProgress="*res://Scenes/save_progress.tscn"
 
 window/size/resizable=false
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor]
 

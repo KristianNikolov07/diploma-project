@@ -5,12 +5,13 @@
 
 [node name="CreateNewWorldMenu" type="PanelContainer"]
 anchors_preset = -1
-anchor_right = 0.675
-anchor_bottom = 0.60800004
-offset_left = 5.0
+anchor_left = 0.004
+anchor_right = 0.671
+anchor_bottom = 0.6
+offset_left = 0.39199972
 offset_top = 5.0
-offset_right = -4.6000366
-offset_bottom = -4.9840393
+offset_right = 0.0079956055
+offset_bottom = 0.19998169
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_rbmno")

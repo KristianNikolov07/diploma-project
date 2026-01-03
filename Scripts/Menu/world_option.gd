@@ -4,15 +4,15 @@ var world_name = "Test"
 var delete_pressed = false
 
 func _ready() -> void:
-	$HBoxContainer/Label.text = world_name
-	$HBoxContainer/Buttons/Delete/ProgressBar.max_value = $HBoxContainer/Buttons/Delete/DeleteTimer.wait_time
+	$MarginContainer/HBoxContainer/Label.text = world_name
+	$MarginContainer/HBoxContainer/Buttons/Delete/ProgressBar.max_value = $MarginContainer/HBoxContainer/Buttons/Delete/DeleteTimer.wait_time
 
 
 func _process(_delta: float) -> void:
-	if $HBoxContainer/Buttons/Delete.is_pressed():
-		$HBoxContainer/Buttons/Delete/ProgressBar.value = $HBoxContainer/Buttons/Delete/ProgressBar.max_value - $HBoxContainer/Buttons/Delete/DeleteTimer.time_left
+	if $MarginContainer/HBoxContainer/Buttons/Delete.is_pressed():
+		$MarginContainer/HBoxContainer/Buttons/Delete/ProgressBar.value = $MarginContainer/HBoxContainer/Buttons/Delete/ProgressBar.max_value - $MarginContainer/HBoxContainer/Buttons/Delete/DeleteTimer.time_left
 	else:
-		$HBoxContainer/Buttons/Delete/ProgressBar.value = 0
+		$MarginContainer/HBoxContainer/Buttons/Delete/ProgressBar.value = 0
 
 
 func _on_play_pressed() -> void:
@@ -21,12 +21,12 @@ func _on_play_pressed() -> void:
 
 
 func _on_delete_button_up() -> void:
-	$HBoxContainer/Buttons/Delete/DeleteTimer.stop()
+	$MarginContainer/HBoxContainer/Buttons/Delete/DeleteTimer.stop()
 
 
 func _on_delete_button_down() -> void:
-	if $HBoxContainer/Buttons/Delete/DeleteTimer.is_stopped():
-		$HBoxContainer/Buttons/Delete/DeleteTimer.start()
+	if $MarginContainer/HBoxContainer/Buttons/Delete/DeleteTimer.is_stopped():
+		$MarginContainer/HBoxContainer/Buttons/Delete/DeleteTimer.start()
 
 
 func _on_delete_timer_timeout() -> void:
