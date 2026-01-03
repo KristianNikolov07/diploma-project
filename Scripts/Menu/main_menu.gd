@@ -2,7 +2,8 @@ extends Control
 
 func _ready() -> void:
 	SaveProgress.save_name = "" # So it doesn't try to save the game while in the main menu
-
+	
+	$Version.text = ProjectSettings.get_setting("application/config/version")
 
 func _on_play_pressed() -> void:
 	$MainButtons.hide()

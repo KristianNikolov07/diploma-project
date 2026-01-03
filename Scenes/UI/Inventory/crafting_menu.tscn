@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cx54gmymjr10i"]
+[gd_scene load_steps=6 format=3 uid="uid://cx54gmymjr10i"]
 
 [ext_resource type="Script" uid="uid://qkkgw8jqlml2" path="res://Scripts/UI/Inventory/crafting_menu.gd" id="1_4njxr"]
-[ext_resource type="Texture2D" uid="uid://cl8j5ej03h0f4" path="res://Assets/Textures/inventory/Crafting/CraftingUIBackground.png" id="1_ht6rx"]
+[ext_resource type="Theme" uid="uid://5uq80ele5x1b" path="res://Assets/main_theme.tres" id="1_fyp3v"]
+[ext_resource type="Texture2D" uid="uid://bm2kgfprpt5cr" path="res://Assets/Textures/inventory/Crafting/CraftingUIBackground.png" id="1_ht6rx"]
 [ext_resource type="PackedScene" uid="uid://daxxibw6axoih" path="res://Scenes/UI/Inventory/crafting_slot.tscn" id="2_hs25i"]
 [ext_resource type="PackedScene" uid="uid://e2riunx43o7p" path="res://Scenes/UI/Inventory/crafting_tool_slot.tscn" id="4_2fa18"]
 
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_fyp3v")
 script = ExtResource("1_4njxr")
 
 [node name="Background" type="Sprite2D" parent="."]
