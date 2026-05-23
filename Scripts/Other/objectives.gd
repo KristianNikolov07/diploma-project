@@ -7,6 +7,7 @@ const OBJECTIVES_FILE_PATH = "res://Assets/Objectives.json"
 var objectives = {}
 ## The objective the player is currently completing
 var current_objective = "movement"
+var _regex := RegEx.create_from_string(r"(?<=CONTROL\()[^)]+(?=\))")
 
 func _ready() -> void:
 	parse_objectives()
@@ -31,9 +32,7 @@ func set_objective(objective : String) -> void:
 ## Updates the UI that displayes the current objective
 func update_ui() -> void:
 	var description : String = tr(objectives[current_objective]["description"])
-	var regex = RegEx.new()
-	regex.compile(r"(?<=CONTROL\()[^)]+(?=\))")
-	for action in regex.search_all(description):
+	for action in _regex.search_all(description):
 		if InputMap.has_action(action.get_string()) and InputMap.action_get_events(action.get_string()).size() > 0:
 			var event = InputMap.action_get_events(action.get_string())[0]
 			var keybind = event.as_text().replace(" - Physical", "").lstrip(" ").rstrip(" ")
