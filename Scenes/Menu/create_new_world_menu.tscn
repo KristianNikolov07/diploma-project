@@ -32,9 +32,15 @@ size_flags_vertical = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=256546501]
 layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1474374951]
+layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 20
 
-[node name="WorldName" type="LineEdit" parent="CenterContainer/VBoxContainer" unique_id=1873720157]
+[node name="WorldName" type="LineEdit" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1873720157]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
@@ -42,12 +48,24 @@ placeholder_text = "WORLD_NAME"
 alignment = 1
 max_length = 50
 
-[node name="CreateNewWorld" type="Button" parent="CenterContainer/VBoxContainer" unique_id=126498327]
+[node name="WorldSeed" type="LineEdit" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=811691696]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
+placeholder_text = "World Seed"
+alignment = 1
+max_length = 50
+
+[node name="CreateNewWorld" type="Button" parent="CenterContainer/VBoxContainer" unique_id=126498327]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 48
 disabled = true
 text = "CREATE"
 
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
-[connection signal="text_changed" from="CenterContainer/VBoxContainer/WorldName" to="." method="_on_world_name_text_changed"]
+[connection signal="text_changed" from="CenterContainer/VBoxContainer/HBoxContainer/WorldName" to="." method="_on_world_name_text_changed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/CreateNewWorld" to="." method="_on_create_new_world_pressed"]

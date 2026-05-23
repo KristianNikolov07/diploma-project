@@ -176,7 +176,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsrq0"]
-size = Vector2(256.66666, 256.66666)
+size = Vector2(156.66666, 146.66666)
 
 [node name="Player" type="CharacterBody2D" unique_id=2146920496]
 z_index = 5
@@ -271,7 +271,7 @@ collision_mask = 272
 script = ExtResource("8_w3k6v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnAreaClear" unique_id=1597975902]
-position = Vector2(1.6666666, -1.6666666)
+position = Vector2(-1.6666666, 3.3333333)
 shape = SubResource("RectangleShape2D_vsrq0")
 debug_color = Color(0.6591337, 0.5090556, 0.23106265, 0.41960785)
 
