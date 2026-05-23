@@ -28,6 +28,8 @@ func _ready() -> void:
 		get_parent().get_node("Forest").generate()
 		SaveProgress.get_node("PlaytimeCounter").start()
 		await get_tree().physics_frame
+		await get_tree().physics_frame
+		player.get_node("SpawnAreaClear").clear_area() # This is so the player doesn't spawn inside structures
 		SaveProgress.save()
 
 
@@ -81,7 +83,6 @@ func choose_spawn_point(rng : RandomNumberGenerator) -> void:
 	var pos = spawn_points_node.get_child(rand).global_position
 	player.global_position = pos
 	player.respawn_point = pos
-	player.get_node("SpawnAreaClear").clear_area()
 
 	for child in spawn_points_node.get_children():
 		child.queue_free()

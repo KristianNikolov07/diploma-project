@@ -9,7 +9,7 @@ const WORLD_FILE_NAME = "world.json"
 ## The name of the save
 @export var save_name = ""
 
-var world_seed : int = 100
+var world_seed : int = 0
 var config = ConfigFile.new()
 var json = JSON.new()
 
@@ -166,7 +166,8 @@ func load_save() -> void:
 		return
 
 	# World Seed
-	world_seed = world.get("world_seed")
+	if world.get("world_seed") != null:
+		world_seed = world.get("world_seed")
 
 	# Time of Day
 	var day_night_cycle = get_tree().current_scene.find_child("DayNightCycle")
