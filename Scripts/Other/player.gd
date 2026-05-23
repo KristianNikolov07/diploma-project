@@ -15,16 +15,16 @@ extends CharacterBody2D
 @export_group("Speed and Stamina")
 ## The speed of the player when he isn't running
 @export var base_speed : float = 200
-## The amount of speed the player gains while running 
-@export var running_speed_gain : float = 5
+## The acceleration applied while running
+@export var running_speed_gain : float = 2000
 ## The maximum amount of speed the player can have when running 
 @export var max_running_speed = 400 
 ## The maximum amount if stamina the player can have
 @export var max_stamina = 200
 ## The amount the stamina decreases by every second while running
-@export var stamina_decrease_per_second = 0.5
+@export var stamina_decrease_per_second = 30.0
 ## The amount the stamina increases by every second while not running
-@export var stamina_recharge_per_second = 0.25
+@export var stamina_recharge_per_second = 15.0
 
 ## Whether or not the player is currently running
 var is_running = false
@@ -59,17 +59,14 @@ func _ready() -> void:
 	
 
 
-func _process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if can_move:
 		velocity = Input.get_vector("Left", "Right", "Up", "Down") * speed
-		
+
 		# Running
 		if Input.is_action_pressed("Sprint") and stamina > 0 and $HungerAndThirst.can_sprint() and !is_in_water():
 			is_running = true
-			@warning_ignore("integer_division")
-			speed += speed / running_speed_gain
-			if speed > max_running_speed:
-				speed = max_running_speed
+			speed = min(speed + running_speed_gain * delta, max_running_speed)
 			
 			# Sprinting Objective
 			objectives.complete_objective("sprint")
@@ -85,13 +82,13 @@ func _process(_delta: float) -> void:
 	
 	# Stamina
 	if is_running and velocity != Vector2.ZERO:
-		stamina -= stamina_decrease_per_second
+		stamina -= stamina_decrease_per_second * delta
 	elif velocity != Vector2.ZERO: # Walking
-		stamina += stamina_recharge_per_second
+		stamina += stamina_recharge_per_second * delta
 		if stamina > max_stamina:
 			stamina = max_stamina
 	else: # Standing still
-		stamina += stamina_recharge_per_second * 2
+		stamina += stamina_recharge_per_second * 2 * delta
 		if stamina > max_stamina:
 			stamina = max_stamina
 	if stamina != max_stamina:

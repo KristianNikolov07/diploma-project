@@ -5,6 +5,9 @@ func _ready() -> void:
 		for mod in DirAccess.get_directories_at(Global.MODS_FOLDER):
 			var mod_path = Global.MODS_FOLDER + "/" + mod
 			var enabled_check_file = FileAccess.open(mod_path + "/" + Global.MODS_ENABLE_CHECK_FILE_NAME, FileAccess.READ)
+			if enabled_check_file == null:
+				push_error("Could not read enable check file for mod: " + mod_path)
+				continue
 			if enabled_check_file.get_var() == true:
 				load_mod(mod_path)
 			enabled_check_file.close()

@@ -51,6 +51,9 @@ func save() -> void:
 		
 		# World
 		var world_file = FileAccess.open(SAVES_FOLDER + save_name + "/" + WORLD_FILE_NAME, FileAccess.WRITE)
+		if world_file == null:
+			push_error("Failed to open world file for writing: " + SAVES_FOLDER + save_name + "/" + WORLD_FILE_NAME)
+			return
 		var world = {
 			"time_of_day": "",
 			"time_till_time_change": null,
@@ -149,27 +152,34 @@ func load_save() -> void:
 	
 	# World
 	var save_file = FileAccess.open(SAVES_FOLDER + save_name + "/" + WORLD_FILE_NAME, FileAccess.READ)
+	if save_file == null:
+		push_error("Failed to open world file: " + SAVES_FOLDER + save_name + "/" + WORLD_FILE_NAME)
+		return
 	var world = JSON.parse_string(save_file.get_as_text())
-	
+	save_file.close()
+	if world == null:
+		push_error("Failed to parse world file for save: " + save_name)
+		return
+
 	# Time of Day
 	var day_night_cycle = get_tree().current_scene.find_child("DayNightCycle")
-	if world.time_of_day == "night":
+	if world.get("time_of_day") == "night":
 		if world.time_till_time_change != null:
 			day_night_cycle.set_to_night(true, world.time_till_time_change)
 		else:
 			day_night_cycle.set_to_night(true)
 	else:
-		if world.time_till_time_change != null:
+		if world.get("time_till_time_change") != null:
 			day_night_cycle.set_to_day(true, world.time_till_time_change)
 		else:
 			day_night_cycle.set_to_day(true)
-	
-	
-	if world.Objects != null:
+
+
+	if world.get("Objects") != null:
 		for node in get_tree().get_nodes_in_group("Persistant"):
 			node.queue_free()
 		for i in range(world.Objects.size()):
-			if world.Objects[i].scene != "":
+			if world.Objects[i].get("scene", "") != "":
 				var node = load(world.Objects[i].scene).instantiate()
 				node.global_position.x = world.Objects[i].position[0]
 				node.global_position.y = world.Objects[i].position[1]
