@@ -21,8 +21,10 @@ func _ready() -> void:
 	if SaveProgress.has_save():
 		SaveProgress.load_save()
 	else:
-		choose_spawn_point()
-		generate_random_objects()
+		var rng = RandomNumberGenerator.new()
+		rng.seed = SaveProgress.world_seed
+		choose_spawn_point(rng)
+		generate_random_objects(rng)
 		get_parent().get_node("Forest").generate()
 		SaveProgress.get_node("PlaytimeCounter").start()
 		await get_tree().physics_frame
@@ -31,14 +33,14 @@ func _ready() -> void:
 
 ## Goes through the entire tilemap and attempts to place structures from
 ## the structures array
-func generate_random_objects() -> void:
+func generate_random_objects(rng : RandomNumberGenerator) -> void:
 	for x in range(Global.TILEMAP_SIZE):
 		for y in range(Global.TILEMAP_SIZE):
 			
 			# Structures
 			if tilemap.is_grass_tile(Vector2i(x, y)):
 				for structure in structures:
-					if structure.roll_chance():
+					if structure.roll_chance(rng):
 						var structure_node = structure.scene.instantiate()
 						structure_node.global_position = Global.tilemap_coords_to_global_coords(Vector2i(x, y))
 						get_parent().add_child.call_deferred(structure_node)
@@ -49,7 +51,7 @@ func generate_random_objects() -> void:
 				var rock = DROPPED_ITEM_SCENE.instantiate()
 				rock.item = ROCK_ITEM.duplicate()
 				rock.can_despawn = false
-				if attempt_to_place(rock, rock_spawn_chance, Global.tilemap_coords_to_global_coords(Vector2(x, y))):
+				if attempt_to_place(rock, rock_spawn_chance, Global.tilemap_coords_to_global_coords(Vector2(x, y)), rng):
 					continue
 			
 			# Attempt to place a stick
@@ -57,14 +59,14 @@ func generate_random_objects() -> void:
 				var stick = DROPPED_ITEM_SCENE.instantiate()
 				stick.item = STICK_ITEM.duplicate()
 				stick.can_despawn = false
-				if attempt_to_place(stick, stick_spawn_chance, Global.tilemap_coords_to_global_coords(Vector2(x, y))):
+				if attempt_to_place(stick, stick_spawn_chance, Global.tilemap_coords_to_global_coords(Vector2(x, y)), rng):
 					continue
 
 
-## Attempts the place and object/structure at a specific position with a
+## Attempts the place and object at a specific position with a
 ## specific 1 to 100 chance
-func attempt_to_place(object : Node, chance : float, pos : Vector2) -> bool:
-	var random = randf_range(1, 100)
+func attempt_to_place(object : Node, chance : float, pos : Vector2, rng : RandomNumberGenerator) -> bool:
+	var random = rng.randf_range(1, 100)
 	if random <= chance:
 		object.global_position = pos
 		get_parent().add_child.call_deferred(object)
@@ -74,8 +76,8 @@ func attempt_to_place(object : Node, chance : float, pos : Vector2) -> bool:
 
 
 ## Chooses the spawn point for the player
-func choose_spawn_point() -> void:
-	var rand = randi_range(0, spawn_points_node.get_child_count() - 1)
+func choose_spawn_point(rng : RandomNumberGenerator) -> void:
+	var rand = rng.randi_range(0, spawn_points_node.get_child_count() - 1)
 	var pos = spawn_points_node.get_child(rand).global_position
 	player.global_position = pos
 	player.respawn_point = pos

@@ -9,6 +9,7 @@ const WORLD_FILE_NAME = "world.json"
 ## The name of the save
 @export var save_name = ""
 
+var world_seed : int = 100
 var config = ConfigFile.new()
 var json = JSON.new()
 
@@ -67,6 +68,9 @@ func save() -> void:
 		else:
 			world.time_of_day = "day"
 		world.time_till_time_change = day_night_cycle.get_node("Timer").time_left
+		
+		# World Seed
+		world.world_seed = world_seed
 		
 		# Objects
 		for node in get_tree().get_nodes_in_group("Persistant"):
@@ -161,6 +165,9 @@ func load_save() -> void:
 		push_error("Failed to parse world file for save: " + save_name)
 		return
 
+	# World Seed
+	world_seed = world.get("world_seed")
+
 	# Time of Day
 	var day_night_cycle = get_tree().current_scene.find_child("DayNightCycle")
 	if world.get("time_of_day") == "night":
@@ -173,7 +180,6 @@ func load_save() -> void:
 			day_night_cycle.set_to_day(true, world.time_till_time_change)
 		else:
 			day_night_cycle.set_to_day(true)
-
 
 	if world.get("Objects") != null:
 		for node in get_tree().get_nodes_in_group("Persistant"):
