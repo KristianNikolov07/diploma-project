@@ -51,7 +51,9 @@ func _on_add_mod_pressed() -> void:
 func _on_file_dialog_file_selected(path: String) -> void:
 	var file_name : String = path.split("/")[-1]
 	if file_name.ends_with(".zip"):
-		zip.open(path)
+		if zip.open(path) != OK:
+			OS.alert(tr("INVALID_MOD_FILE"), tr("INVALID_MOD"))
+			return
 		if "manifest.json" in zip.get_files() and "mod.pck" in zip.get_files():
 			var mod_folder = file_name.replace(".zip", "")
 			

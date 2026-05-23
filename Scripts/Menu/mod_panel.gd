@@ -8,24 +8,27 @@ var enabled_originally = false
 func _ready() -> void:
 	# Load info
 	var manifest_file = FileAccess.open(mod_path + "/" + Global.MODS_MANIFEST_FILE_NAME, FileAccess.READ)
-	var manifest : Dictionary = JSON.parse_string(manifest_file.get_as_text())
-	if manifest.has("name"):
-		%Name.text = manifest.name
+	if manifest_file == null:
+		push_error("Could not read manifest for mod: " + mod_path)
 	else:
-		%Name.text = "Unknown"
-	if manifest.has("author"):
-		%Author.text = "By " + manifest.author
-	else:
-		%Author.text = "By Unknown"
-	manifest_file.close()
-	
+		var manifest = JSON.parse_string(manifest_file.get_as_text())
+		manifest_file.close()
+		if manifest is Dictionary:
+			%Name.text = manifest.get("name", "Unknown")
+			%Author.text = "By " + manifest.get("author", "Unknown")
+		else:
+			push_error("Invalid manifest JSON for mod: " + mod_path)
+
 	# Check if enabled
 	var enabled_check_file = FileAccess.open(mod_path + "/" + Global.MODS_ENABLE_CHECK_FILE_NAME, FileAccess.READ)
-	if enabled_check_file.get_var() == true:
-		%ToggleMod.button_pressed = true
-		enabled = true
-		enabled_originally = true
-	enabled_check_file.close()
+	if enabled_check_file == null:
+		push_error("Could not read enable check file for mod: " + mod_path)
+	else:
+		if enabled_check_file.get_var() == true:
+			%ToggleMod.button_pressed = true
+			enabled = true
+			enabled_originally = true
+		enabled_check_file.close()
 	
 	
 	%RemoveMod/ProgressBar.max_value = %RemoveMod/DeleteTimer.wait_time

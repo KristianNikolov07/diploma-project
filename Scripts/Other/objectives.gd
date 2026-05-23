@@ -18,8 +18,15 @@ func _ready() -> void:
 ## in the objectives variable
 func parse_objectives() -> void:
 	var file = FileAccess.open(OBJECTIVES_FILE_PATH, FileAccess.READ)
-	objectives = JSON.parse_string(file.get_as_text())
+	if file == null:
+		push_error("Failed to open objectives file: " + OBJECTIVES_FILE_PATH)
+		return
+	var parsed = JSON.parse_string(file.get_as_text())
 	file.close()
+	if parsed == null:
+		push_error("Failed to parse objectives file: " + OBJECTIVES_FILE_PATH)
+		return
+	objectives = parsed
 
 
 ## Sets the objective the player is currently completing
