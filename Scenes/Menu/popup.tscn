@@ -20,9 +20,9 @@ script = ExtResource("2_xq8le")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=126851453]
 layout_mode = 2
-theme_override_constants/margin_left = 5
+theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
+theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2072799173]

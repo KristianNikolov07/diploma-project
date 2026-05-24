@@ -10,7 +10,6 @@ const WORLD_FILE_NAME = "world.json"
 @export var save_name = ""
 
 var world_seed : int = 0
-var config = ConfigFile.new()
 var json = JSON.new()
 
 func _ready() -> void:
@@ -33,6 +32,7 @@ func save() -> void:
 			DirAccess.make_dir_recursive_absolute(SAVES_FOLDER + save_name)
 		
 		# Player Stats
+		var config = ConfigFile.new()
 		config.load(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME)
 		config.set_value("stats", "hp", player.hp)
 		config.set_value("stats", "stamina", player.stamina)
@@ -47,6 +47,7 @@ func save() -> void:
 		config.set_value("inventory", "backpack", player.inventory.backpack.items)
 		config.set_value("objectives", "current_objective", objectives.current_objective)
 		config.set_value("other", "playtime", get_node("PlaytimeCounter").playtime)
+		config.set_value("other", "version", ProjectSettings.get_setting("application/config/version"))
 		
 		config.save(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME)
 		
@@ -99,6 +100,7 @@ func save() -> void:
 func delete(save_name_to_delete : String) -> void:
 	DirAccess.remove_absolute(SAVES_FOLDER + save_name_to_delete + "/" + PLAYER_STATS_FILE_NAME)
 	DirAccess.remove_absolute(SAVES_FOLDER + save_name_to_delete + "/" + WORLD_FILE_NAME)
+	DirAccess.remove_absolute(SAVES_FOLDER + save_name_to_delete + "/checksum.txt")
 	DirAccess.remove_absolute(SAVES_FOLDER + save_name_to_delete)
 
 
@@ -119,13 +121,14 @@ func has_save_with_name(_save_name : String) -> bool:
 
 ## Gets the playtime of a specific save
 func get_playtime(_save_name : String) -> float:
+	var config = ConfigFile.new()
 	if DirAccess.dir_exists_absolute(SAVES_FOLDER + _save_name):
 		config.load(SAVES_FOLDER + _save_name + "/" + PLAYER_STATS_FILE_NAME)
 		if config.has_section("other"):
 			return config.get_value("other", "playtime", 0)
 	return 0
 
-
+## Checks the checksum of a save
 func check_checksum(_save_name : String) -> bool:
 	if DirAccess.dir_exists_absolute(SAVES_FOLDER + _save_name):
 		var checksum_file = FileAccess.open(SAVES_FOLDER.path_join(_save_name).path_join("checksum.txt"), FileAccess.READ)
@@ -135,8 +138,20 @@ func check_checksum(_save_name : String) -> bool:
 		checksum_file.close()
 		if expected_checksum == player_stats_checksum + world_checksum:
 			return true
+		# Backwards compatibility
+		if get_version(_save_name) == "": return true
+	
 	return false
 
+
+func get_version(_save_name : String) -> String:
+	if DirAccess.dir_exists_absolute(SAVES_FOLDER + _save_name):
+		var config = ConfigFile.new()
+		config.load(SAVES_FOLDER + _save_name + "/" + PLAYER_STATS_FILE_NAME)
+		if config.has_section("other"):
+			print(_save_name + " " + config.get_value("other", "version", ""))
+			return config.get_value("other", "version", "")
+	return ""
 
 ## Loads a save with the save_name
 func load_save() -> void:
@@ -146,6 +161,7 @@ func load_save() -> void:
 		DirAccess.make_dir_recursive_absolute(SAVES_FOLDER + save_name)
 	
 	# Player Stats
+	var config = ConfigFile.new()
 	if config.load(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME) == OK:
 		player.set_hp(config.get_value("stats", "hp", player.max_hp)) 
 		player.stamina = config.get_value("stats", "stamina", player.max_stamina)
