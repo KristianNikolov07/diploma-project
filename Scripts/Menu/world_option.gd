@@ -1,12 +1,14 @@
 extends Control
 
-var world_name = "Test"
+var world_name = "World"
 var delete_pressed = false
+var is_checksum_valid = true
 
 func _ready() -> void:
 	%WorldName.text = world_name
 	%Delete/ProgressBar.max_value = %Delete/DeleteTimer.wait_time
 	set_playtime()
+	check_checksum()
 
 
 func _process(_delta: float) -> void:
@@ -17,6 +19,8 @@ func _process(_delta: float) -> void:
 
 
 func _on_play_pressed() -> void:
+	if not is_checksum_valid:
+		pass
 	SaveProgress.save_name = world_name
 	get_tree().change_scene_to_file("res://Scenes/Menu/loading_screen.tscn")
 
@@ -64,3 +68,9 @@ func set_playtime() -> void:
 		%Playtime.text = (str(m) + " min") + ("" if s == 0 else " " + str(s) + " sec")
 	else:
 		%Playtime.text = str(s) + " sec"
+
+
+func check_checksum():
+	is_checksum_valid = SaveProgress.check_checksum(world_name)
+	if not is_checksum_valid:
+		%WorldName.add_theme_color_override("font_color", Color.RED)

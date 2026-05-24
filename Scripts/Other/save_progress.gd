@@ -85,6 +85,13 @@ func save() -> void:
 		world_file.store_string(JSON.stringify(world, "\t"))
 		world_file.close()
 		
+		# Checksum
+		var checksum_file = FileAccess.open(SAVES_FOLDER.path_join(save_name).path_join("checksum.txt"), FileAccess.WRITE)
+		var player_stats_checksum = FileAccess.get_sha256(SAVES_FOLDER.path_join(save_name).path_join(PLAYER_STATS_FILE_NAME))
+		var world_checksum = FileAccess.get_sha256(SAVES_FOLDER.path_join(save_name).path_join(WORLD_FILE_NAME))
+		checksum_file.store_string(player_stats_checksum + world_checksum)
+		checksum_file.close()
+		
 		print("Progress Saved")
 
 
@@ -117,6 +124,18 @@ func get_playtime(_save_name : String) -> float:
 		if config.has_section("other"):
 			return config.get_value("other", "playtime", 0)
 	return 0
+
+
+func check_checksum(_save_name : String) -> bool:
+	if DirAccess.dir_exists_absolute(SAVES_FOLDER + _save_name):
+		var checksum_file = FileAccess.open(SAVES_FOLDER.path_join(_save_name).path_join("checksum.txt"), FileAccess.READ)
+		var player_stats_checksum = FileAccess.get_sha256(SAVES_FOLDER.path_join(_save_name).path_join(PLAYER_STATS_FILE_NAME))
+		var world_checksum = FileAccess.get_sha256(SAVES_FOLDER.path_join(_save_name).path_join(WORLD_FILE_NAME))
+		var expected_checksum = str(checksum_file.get_as_text())
+		checksum_file.close()
+		if expected_checksum == player_stats_checksum + world_checksum:
+			return true
+	return false
 
 
 ## Loads a save with the save_name

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bahxa1ypin7wu"]
+
+[ext_resource type="Theme" uid="uid://5uq80ele5x1b" path="res://Assets/main_theme.tres" id="1_nufrx"]
+
+[node name="Popup" type="PanelContainer" unique_id=1577935314]
+anchors_preset = -1
+anchor_left = 0.004
+anchor_top = 0.008
+anchor_right = 0.671
+anchor_bottom = 0.6
+offset_left = 0.39199972
+offset_top = -0.18400002
+offset_right = 0.0079956055
+offset_bottom = 0.19998169
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_nufrx")
+metadata/_edit_use_anchors_ = true
