@@ -1,5 +1,7 @@
 extends Control
 
+const POPUP_SCENE = preload("res://Scenes/Menu/popup.tscn")
+
 var world_name = "World"
 var delete_pressed = false
 var is_checksum_valid = true
@@ -20,7 +22,18 @@ func _process(_delta: float) -> void:
 
 func _on_play_pressed() -> void:
 	if not is_checksum_valid:
-		pass
+		var popup = POPUP_SCENE.instantiate()
+		popup.title = "WARNING!"
+		popup.description = "This world appears to be modified manually, doing so might result some unexpected results."
+		popup.option1 = "I know what I am doing"
+		popup.option2 = "CANCEL"
+		popup.option1_pressed.connect(start_world)
+		get_tree().current_scene.add_child(popup)
+	else:
+		start_world()
+
+
+func start_world() -> void:
 	SaveProgress.save_name = world_name
 	get_tree().change_scene_to_file("res://Scenes/Menu/loading_screen.tscn")
 
