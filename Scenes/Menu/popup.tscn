@@ -1,18 +1,66 @@
 [gd_scene format=3 uid="uid://bahxa1ypin7wu"]
 
 [ext_resource type="Theme" uid="uid://5uq80ele5x1b" path="res://Assets/main_theme.tres" id="1_nufrx"]
+[ext_resource type="Script" uid="uid://bsleryw8hfmkf" path="res://Scripts/Menu/popup.gd" id="2_xq8le"]
 
 [node name="Popup" type="PanelContainer" unique_id=1577935314]
-anchors_preset = -1
-anchor_left = 0.004
-anchor_top = 0.008
-anchor_right = 0.671
-anchor_bottom = 0.6
-offset_left = 0.39199972
-offset_top = -0.18400002
-offset_right = 0.0079956055
-offset_bottom = 0.19998169
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -248.0
+offset_top = -147.0
+offset_right = 248.0
+offset_bottom = 147.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_nufrx")
-metadata/_edit_use_anchors_ = true
+script = ExtResource("2_xq8le")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=126851453]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2072799173]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer" unique_id=449830512]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Main Text"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer" unique_id=899370538]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(472, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=45515010]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1380489010]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Option 1"
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1748254955]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Option 2"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]

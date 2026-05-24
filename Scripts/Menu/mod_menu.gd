@@ -3,6 +3,7 @@ extends PanelContainer
 signal closed
 
 const MOD_PANEL_SCENE = preload("res://Scenes/Menu/mod_panel.tscn")
+const POPUP_SCENE = preload("res://Scenes/Menu/popup.tscn")
 
 var zip = ZIPReader.new()
 
@@ -37,8 +38,12 @@ func _on_back_pressed() -> void:
 			restart_required = true
 	
 	if restart_required:
-		OS.alert(tr("RESTART_WARNING_MESSAGE"), tr("RESTART_WARNING_TITLE"))
-	if reload_required:
+		var popup : PanelContainer = POPUP_SCENE.instantiate()
+		popup.title = tr("RESTART_WARNING_TITLE")
+		popup.description = tr("RESTART_WARNING_MESSAGE")
+		popup.option1 = tr("CONTINUE")
+		get_parent().add_child(popup)
+	elif reload_required:
 		get_tree().change_scene_to_file("res://Scenes/mod_loader.tscn")
 	hide()
 	closed.emit()
