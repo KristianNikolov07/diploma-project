@@ -26,3 +26,7 @@ func _on_button_pressed() -> void:
 func _on_button_2_pressed() -> void:
 	option2_pressed.emit()
 	queue_free()
+
+
+func _on_description_meta_clicked(meta: Variant) -> void:
+	OS.shell_open(meta)

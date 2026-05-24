@@ -9,10 +9,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -248.0
-offset_top = -147.0
-offset_right = 248.0
-offset_bottom = 147.0
+offset_left = -272.0
+offset_top = -158.0
+offset_right = 272.0
+offset_bottom = 158.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_nufrx")
@@ -35,14 +35,14 @@ theme_override_font_sizes/font_size = 48
 text = "Main Text"
 horizontal_alignment = 1
 
-[node name="Description" type="Label" parent="MarginContainer/VBoxContainer" unique_id=899370538]
+[node name="Description" type="RichTextLabel" parent="MarginContainer/VBoxContainer" unique_id=1597132336]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(472, 0)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
 horizontal_alignment = 1
-autowrap_mode = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=45515010]
 layout_mode = 2
@@ -62,5 +62,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Option 2"
 
+[connection signal="meta_clicked" from="MarginContainer/VBoxContainer/Description" to="." method="_on_description_meta_clicked"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
