@@ -23,9 +23,9 @@ func _process(_delta: float) -> void:
 func _on_play_pressed() -> void:
 	if not is_checksum_valid:
 		var popup = POPUP_SCENE.instantiate()
-		popup.title = "WARNING!"
-		popup.description = "This world appears to be modified manually, doing so might result some unexpected results."
-		popup.option1 = "I know what I am doing"
+		popup.title = "WARNING"
+		popup.description = "CHECKSUM_ERROR"
+		popup.option1 = "I_KNOW_WHAT_I_AM_DOING"
 		popup.option2 = "CANCEL"
 		popup.option1_pressed.connect(start_world)
 		get_tree().current_scene.add_child(popup)
