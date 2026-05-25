@@ -30,6 +30,8 @@ func _on_play_pressed() -> void:
 		show_checksum_warning()
 	elif is_world_from_a_future_version:
 		show_version_warning()
+	elif is_modded:
+		show_modded_warning()
 	else:
 		start_world()
 
@@ -48,6 +50,16 @@ func show_version_warning() -> void:
 	var popup = POPUP_SCENE.instantiate()
 	popup.title = "WARNING"
 	popup.description = tr("VERSION_ERROR") + "\n[url=https://github.com/KristianNikolov07/stranded-shores/releases/tag/v." + world_version + "]Download v" + world_version + "[/url]"
+	popup.option1 = "I_KNOW_WHAT_I_AM_DOING"
+	popup.option2 = "CANCEL"
+	popup.option1_pressed.connect(start_world)
+	get_tree().current_scene.add_child(popup)
+
+
+func show_modded_warning() -> void:
+	var popup = POPUP_SCENE.instantiate()
+	popup.title = "WARNING"
+	popup.description = "MODDED_WORLD_WARNING"
 	popup.option1 = "I_KNOW_WHAT_I_AM_DOING"
 	popup.option2 = "CANCEL"
 	popup.option1_pressed.connect(start_world)
