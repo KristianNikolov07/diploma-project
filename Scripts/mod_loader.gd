@@ -10,6 +10,7 @@ func _ready() -> void:
 				continue
 			if enabled_check_file.get_var() == true:
 				load_mod(mod_path)
+				SaveProgress.has_loaded_mods = true
 			enabled_check_file.close()
 	
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/Menu/main_menu.tscn")

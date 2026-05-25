@@ -9,6 +9,7 @@ const WORLD_FILE_NAME = "world.json"
 ## The name of the save
 @export var save_name = ""
 
+var has_loaded_mods = false
 var world_seed : int = 0
 var json = JSON.new()
 
@@ -48,7 +49,7 @@ func save() -> void:
 		config.set_value("objectives", "current_objective", objectives.current_objective)
 		config.set_value("other", "playtime", get_node("PlaytimeCounter").playtime)
 		config.set_value("other", "version", ProjectSettings.get_setting("application/config/version"))
-		
+		config.set_value("other", "modded", has_loaded_mods)
 		config.save(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME)
 		
 		# World
@@ -127,6 +128,15 @@ func get_playtime(_save_name : String) -> float:
 		if config.has_section("other"):
 			return config.get_value("other", "playtime", 0)
 	return 0
+
+## Check if the world has been played with any mods enabled
+func is_modded(_save_name : String) -> bool:
+	var config = ConfigFile.new()
+	if DirAccess.dir_exists_absolute(SAVES_FOLDER + _save_name):
+		config.load(SAVES_FOLDER + _save_name + "/" + PLAYER_STATS_FILE_NAME)
+		if config.has_section("other"):
+			return config.get_value("other", "modded", false)
+	return false
 
 ## Checks the checksum of a save
 func check_checksum(_save_name : String) -> bool:

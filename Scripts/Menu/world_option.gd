@@ -5,6 +5,7 @@ const POPUP_SCENE = preload("res://Scenes/Menu/popup.tscn")
 var world_name = "World"
 var delete_pressed = false
 var is_checksum_valid = true
+var is_modded = false
 var is_world_from_a_future_version = false
 var world_version = ""
 
@@ -12,6 +13,7 @@ func _ready() -> void:
 	%WorldName.text = world_name
 	%Delete/ProgressBar.max_value = %Delete/DeleteTimer.wait_time
 	set_playtime()
+	check_if_modded()
 	check_checksum()
 	check_version()
 
@@ -123,3 +125,9 @@ func check_version() -> void:
 			world_version = version
 			return
 		i += 1
+
+
+func check_if_modded() -> void:
+	if SaveProgress.is_modded(world_name):
+		is_modded = true
+		%WorldName.add_theme_color_override("font_color", Color.ORANGE)
