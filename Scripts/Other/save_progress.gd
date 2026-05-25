@@ -159,7 +159,6 @@ func get_version(_save_name : String) -> String:
 		var config = ConfigFile.new()
 		config.load(SAVES_FOLDER + _save_name + "/" + PLAYER_STATS_FILE_NAME)
 		if config.has_section("other"):
-			print(_save_name + " " + config.get_value("other", "version", ""))
 			return config.get_value("other", "version", "")
 	return ""
 

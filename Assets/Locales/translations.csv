@@ -23,7 +23,8 @@ RESTART_WARNING_MESSAGE,Please restart your game in order to apply all changes!,
 WARNING,WARNING!,ПРЕДУПРЕЖДЕНИЕ!
 CHECKSUM_ERROR,"This world appears to be modified manually, doing so might result some unexpected results.","Изглежда този свят е модифициран ръчно, правенето на това може да доведе до някои неочаквани резултати."
 VERSION_ERROR,"This world appears to be created in a newer version of the game, it might not work properly.","Изглежда този свят е създаден в по-нова версия на играта, може да не работи правилно."
-MODDED_WORLD_WARNING,"This world appears to be modded, it might not work properly.","Изглежда този свят е модифициран, может не работать правильно."
+MODDED_WORLD_WARNING,"This world appears to be modded, it might not work properly.","Изглежда този свят е модифициран, може да не работи правилно."
+MOD_FOR_DIFFERENT_VERSION_WARNING,"This mod appears to be made for a different version of the game, it might not work properly.","Изглежда, че този мод е направен за друга версия на играта, може да не работи правилно."
 I_KNOW_WHAT_I_AM_DOING,"I know what I'm doing",Аз знам какво правя
 CONTROLS,CONTROLS,КОНТРОЛИ
 NEXT_OBJECTIVE,"NEXT OBJECTIVE:","СЛЕДВАЩА ЦЕЛ:"
