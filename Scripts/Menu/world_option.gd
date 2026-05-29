@@ -129,14 +129,16 @@ func check_version() -> void:
 		return
 	var version_arr = version.split(".")
 	var current_version_arr = current_version.split(".")
-	var i = 0
-	for num in version_arr:
-		if num > current_version_arr[i]:
+	for i in range(mini(version_arr.size(), current_version_arr.size())):
+		var v = int(version_arr[i])
+		var cv = int(current_version_arr[i])
+		if v > cv:
 			is_world_from_a_future_version = true
 			%WorldName.add_theme_color_override("font_color", Color.RED)
 			world_version = version
 			return
-		i += 1
+		elif v < cv:
+			return
 
 
 func check_if_modded() -> void:

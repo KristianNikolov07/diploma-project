@@ -141,16 +141,18 @@ func is_modded(_save_name : String) -> bool:
 ## Checks the checksum of a save
 func check_checksum(_save_name : String) -> bool:
 	if DirAccess.dir_exists_absolute(SAVES_FOLDER + _save_name):
+		# Backwards compatibility: old saves without a version have no checksum
+		if get_version(_save_name) == "":
+			return true
 		var checksum_file = FileAccess.open(SAVES_FOLDER.path_join(_save_name).path_join("checksum.txt"), FileAccess.READ)
+		if checksum_file == null:
+			return false
 		var player_stats_checksum = FileAccess.get_sha256(SAVES_FOLDER.path_join(_save_name).path_join(PLAYER_STATS_FILE_NAME))
 		var world_checksum = FileAccess.get_sha256(SAVES_FOLDER.path_join(_save_name).path_join(WORLD_FILE_NAME))
-		var expected_checksum = str(checksum_file.get_as_text())
+		var expected_checksum = checksum_file.get_as_text()
 		checksum_file.close()
 		if expected_checksum == player_stats_checksum + world_checksum:
 			return true
-		# Backwards compatibility
-		if get_version(_save_name) == "": return true
-	
 	return false
 
 

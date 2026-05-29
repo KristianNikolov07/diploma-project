@@ -49,9 +49,10 @@ func _process(_delta: float) -> void:
 func show_version_warning() -> void:
 	var popup = POPUP_SCENE.instantiate()
 	popup.title = "WARNING"
-	popup.description = tr("MOD_FOR_DIFFERENT_VERSION_WARNING")
+	var description = tr("MOD_FOR_DIFFERENT_VERSION_WARNING")
 	if version != "Unknown":
-		version += "\n[url=https://github.com/KristianNikolov07/stranded-shores/releases/tag/v." + version + "]Download v" + version + "[/url]"
+		description += "\n[url=https://github.com/KristianNikolov07/stranded-shores/releases/tag/v." + version + "]Download v" + version + "[/url]"
+	popup.description = description
 	popup.option1 = "I_KNOW_WHAT_I_AM_DOING"
 	popup.option2 = "CANCEL"
 	popup.option1_pressed.connect(enable_mod)
