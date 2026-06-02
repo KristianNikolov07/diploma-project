@@ -9,7 +9,8 @@ const WORLD_FILE_NAME = "world.json"
 ## The name of the save
 @export var save_name = ""
 
-var config = ConfigFile.new()
+var has_loaded_mods = false
+var world_seed : int = 0
 var json = JSON.new()
 
 func _ready() -> void:
@@ -32,6 +33,7 @@ func save() -> void:
 			DirAccess.make_dir_recursive_absolute(SAVES_FOLDER + save_name)
 		
 		# Player Stats
+		var config = ConfigFile.new()
 		config.load(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME)
 		config.set_value("stats", "hp", player.hp)
 		config.set_value("stats", "stamina", player.stamina)
@@ -46,7 +48,8 @@ func save() -> void:
 		config.set_value("inventory", "backpack", player.inventory.backpack.items)
 		config.set_value("objectives", "current_objective", objectives.current_objective)
 		config.set_value("other", "playtime", get_node("PlaytimeCounter").playtime)
-		
+		config.set_value("other", "version", ProjectSettings.get_setting("application/config/version"))
+		config.set_value("other", "modded", has_loaded_mods)
 		config.save(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME)
 		
 		# World
@@ -68,6 +71,9 @@ func save() -> void:
 			world.time_of_day = "day"
 		world.time_till_time_change = day_night_cycle.get_node("Timer").time_left
 		
+		# World Seed
+		world.world_seed = world_seed
+		
 		# Objects
 		for node in get_tree().get_nodes_in_group("Persistant"):
 			var object = {
@@ -81,6 +87,13 @@ func save() -> void:
 		world_file.store_string(JSON.stringify(world, "\t"))
 		world_file.close()
 		
+		# Checksum
+		var checksum_file = FileAccess.open(SAVES_FOLDER.path_join(save_name).path_join("checksum.txt"), FileAccess.WRITE)
+		var player_stats_checksum = FileAccess.get_sha256(SAVES_FOLDER.path_join(save_name).path_join(PLAYER_STATS_FILE_NAME))
+		var world_checksum = FileAccess.get_sha256(SAVES_FOLDER.path_join(save_name).path_join(WORLD_FILE_NAME))
+		checksum_file.store_string(player_stats_checksum + world_checksum)
+		checksum_file.close()
+		
 		print("Progress Saved")
 
 
@@ -88,6 +101,7 @@ func save() -> void:
 func delete(save_name_to_delete : String) -> void:
 	DirAccess.remove_absolute(SAVES_FOLDER + save_name_to_delete + "/" + PLAYER_STATS_FILE_NAME)
 	DirAccess.remove_absolute(SAVES_FOLDER + save_name_to_delete + "/" + WORLD_FILE_NAME)
+	DirAccess.remove_absolute(SAVES_FOLDER + save_name_to_delete + "/checksum.txt")
 	DirAccess.remove_absolute(SAVES_FOLDER + save_name_to_delete)
 
 
@@ -108,12 +122,47 @@ func has_save_with_name(_save_name : String) -> bool:
 
 ## Gets the playtime of a specific save
 func get_playtime(_save_name : String) -> float:
+	var config = ConfigFile.new()
 	if DirAccess.dir_exists_absolute(SAVES_FOLDER + _save_name):
 		config.load(SAVES_FOLDER + _save_name + "/" + PLAYER_STATS_FILE_NAME)
 		if config.has_section("other"):
 			return config.get_value("other", "playtime", 0)
 	return 0
 
+## Check if the world has been played with any mods enabled
+func is_modded(_save_name : String) -> bool:
+	var config = ConfigFile.new()
+	if DirAccess.dir_exists_absolute(SAVES_FOLDER + _save_name):
+		config.load(SAVES_FOLDER + _save_name + "/" + PLAYER_STATS_FILE_NAME)
+		if config.has_section("other"):
+			return config.get_value("other", "modded", false)
+	return false
+
+## Checks the checksum of a save
+func check_checksum(_save_name : String) -> bool:
+	if DirAccess.dir_exists_absolute(SAVES_FOLDER + _save_name):
+		# Backwards compatibility: old saves without a version have no checksum
+		if get_version(_save_name) == "":
+			return true
+		var checksum_file = FileAccess.open(SAVES_FOLDER.path_join(_save_name).path_join("checksum.txt"), FileAccess.READ)
+		if checksum_file == null:
+			return false
+		var player_stats_checksum = FileAccess.get_sha256(SAVES_FOLDER.path_join(_save_name).path_join(PLAYER_STATS_FILE_NAME))
+		var world_checksum = FileAccess.get_sha256(SAVES_FOLDER.path_join(_save_name).path_join(WORLD_FILE_NAME))
+		var expected_checksum = checksum_file.get_as_text()
+		checksum_file.close()
+		if expected_checksum == player_stats_checksum + world_checksum:
+			return true
+	return false
+
+
+func get_version(_save_name : String) -> String:
+	if DirAccess.dir_exists_absolute(SAVES_FOLDER + _save_name):
+		var config = ConfigFile.new()
+		config.load(SAVES_FOLDER + _save_name + "/" + PLAYER_STATS_FILE_NAME)
+		if config.has_section("other"):
+			return config.get_value("other", "version", "")
+	return ""
 
 ## Loads a save with the save_name
 func load_save() -> void:
@@ -123,6 +172,7 @@ func load_save() -> void:
 		DirAccess.make_dir_recursive_absolute(SAVES_FOLDER + save_name)
 	
 	# Player Stats
+	var config = ConfigFile.new()
 	if config.load(SAVES_FOLDER + save_name + "/" + PLAYER_STATS_FILE_NAME) == OK:
 		player.set_hp(config.get_value("stats", "hp", player.max_hp)) 
 		player.stamina = config.get_value("stats", "stamina", player.max_stamina)
@@ -161,6 +211,10 @@ func load_save() -> void:
 		push_error("Failed to parse world file for save: " + save_name)
 		return
 
+	# World Seed
+	if world.get("world_seed") != null:
+		world_seed = world.get("world_seed")
+
 	# Time of Day
 	var day_night_cycle = get_tree().current_scene.find_child("DayNightCycle")
 	if world.get("time_of_day") == "night":
@@ -173,7 +227,6 @@ func load_save() -> void:
 			day_night_cycle.set_to_day(true, world.time_till_time_change)
 		else:
 			day_night_cycle.set_to_day(true)
-
 
 	if world.get("Objects") != null:
 		for node in get_tree().get_nodes_in_group("Persistant"):

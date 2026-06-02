@@ -10,8 +10,10 @@ extends Resource
 @export_range(1, 100) var chance : float
 
 ## Rolls the spawn chance. Reture true if the entity or structure should be placed
-func roll_chance() -> bool:
-	if chance >= randf_range(1, 100):
+func roll_chance(rng : RandomNumberGenerator = null) -> bool:
+	if rng == null:
+		rng = RandomNumberGenerator.new()
+	if chance >= rng.randf_range(1, 100):
 		return true
 	else:
 		return false

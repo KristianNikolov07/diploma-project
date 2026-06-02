@@ -71,7 +71,8 @@ func _export_end() -> void:
 func generate_manifest_file(dir_path: String) -> void:
 	var manifest = {
 		"name": str(get_option("mod_information/mod_name")),
-		"author": str(get_option("mod_information/mod_author"))
+		"author": str(get_option("mod_information/mod_author")),
+		"version": str(ProjectSettings.get_setting("application/config/version"))
 	}
 	var file = FileAccess.open(dir_path.path_join("manifest.json"), FileAccess.WRITE)
 	file.store_string(JSON.stringify(manifest, "\t"))
