@@ -58,13 +58,16 @@ theme_override_constants/separation = 45
 
 [node name="Label" type="Label" parent="CenterContainer/MarginContainer/Settings/Volume" unique_id=207427694]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 25
 text = "VOLUME"
 
 [node name="VolumeSlider" type="HSlider" parent="CenterContainer/MarginContainer/Settings/Volume" unique_id=367428002]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(156, 16)
+custom_maximum_size = Vector2(156, 16)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
 size_flags_vertical = 4
 
 [node name="SkinCustomization" type="Button" parent="CenterContainer/MarginContainer/Settings" unique_id=44215020]
