@@ -16,6 +16,12 @@ ENABLE,ЕNABLE,ВКЛЮЧИ
 DISABLE,DISABLE,ИЗКЛЮЧИ
 REMOVE,REMOVE,ПРЕМАХНИ
 CANCEL,CANCEL,ОТКАЗ
+SAVE,SAVE,ЗАПАЗИ
+SKIN_CUSTOMIZATION,SKIN CUSTOMIZATION,ПЕРСОНАЛИЗАЦИЯ НА ВИДА
+HAIR,HAIR,КОСА
+SKIN,SKIN,КОЖА
+SHIRT,SHIRT,БЛУЗА
+RESET_TO_DEFAULT,Reset to Default,Върни по подразбиране
 RESUME,Resume,Обратно към Играта
 SAVE_AND_QUIT,Save and Quit,Запази и Излез
 RESTART_WARNING_TITLE,Please Restart Your Game,Моля Рестартирайте Играта си

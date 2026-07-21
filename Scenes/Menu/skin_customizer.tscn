@@ -37,7 +37,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
-text = "Hair"
+text = "HAIR"
 
 [node name="HairSliders" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=2094439489 node_paths=PackedStringArray("sprites") instance=ExtResource("2_xmorf")]
 unique_name_in_owner = true
@@ -57,7 +57,7 @@ size_flags_horizontal = 0
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
-text = "Skin"
+text = "SKIN"
 
 [node name="SkinSliders" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1920376102 node_paths=PackedStringArray("sprites") instance=ExtResource("2_xmorf")]
 unique_name_in_owner = true
@@ -72,7 +72,7 @@ size_flags_horizontal = 10
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
-text = "Shirt"
+text = "SHIRT"
 
 [node name="ShirtSliders" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=2083590819 node_paths=PackedStringArray("sprites") instance=ExtResource("2_xmorf")]
 unique_name_in_owner = true
@@ -89,19 +89,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 54
 disabled = true
-text = "Save"
+text = "SAVE"
 
 [node name="ResetToDefault" type="Button" parent="MarginContainer/VBoxContainer/Buttons" unique_id=2034749461]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 54
-text = "Reset To Default"
+text = "RESET_TO_DEFAULT"
 
 [node name="Close" type="Button" parent="MarginContainer/VBoxContainer/Buttons" unique_id=610456140]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 54
-text = "Close"
+text = "CANCEL"
 
 [node name="PlayerSprite" parent="." unique_id=1358140484 instance=ExtResource("3_enm87")]
 unique_name_in_owner = true
