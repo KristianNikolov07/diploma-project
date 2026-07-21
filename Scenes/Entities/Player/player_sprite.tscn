@@ -217,7 +217,6 @@ texture = SubResource("AtlasTexture_et7uk")
 texture = SubResource("AtlasTexture_q3lx5")
 
 [node name="Hair" type="Sprite2D" parent="Head" unique_id=475540920]
-modulate = Color(0.13333334, 0.1254902, 0.20392157, 1)
 self_modulate = Color(0.19696173, 0.18664545, 0.29052398, 1)
 texture = SubResource("AtlasTexture_71n3h")
 

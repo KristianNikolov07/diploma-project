@@ -1,6 +1,15 @@
 extends PanelContainer
 
+signal close
+
+var unsaved_changes = false
+
 func _ready() -> void:
+	hide()
+
+
+func open() -> void:
+	show()
 	set_to_default_colors()
 	load_from_file()
 
@@ -22,6 +31,12 @@ func load_from_file() -> void:
 	%HairSliders.set_color(hair)
 	%SkinSliders.set_color(skin)
 	%ShirtSliders.set_color(shirt)
+	set_unsaved_changes(false)
+
+
+func set_unsaved_changes(_unsaved_changes : bool) -> void:
+	unsaved_changes = _unsaved_changes
+	%Save.disabled = !unsaved_changes
 
 
 func _on_save_pressed() -> void:
@@ -31,6 +46,7 @@ func _on_save_pressed() -> void:
 	config.set_value("colors", "skin_color", %SkinSliders.get_color())
 	config.set_value("colors", "shirt_color", %ShirtSliders.get_color())
 	config.save(Global.SKIN_CUSTOMIZATIONS_FILE_PATH)
+	set_unsaved_changes(false)
 
 
 func _on_reset_to_default_pressed() -> void:
@@ -38,4 +54,17 @@ func _on_reset_to_default_pressed() -> void:
 
 
 func _on_close_pressed() -> void:
-	pass # Replace with function body.
+	hide()
+	close.emit()
+
+
+func _on_hair_sliders_color_changed() -> void:
+	set_unsaved_changes(true)
+
+
+func _on_skin_sliders_color_changed() -> void:
+	set_unsaved_changes(true)
+
+
+func _on_shirt_sliders_color_changed() -> void:
+	set_unsaved_changes(true)

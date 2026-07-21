@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+signal color_changed
+
 @export var sprites : Array[Sprite2D]
 
 var h : float = 0
@@ -31,6 +33,7 @@ func get_color() -> Color:
 func apply_color() -> void:
 	for sprite in sprites:
 		sprite.self_modulate = Color.from_hsv(h, s, v)
+	color_changed.emit()
 
 
 func set_color(color : Color) -> void:

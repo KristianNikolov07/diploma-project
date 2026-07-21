@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dfgdahc0x5a0f" path="res://Scenes/Entities/Player/player_sprite.tscn" id="3_enm87"]
 
 [node name="SkinCustomizer" type="PanelContainer" unique_id=1825560861]
+custom_minimum_size = Vector2(896, 448)
 anchors_preset = -1
 anchor_right = 0.77800006
 anchor_bottom = 0.69100004
@@ -83,9 +84,11 @@ layout_mode = 2
 size_flags_vertical = 10
 
 [node name="Save" type="Button" parent="MarginContainer/VBoxContainer/Buttons" unique_id=737670470]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 54
+disabled = true
 text = "Save"
 
 [node name="ResetToDefault" type="Button" parent="MarginContainer/VBoxContainer/Buttons" unique_id=2034749461]
@@ -104,6 +107,9 @@ text = "Close"
 unique_name_in_owner = true
 position = Vector2(448, 224)
 
+[connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HairSliders" to="." method="_on_hair_sliders_color_changed"]
+[connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/SkinSliders" to="." method="_on_skin_sliders_color_changed"]
+[connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ShirtSliders" to="." method="_on_shirt_sliders_color_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/ResetToDefault" to="." method="_on_reset_to_default_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Close" to="." method="_on_close_pressed"]
