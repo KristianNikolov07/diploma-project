@@ -2,7 +2,6 @@
 
 [ext_resource type="Theme" uid="uid://5uq80ele5x1b" path="res://Assets/main_theme.tres" id="1_mbsvu"]
 [ext_resource type="Script" uid="uid://dneqcc3r07sjb" path="res://Scripts/Menu/skin_customizer.gd" id="2_ha25d"]
-[ext_resource type="PackedScene" uid="uid://ccvwly08jcqr4" path="res://Scenes/Systems/color_sliders.tscn" id="2_xmorf"]
 [ext_resource type="PackedScene" uid="uid://dfgdahc0x5a0f" path="res://Scenes/Entities/Player/player_sprite.tscn" id="3_enm87"]
 
 [node name="SkinCustomizer" type="PanelContainer" unique_id=1825560861]
@@ -39,11 +38,20 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
 text = "HAIR"
 
-[node name="HairSliders" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=2094439489 node_paths=PackedStringArray("sprites") instance=ExtResource("2_xmorf")]
+[node name="HairColor" type="ColorPicker" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=894622674]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-sprites = [NodePath("../../../../../PlayerSprite/Head/Hair")]
+size_flags_vertical = 4
+edit_alpha = false
+edit_intensity = false
+color_mode = 1
+picker_shape = 4
+sampler_visible = false
+color_modes_visible = false
+hex_visible = false
+presets_visible = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=77423540]
 layout_mode = 2
@@ -59,10 +67,20 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
 text = "SKIN"
 
-[node name="SkinSliders" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1920376102 node_paths=PackedStringArray("sprites") instance=ExtResource("2_xmorf")]
+[node name="SkinColor" type="ColorPicker" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=948235000]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-sprites = [NodePath("../../../../../../PlayerSprite/Head/Skin")]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+edit_alpha = false
+edit_intensity = false
+color_mode = 1
+picker_shape = 4
+sampler_visible = false
+color_modes_visible = false
+hex_visible = false
+presets_visible = false
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1260282013]
 layout_mode = 2
@@ -74,10 +92,20 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
 text = "SHIRT"
 
-[node name="ShirtSliders" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=2083590819 node_paths=PackedStringArray("sprites") instance=ExtResource("2_xmorf")]
+[node name="ShirtColor" type="ColorPicker" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=607752083]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-sprites = [NodePath("../../../../../../PlayerSprite/Body/Shirt")]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+edit_alpha = false
+edit_intensity = false
+color_mode = 1
+picker_shape = 4
+sampler_visible = false
+color_modes_visible = false
+hex_visible = false
+presets_visible = false
 
 [node name="Buttons" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1242472322]
 layout_mode = 2
@@ -107,9 +135,9 @@ text = "CANCEL"
 unique_name_in_owner = true
 position = Vector2(448, 224)
 
-[connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HairSliders" to="." method="_on_hair_sliders_color_changed"]
-[connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/SkinSliders" to="." method="_on_skin_sliders_color_changed"]
-[connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ShirtSliders" to="." method="_on_shirt_sliders_color_changed"]
+[connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HairColor" to="." method="_on_hair_color_color_changed"]
+[connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/SkinColor" to="." method="_on_skin_color_color_changed"]
+[connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ShirtColor" to="." method="_on_shirt_color_color_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/ResetToDefault" to="." method="_on_reset_to_default_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Close" to="." method="_on_close_pressed"]
