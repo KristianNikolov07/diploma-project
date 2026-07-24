@@ -107,28 +107,33 @@ color_modes_visible = false
 hex_visible = false
 presets_visible = false
 
-[node name="Buttons" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1242472322]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=616064566]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = -10
+
+[node name="Buttons" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=1242472322]
 layout_mode = 2
 size_flags_vertical = 10
 
-[node name="Save" type="Button" parent="MarginContainer/VBoxContainer/Buttons" unique_id=737670470]
+[node name="Save" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/Buttons" unique_id=737670470]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 54
+theme_override_font_sizes/font_size = 32
 disabled = true
 text = "SAVE"
 
-[node name="ResetToDefault" type="Button" parent="MarginContainer/VBoxContainer/Buttons" unique_id=2034749461]
+[node name="ResetToDefault" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/Buttons" unique_id=2034749461]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 54
+theme_override_font_sizes/font_size = 32
 text = "RESET_TO_DEFAULT"
 
-[node name="Close" type="Button" parent="MarginContainer/VBoxContainer/Buttons" unique_id=610456140]
+[node name="Close" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/Buttons" unique_id=610456140]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 54
+theme_override_font_sizes/font_size = 32
 text = "CANCEL"
 
 [node name="PlayerSprite" parent="." unique_id=1358140484 instance=ExtResource("3_enm87")]
@@ -138,8 +143,8 @@ position = Vector2(448, 224)
 [connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HairColor" to="." method="_on_hair_color_color_changed"]
 [connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/SkinColor" to="." method="_on_skin_color_color_changed"]
 [connection signal="color_changed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ShirtColor" to="." method="_on_shirt_color_color_changed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/ResetToDefault" to="." method="_on_reset_to_default_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/Buttons/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/Buttons/ResetToDefault" to="." method="_on_reset_to_default_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/Buttons/Close" to="." method="_on_close_pressed"]
 
 [editable path="PlayerSprite"]
