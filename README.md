@@ -3,7 +3,7 @@
 **Survive the Island**  
 Gather resources, craft tools, build your base, and hold your ground when the dangers of the night come knocking. During the day, explore the island, chop trees, mine rocks, and stockpile everything you need to survive.  
 
-**Danger After Dark**  
+**Survive the night**  
 When darkness falls, things get a lot less peaceful. Plan your defenses, gear up, and make sure you're ready before the sun goes down.
 
 **Play Your Way**  
