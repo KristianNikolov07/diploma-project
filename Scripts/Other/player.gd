@@ -62,10 +62,10 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if can_move:
-		velocity = Input.get_vector("Left", "Right", "Up", "Down") * speed
+		velocity = Input.get_vector("LEFT", "RIGHT", "UP", "DOWN") * speed
 
 		# Running
-		if Input.is_action_pressed("Sprint") and stamina > 0 and $HungerAndThirst.can_sprint() and !is_in_water():
+		if Input.is_action_pressed("SPRINT") and stamina > 0 and $HungerAndThirst.can_sprint() and !is_in_water():
 			is_running = true
 			speed = min(speed + running_speed_gain * delta, max_running_speed)
 			
@@ -129,13 +129,13 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	# Inventory
-	if event.is_action_pressed("Attack"):
+	if event.is_action_pressed("ATTACK"):
 		attack(inventory.selected_slot)
-	if event.is_action_pressed("Place"):
+	if event.is_action_pressed("PLACE"):
 		place(inventory.selected_slot)
 	
 	#Interactions
-	elif event.is_action_pressed("Interact"):
+	elif event.is_action_pressed("INTERACT"):
 		for object in $InteractionRange.get_overlapping_areas():
 			# Objective
 			objectives.complete_objective("interact")

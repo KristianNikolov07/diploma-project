@@ -59,3 +59,24 @@ TREE_BOSS_OBJECTIVE_DESCRIPTION,"Defeat the Big Tree","Победете Голя
 BACKPACK_OBJECTIVE_DESCRIPTION,"Craft a backpack","Изработете раница"
 ARMOR_OBJECTIVE_DESCRIPTION,"Craft an iron armor","Изработете желязна броня"
 ANVIL_OBJECTIVE_DESCRIPTION,"Craft an anvil.","Изработете наковалня."
+
+UP,UP,НАГОРЕ
+LEFT,LEFT,НАЛЯВО
+RIGHT,RIGHT,НАДЯСНО
+DOWN,DOWN,НАДОЛУ
+SPRINT,SPRINT,БЯГАНЕ
+PREVIOUS_ITEM,PREVIOUS ITEM,ПРЕДИШЕН ПРЕДМЕТ
+NEXT_ITEM,NEXT ITEM,СЛЕДВАЩ ПРЕДМЕТ
+ITEM_1,ITEM 1,ПРЕДМЕТ 1
+ITEM_2,ITEM 2,ПРЕДМЕТ 2
+ITEM_3,ITEM 3,ПРЕДМЕТ 3
+ITEM_4,ITEM 4,ПРЕДМЕТ 4
+INTERACT,INTERACT,ВЗЕМИ
+DROP_ITEM,DROP ITEM,ИЗХВЪРЛЯНЕ НА ПРЕДМЕТ
+USE_ITEM,USE ITEM,ИЗПОЛЗВАНЕ НА ПРЕДМЕТ
+DROP_ALL,DROP ALL ITEMS,ИЗХВЪРЛЯНЕ НА ВСИЧКО
+ATTACK,ATTACK,АТАКA
+OPEN_CRAFTING_UI,OPEN CRAFTING UI,ОТВОРЯНЕ НА МЕНЮТО ЗА ИЗРАБОТКА
+PLACE,PLACE,ПОСТАВЯНЕ
+TOGGLE_BACKPACK,TOGGLE BACKPACK,РАНИЦА
+OPEN_MAP,OPEN MAP,ОТВОРЯНЕ НА КАРТА
