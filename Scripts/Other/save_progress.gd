@@ -106,8 +106,18 @@ func delete(save_name_to_delete : String) -> void:
 
 
 ## Gets all the saves inside the SAVES_FOLDER
-func get_saves() -> PackedStringArray:
-	return DirAccess.get_directories_at(SAVES_FOLDER)
+func get_saves() -> Array[WorldInfo]:
+	var saves : Array[WorldInfo]
+	for dir in DirAccess.get_directories_at(SAVES_FOLDER):
+		var info = WorldInfo.new()
+		info.world_name = dir
+		info.world_seed = get_seed(dir)
+		info.playtime = get_playtime(dir)
+		info.is_modded = is_modded(dir)
+		info.version = get_version(dir)
+		info.is_checksum_valid = check_checksum(dir)
+		saves.append(info)
+	return saves
 
 
 ## Checks whether or not a save with the save_name already exists
@@ -128,6 +138,18 @@ func get_playtime(_save_name : String) -> float:
 		if config.has_section("other"):
 			return config.get_value("other", "playtime", 0)
 	return 0
+
+
+func get_seed(_save_name : String) -> String:
+	var save_file = FileAccess.open(SAVES_FOLDER + _save_name + "/" + WORLD_FILE_NAME, FileAccess.READ)
+	if save_file == null:
+		push_error("Failed to open world file for reading: " + SAVES_FOLDER + _save_name + "/" + WORLD_FILE_NAME)
+		return ""
+	var world = JSON.parse_string(save_file.get_as_text())
+	if world.has("world_seed") == false:
+		return ""
+	return str(world.world_seed)
+
 
 ## Check if the world has been played with any mods enabled
 func is_modded(_save_name : String) -> bool:

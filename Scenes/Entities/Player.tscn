@@ -141,3 +141,5 @@ shape = SubResource("RectangleShape2D_vsrq0")
 debug_color = Color(0.6591337, 0.5090556, 0.23106265, 0.41960785)
 
 [connection signal="timeout" from="HungerAndThirst/Timer" to="HungerAndThirst" method="_on_timer_timeout"]
+
+[editable path="UI"]

@@ -8,14 +8,19 @@ var is_checksum_valid = true
 var is_modded = false
 var is_world_from_a_future_version = false
 var world_version = ""
+var world_seed : int
+var playtime : float
+var version : String
 
 func _ready() -> void:
 	%WorldName.text = world_name
 	%Delete/ProgressBar.max_value = %Delete/DeleteTimer.wait_time
-	set_playtime()
-	check_if_modded()
+	display_playtime()
 	check_checksum()
+	check_if_modded()
 	check_version()
+	if world_seed == null:
+		%CopySeed.hide()
 
 
 func _process(_delta: float) -> void:
@@ -86,16 +91,14 @@ func _on_delete_timer_timeout() -> void:
 	queue_free()
 
 
-func set_playtime() -> void:
-	var playtime: int = int(SaveProgress.get_playtime(world_name))
-
+func display_playtime() -> void:
 	if playtime <= 0:
 		%Playtime.hide()
 		return
 
 	%Playtime.show()
 
-	var s = playtime
+	var s = int(playtime)
 	@warning_ignore("integer_division")
 	var m = s / 60
 	s = s % 60
@@ -117,13 +120,11 @@ func set_playtime() -> void:
 
 
 func check_checksum() -> void:
-	is_checksum_valid = SaveProgress.check_checksum(world_name)
 	if not is_checksum_valid:
 		%WorldName.add_theme_color_override("font_color", Color.RED)
 
 
 func check_version() -> void:
-	var version : String = SaveProgress.get_version(world_name)
 	var current_version : String = ProjectSettings.get_setting("application/config/version")
 	if version == "":
 		return
@@ -142,6 +143,9 @@ func check_version() -> void:
 
 
 func check_if_modded() -> void:
-	if SaveProgress.is_modded(world_name):
-		is_modded = true
+	if is_modded:
 		%WorldName.add_theme_color_override("font_color", Color.ORANGE)
+
+
+func _on_copy_seed_pressed() -> void:
+	DisplayServer.clipboard_set(str(world_seed))
